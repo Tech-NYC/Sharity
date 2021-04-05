@@ -1,0 +1,27 @@
+{
+  "name": "sharity",
+  "version": "1.0.0",
+  "description": "A web platform where users can find organizations that need their donations and schedule pickups.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tech-NYC/Sharity.git"
+  },
+  "author": "Pitom Saha, Jendri Morocho, Zakiyyah Mandisa, Denysse Cunza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tech-NYC/Sharity/issues"
+  },
+  "homepage": "https://github.com/Tech-NYC/Sharity#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "knex": "^0.95.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

@@ -72,12 +72,9 @@ This project adheres to the [ESlint Guide](https://github.com/eslint/eslint) and
 ![Wireframe for webpage](./ add pic of front end frame work.png)
 
 
-### Respective Front-End Routes
+### Backend API Usage
 
-- Login - `/` If logged out
-- Sign Up - `/signup`
-- Homepage - `/` If logged in
-- Post Form - `/add-post`
+See [BACKENDAPIUSAGE.md](BACKENDAPIUSAGE.md) for API usage.
 
 ## App is deployed here:
 

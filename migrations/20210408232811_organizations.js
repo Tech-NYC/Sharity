@@ -5,7 +5,7 @@ exports.up = function (knex) {
     table.string("name").notNullable();
     table.string("pickup_times");
     table.string("address").notNullable();
-    table.string("description").notNullable();
+    table.string("description");
 
     table.foreign("user_id").onDelete("CASCADE").references("users.id");
   });

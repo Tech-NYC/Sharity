@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Tech-NYC/Sharity#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "knex": "^0.95.4",
     "pg-promise": "^10.10.1"

@@ -14,6 +14,15 @@ app.get("/task", (req, res) => {
   res.send("hello world");
 });
 
+app.get("/dbConnectionTest", async (req, res) => {
+  try {
+    const data = await db.any("SELECT * FROM donation_requests");
+    res.send(data);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // define fallback route
 // path.resolve prepends subsequent paths until absolute path is constructed
 app.get("*", (req, res) => {

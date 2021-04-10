@@ -72,7 +72,7 @@ This project adheres to the [ESlint Guide](https://github.com/eslint/eslint) and
 ![Wireframe for webpage](./ add pic of front end frame work.png)
 
 
-### Backend API Usage
+## Sharity API
 
 See [BACKENDAPIUSAGE.md](BACKENDAPIUSAGE.md) for API usage.
 

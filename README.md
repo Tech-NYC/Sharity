@@ -64,7 +64,7 @@ This project adheres to the [ESlint Guide](https://github.com/eslint/eslint) and
 
 ## Entity-Relationship Diagram
 
-![Entity relationship diagram](https://drive.google.com/file/d/1ndE9uaVzPlQVf9Zij5MkF1dr24PZDdrY/view?usp=sharing)
+![Entity relationship diagram](https://i.imgur.com/dLV1tjN.png)
 
 
 ## Front-End Wireframe

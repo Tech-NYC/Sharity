@@ -28,7 +28,7 @@ class userController {
   // Dependent on org or donater user -  the user accepts or initiates the donation requests
   async fetch_requests(request, response) {
     try {
-      const user = parseInt(request.params.id);
+      const user = parseInt(request.body.user_id);
       const data = await db.any("SELECT * FROM donation_requests WHERE user_id=$1", user);
 
       return response.send(data);
@@ -37,10 +37,10 @@ class userController {
     }
   }
 
-  async fetch_info() {
+  async fetch_info(request, response) {
     try {
-      const user = parseInt(request.params.id);
-      const data = await db.any("SELECT * FROM users WHERE user_id=$1", user);
+      const user_id = parseInt(request.body.user_id);
+      const data = await db.any("SELECT * FROM users WHERE id=$1", user_id);
 
       return response.send(data);
     } catch (err) {

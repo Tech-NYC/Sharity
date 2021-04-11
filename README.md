@@ -78,4 +78,4 @@ See [BACKENDAPIUSAGE.md](BACKENDAPIUSAGE.md) for API usage.
 
 ## App is deployed here:
 
-[website](https://sharity-technyc.herokuapp.com/)
+[Sharity-TechNYC](https://sharity-technyc.herokuapp.com/)

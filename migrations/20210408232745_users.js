@@ -8,7 +8,7 @@ exports.up = function (knex) {
     table.string("username").notNullable().unique();
     table.string("password_hash").notNullable();
     table.boolean("is_organization").notNullable();
-    table.string("avatar").notNullable();
+    table.string("avatar");
   });
 };
 

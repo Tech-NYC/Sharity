@@ -41,22 +41,22 @@ function Header(){
     return(        
         <Fragment>
             <div className={classes.root}>
-                          <div className='header-test'> 
-                            <Container  >
-                            <div>
-                                <ThemeProvider theme={logotheme}>
-                                    <Typography variant="h1" style={{color: "#55a0cc"}}> sharity </Typography>
-                                </ThemeProvider>
-                            </div>
-                            <div className="centered">
-                                <ThemeProvider theme={theme}>
-                            <Typography variant="h5" className="help">Help make a difference in the lives of New York City residents and their families today. </Typography>
-                                 </ThemeProvider>
-                                 </div>
-                                 <a href="#mission" class="btn-custom" className="btn-custom">Learn more</a>
-                            
-                            </Container>
-                            </div>
+              <div className='header-test'> 
+                <Container  >
+                  <div>
+                    <ThemeProvider theme={logotheme}>
+                        <Typography variant="h1" style={{color: "#55a0cc"}}> sharity </Typography>
+                    </ThemeProvider>
+                  </div>
+                  <div className="centered">
+                    <ThemeProvider theme={theme}>
+                      <Typography variant="h5" className="help">Help make a difference in the lives of New York City residents and their families today. </Typography>
+                    </ThemeProvider>
+                  </div>
+                  <a href="#mission" class="btn-custom" className="btn-custom">Learn more</a>
+                  
+                </Container>
+              </div>
             </div>
         </Fragment>
     )

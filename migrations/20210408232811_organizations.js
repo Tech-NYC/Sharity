@@ -3,9 +3,9 @@ exports.up = function (knex) {
     table.increments("id");
     table.integer("user_id").notNullable();
     table.string("name").notNullable();
-    table.string("pickup_times").notNullable();
+    table.string("pickup_times");
     table.string("address").notNullable();
-    table.string("description").notNullable();
+    table.string("description");
 
     table.foreign("user_id").onDelete("CASCADE").references("users.id");
   });

@@ -16,9 +16,8 @@ app.listen(PORT, (req, res) => {
 });
 
 const userController = require("./controllers/userController.js");
-const organizationController = require("./controllers/organizationController.js");
+
 const user = new userController();
-const org = new organizationController();
 
 ////////////////////////////////User Routes---------------------------------
 app.get("/api/user/fetch_info", user.fetch_info);

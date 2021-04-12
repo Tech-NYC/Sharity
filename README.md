@@ -64,7 +64,7 @@ This project adheres to the [ESlint Guide](https://github.com/eslint/eslint) and
 
 ## Entity-Relationship Diagram
 
-![Entity relationship diagram](./ add erd pic .png)
+![Entity relationship diagram](https://i.imgur.com/dLV1tjN.png)
 
 
 ## Front-End Wireframe
@@ -72,10 +72,10 @@ This project adheres to the [ESlint Guide](https://github.com/eslint/eslint) and
 ![Wireframe for webpage](./ add pic of front end frame work.png)
 
 
-### Backend API Usage
+## Sharity API
 
 See [BACKENDAPIUSAGE.md](BACKENDAPIUSAGE.md) for API usage.
 
 ## App is deployed here:
 
-[website](https:// add website name .herokuapp.com)
+[Sharity-TechNYC](https://sharity-technyc.herokuapp.com/)

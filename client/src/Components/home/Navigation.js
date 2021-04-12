@@ -22,7 +22,8 @@ function NavLink ({item}){
     const classes = useStyle();
     return (
       <>
-        <Link className = {classes.linkStyle}  href={link} style= {{ paddingRight:'10%'}} to= {link}>{label}</Link>
+        {/* <Link className = {classes.linkStyle} style= {{ paddingRight:'10%'}} to= {link}>{label}</Link> */}
+        <a href={link} style= {{ paddingRight:'10%', textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)'}}>{label}</a>
       </>
     )
 }
@@ -34,10 +35,10 @@ export const NavDefault = ({nav}) => {
         <AppBar position="sticky" color='default'>
             <Toolbar>
                 <Typography variant="h6" className= {classes.root} >
-                    <Link to="/"><img src={logo} style={{width:"15%", height:"5%"}}/></Link>
+                    <Link to="/"><img src={logo} style={{width:"15%", height:"5%"}} alt="logo"/></Link>
                 </Typography>   
                 <Typography variant="h6" className= {classes.root} style={{marginLeft:"4%"}}>
-                    {nav.map(item => <NavLink key={item.id} item={item} /> )}
+                    {nav.map(item => <NavLink key={item.id} item={item} />)}
                 </Typography>   
                 <Link className= {classes.linkStyle} to="/login"> 
                     <Button size ="small" variant = "outlined" >

@@ -79,7 +79,7 @@ TabContainer.propTypes = {
 };
 
 //make onsubmit and post request to forms when user or org clicks to let backend know which is which
-  
+  //make the org form post to the user table w the boolean true, and also the org table 
 
 function Signup(){
 
@@ -138,9 +138,11 @@ function Signup(){
                                             <Link className={classes.linkStyle} to="/terms"> Terms and Conditions </Link>   
                                         </Grid>
                                         <Grid container direction="row" justify="center" alignItems="center" >
-                                            <Button variant="contained" color="primary" style={{color:"white"}} >
-                                                Signup
-                                            </Button>       
+                                            <Link to="/dashboard" style={{textDecoration:"none"}}>
+                                                <Button variant="contained" color="primary" style={{color:"white"}} >
+                                                    Signup
+                                                </Button> 
+                                            </Link>      
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -181,9 +183,11 @@ function Signup(){
                                             <Link className={classes.linkStyle} to="/terms"> Terms and Conditions </Link>   
                                         </Grid>
                                         <Grid container direction="row" justify="center" alignItems="center" >
-                                            <Button variant="contained" color="primary" style={{color:"white"}} >
-                                                Signup
-                                            </Button>       
+                                            <Link to="/orgdashboard" style={{textDecoration:"none"}}>
+                                                <Button variant="contained" color="primary" style={{color:"white"}} >
+                                                    Signup
+                                                </Button> 
+                                            </Link>      
                                         </Grid>
                                     </Grid>
                                 </Grid>

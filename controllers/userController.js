@@ -16,7 +16,7 @@ class userController {
 
   async delete(request, response) {
     try {
-      const deleteUser = parseInt(request.params.id);
+      const deleteUser = parseInt(request.body.id);
       await db.none("DELETE FROM users WHERE id=$1", deleteUser);
 
       return response.send(`The following user id has been deleted: ${deleteUser}`);
@@ -43,6 +43,16 @@ class userController {
       const data = await db.any("SELECT * FROM users WHERE id=$1", user_id);
 
       return response.send(data);
+    } catch (err) {
+      response.status(500).send(err);
+    }
+  }
+
+
+  // retrieve a userID based on the JWT Token
+  async get_userID(request, response) {
+    try {
+      
     } catch (err) {
       response.status(500).send(err);
     }

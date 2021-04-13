@@ -13,9 +13,9 @@ class userController {
         request.body
       );
 
-      const token = jwt.sign({ username: request.body.username }, process.env.AUTH_KEY);
+      // const token = jwt.sign({ username: request.body.username }, process.env.AUTH_KEY);
 
-      return response.cookie("safeToken", token).sendStatus(200);
+      // return response.cookie("safeToken", token).sendStatus(200);
 
       return response.send("User created");
     } catch (err) {

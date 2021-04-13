@@ -30,7 +30,7 @@ function Impact(){
     const classes = useStyles();
     return (
       <div className={classes.root}>
-        <div className="impact-section" id = "impact">
+        <div className="impact-section" id="impact" >
           <Grid container alignItems="center" justify="center" >
             <Container >
             <div >
@@ -57,7 +57,7 @@ function Impact(){
           
         </div>
         <div className="join-section">
-          <Grid container alignItems="center" justify="center" style={{padding:"5%"}} >
+          {/* <Grid container alignItems="center" justify="center" style={{padding:"5%"}} > */}
             <Container>
             <div id="join">
                 <ThemeProvider theme={theme}>
@@ -72,7 +72,7 @@ function Impact(){
                 <Cards/>  
             </div>
           </Container>
-          </Grid>
+          {/* </Grid> */}
           
         </div>
             

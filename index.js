@@ -22,7 +22,7 @@ const user = new userController();
 ////////////////////////////////User Routes---------------------------------
 app.get("/api/user/fetch_info", user.fetch_info);
 app.get("/api/user/fetch_requests", user.fetch_requests);
-app.post("/api/user/create", user.create);
+app.post("/api/user/register", user.register);
 app.delete("/api/user/delete", user.delete);
 
 // define fallback route

@@ -15,9 +15,20 @@ app.listen(PORT, (req, res) => {
   console.log(`Listening on http://localhost:${PORT}`);
 });
 
+const userController = require("./controllers/userController.js");
+const organizationController = require("./controllers/organizationControllers.js");
+const user = new userController();
+const organization = new organizationController();
 
+////////////////////////////////User Routes---------------------------------
+app.get("/api/user/fetch_info", user.fetch_info);
+app.get("/api/user/fetch_requests", user.fetch_requests);
+app.post("/api/user/register", user.register);
+app.delete("/api/user/delete", user.delete);
 
-
+app.get("/api/organizations/list", organization.getAll);
+app.get("/api/organizations/organization_info", organization.getOne);
+app.post("/api/organization/create", organization.create);
 // define fallback route
 // path.resolve prepends subsequent paths until absolute path is constructed
 app.get("*", async (req, res) => {

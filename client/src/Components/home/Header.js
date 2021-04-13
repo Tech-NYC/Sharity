@@ -5,7 +5,7 @@ import {makeStyles} from "@material-ui/core/styles"
 import Paper from "@material-ui/core/Paper"
 import Grid from "@material-ui/core/Grid"
 import Container from "@material-ui/core/Container"
-import '../style/homepage.css';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,13 +28,7 @@ const logotheme = createMuiTheme({
     },
 });
 
-const theme = createMuiTheme({
-    typography: {
-      fontFamily: [
-        'Fira Sans',
-        'sans-serif',
-      ].join(','),
-    },});
+
 
 function Header(){
     const classes = useStyles();

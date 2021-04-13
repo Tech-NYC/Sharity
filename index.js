@@ -15,9 +15,6 @@ app.listen(PORT, (req, res) => {
   console.log(`Listening on http://localhost:${PORT}`);
 });
 
-
-
-
 // define fallback route
 // path.resolve prepends subsequent paths until absolute path is constructed
 app.get("*", async (req, res) => {

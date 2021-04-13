@@ -1,7 +1,8 @@
+
 import React from "react"
 import {makeStyles} from "@material-ui/core/styles"
-import Paper from "@material-ui/core/Paper"
-import Grid from "@material-ui/core/Grid"
+import { Typography }from "@material-ui/core"
+import {ThemeProvider, createMuiTheme} from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container"
 import '../style/homepage.css';
 import donation from '../style/imgs/donation.png';
@@ -16,6 +17,14 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.text.secondary,
     },
   }));
+
+const theme = createMuiTheme({
+    typography: {
+      fontFamily: [
+        'Fira Sans',
+        'sans-serif',
+      ].join(','),
+    },});
 
 function Mission(){
     const classes = useStyles();

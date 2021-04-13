@@ -28,7 +28,13 @@ const logotheme = createMuiTheme({
     },
 });
 
-
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: [
+      'Fira Sans',
+      'sans-serif',
+    ].join(','),
+  },});
 
 function Header(){
     const classes = useStyles();

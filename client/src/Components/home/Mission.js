@@ -31,7 +31,7 @@ function Mission(){
     return (
         
         // <div className={classes.root}>
-          <div className="mission-section" id="mission">
+          <div className="mission-section" id="mission" >
           
             <Container>
             

@@ -22,7 +22,7 @@ function NavLink ({item}){
     const classes = useStyle();
     return (
       <>
-        <Link className = {classes.linkStyle}  href={link} style= {{ paddingRight:'10%'}} to= {link}>{label}</Link>
+        <Link className = {classes.linkStyle}  href={link} style= {{ paddingRight:'10%'}} to={link}>{label}</Link>
       </>
     )
 }

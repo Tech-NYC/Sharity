@@ -4,6 +4,7 @@ import Navigation, {NavDefault} from './home/Navigation';
 import Header from './home/Header'
 import Mission from './home/Mission';
 import Impact from './home/Impact';
+import Footer from './home/Footer'
 
 function Home(){
     const nav = [
@@ -29,6 +30,7 @@ function Home(){
         <Header />
         <Mission />
         <Impact />
+        <Footer/>
         </>
     )
 }

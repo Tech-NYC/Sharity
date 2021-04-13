@@ -21,7 +21,8 @@ class organizationController {
     try {
       // TODO: Check if we need to access request params as opposed to request.body
       const organization = parseInt(request.body.user_id);
-      const data = await db.one(
+      console.log('org', organization)
+      const data = await db.any(
         "SELECT * FROM organizations WHERE user_id=$1",
         organization
       );

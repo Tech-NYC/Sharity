@@ -4,10 +4,7 @@ class organizationController {
   async create(request, response) {
     // TODO: Check if user_id exists in organizations table (may not be needed)
     try {
-      await db.none(
-        "INSERT INTO organizations (user_id, name, address, description) VALUES (${user_id}, ${name}, ${address}, ${description})",
-        request.body
-      );
+      await db.none("INSERT INTO organizations (user_id, name, address, description) VALUES (${user_id}, ${name}, ${address}, ${description})", request.body);
 
       // TODO: may need to edit the inclusion of request.body in response
       return response.status(200).send(`Successfully inserted ${request.body}`);
@@ -21,11 +18,8 @@ class organizationController {
     try {
       // TODO: Check if we need to access request params as opposed to request.body
       const organization = parseInt(request.body.user_id);
-      console.log('org', organization)
-      const data = await db.any(
-        "SELECT * FROM organizations WHERE user_id=$1",
-        organization
-      );
+      console.log("org", organization);
+      const data = await db.any("SELECT * FROM organizations WHERE user_id=$1", organization);
 
       return response.status(200).send(data);
     } catch (err) {

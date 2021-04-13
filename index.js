@@ -16,7 +16,7 @@ app.listen(PORT, (req, res) => {
 });
 
 const userController = require("./controllers/userController.js");
-const organizationController = require("./controllers/organizationControllers.js");
+const organizationController = require("./controllers/organizationController.js");
 const user = new userController();
 const organization = new organizationController();
 

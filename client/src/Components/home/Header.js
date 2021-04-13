@@ -28,27 +28,35 @@ const logotheme = createMuiTheme({
     },
 });
 
-
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: [
+      'Fira Sans',
+      'sans-serif',
+    ].join(','),
+  },});
 
 function Header(){
     const classes = useStyles();
     return(        
         <Fragment>
             <div className={classes.root}>
-                <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                        <Paper className={classes.paper}>
-                            <Container >
-                            <div>
-                                <ThemeProvider theme={logotheme}>
-                                    <Typography variant="h1" style={{color: "#55a0cc"}}> sharity </Typography>
-                                </ThemeProvider>
-                                <p>Help make a difference in the lives of New York City residents and their families today. </p>
-                            </div>
-                            </Container>
-                        </Paper>
-                    </Grid>
-                </Grid>
+              <div className='header-test'> 
+                <Container  >
+                  <div>
+                    <ThemeProvider theme={logotheme}>
+                        <Typography variant="h1" style={{color: "#55a0cc"}}> sharity </Typography>
+                    </ThemeProvider>
+                  </div>
+                  <div className="centered">
+                    <ThemeProvider theme={theme}>
+                      <Typography variant="h5" className="help">Help make a difference in the lives of New York City residents and their families today. </Typography>
+                    </ThemeProvider>
+                  </div>
+                  <a href="#mission" class="btn-custom" className="btn-custom">Learn more</a>
+                  
+                </Container>
+              </div>
             </div>
         </Fragment>
     )

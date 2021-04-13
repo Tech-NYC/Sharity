@@ -1,8 +1,9 @@
 import React from 'react';
 import CardItem from "./CardItem";
-import furniture from '../../style/images/yardsale.jpg';
-import cannedGoods from '../../style/images/cannedgoods.png';
-import clothes from '../../style/images/clothesfolded.jpg'
+
+import furniture from '../../style/imgs/yardsale.jpg';
+import cannedGoods from '../../style/imgs/cannedgoods.png';
+import clothes from '../../style/imgs/clothesfolded.jpg';
 import '../../style/Cards.css';
 
 function Cards(){

@@ -17,8 +17,10 @@ app.listen(PORT, (req, res) => {
 
 const userController = require("./controllers/userController.js");
 const organizationController = require("./controllers/organizationControllers.js");
+const donationRequestController = require("./controllers/donationRequestController.js");
 const user = new userController();
 const organization = new organizationController();
+const donationRequest = new donationRequestController();
 
 ////////////////////////////////User Routes---------------------------------
 app.get("/api/user/fetch_info", user.fetch_info);
@@ -29,6 +31,10 @@ app.delete("/api/user/delete", user.delete);
 app.get("/api/organizations/list", organization.getAll);
 app.get("/api/organizations/organization_info", organization.getOne);
 app.post("/api/organization/create", organization.create);
+
+app.post("/api/donationRequest/create", donationRequest.create);
+app.patch("/api/donationRequest/setStatus", donationRequest.setStatus);
+
 // define fallback route
 // path.resolve prepends subsequent paths until absolute path is constructed
 app.get("*", async (req, res) => {

@@ -6,7 +6,7 @@ exports.up = function (knex) {
     table.string("location").notNullable();
     table.string("items").notNullable();
     table.timestamp("time").notNullable().defaultTo(knex.fn.now());
-    table.date("date").notNullable().defaultTo(knex.fn.now());
+    // table.date("date").notNullable().defaultTo(knex.fn.now());
     table.integer("status").notNullable();
 
     table.foreign("user_id").onDelete("CASCADE").references("users.id");

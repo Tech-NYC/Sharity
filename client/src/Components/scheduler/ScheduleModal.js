@@ -18,6 +18,7 @@ const btntheme = createMuiTheme({
 
 export default function ScheduleModal() {
   const [open, setOpen] = React.useState(false);
+  const [time, setTime] = React.useState("")
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -44,13 +45,13 @@ export default function ScheduleModal() {
                         <TextField margin="dense" id="lname" label="Last Name" type="text" fullWidth/>
                         <TextField margin="dense" id="address" label="Address" type="text" fullWidth/>
                         <TextField margin="dense" id="date" type="date" fullWidth/>
-                        <TextField margin="dense" id="time" type="time" fullWidth/>
+                        <TextField margin="dense" id="time" type="time" fullWidth onChange={e=> console.log(e.target.value)}/>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose} color="primary">
                             Cancel
                         </Button>
-                        <Button onClick={handleClose} color="primary">
+                        <Button color="primary">
                             Schedule
                         </Button>
                     </DialogActions>

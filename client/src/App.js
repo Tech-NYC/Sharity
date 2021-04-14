@@ -34,7 +34,7 @@ function App () {
 
   }, [thing]);
 
-console.log(org)
+  // console.log(org)
   return (
     <div>
       <BrowserRouter>

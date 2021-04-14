@@ -20,11 +20,14 @@ const useStyle = makeStyles({
 function NavLink ({item}){
     const { link, label } = item;
     const classes = useStyle();
+    console.log(link)
     return (
       <>
-        <Link className = {classes.linkStyle}  href={link} style= {{ paddingRight:'10%'}} to={link}>{label}</Link>
+        {/* <Link className = {classes.linkStyle}  to={link} style= {{ paddingRight:'10%'}}>{label}</Link> */}
+        <a href={link} style= {{ paddingRight:'10%', textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)'}}>{label}</a>
       </>
     )
+
 }
 
 export const NavDefault = ({nav}) => {
@@ -34,7 +37,8 @@ export const NavDefault = ({nav}) => {
         <AppBar position="sticky" color='default'>
             <Toolbar>
                 <Typography variant="h6" className= {classes.root} >
-                    <Link to="/"><img src={logo} style={{width:"15%", height:"5%"}}/></Link>
+                    {/* <Link to="/#header"><img src={logo} style={{width:"15%", height:"5%"}}/></Link> */}
+                    <a href="/#header"><img src={logo} style={{width:"15%", height:"5%"}}/></a>
                 </Typography>   
                 <Typography variant="h6" className= {classes.root} style={{marginLeft:"4%"}}>
                     {nav.map(item => <NavLink key={item.id} item={item} /> )}

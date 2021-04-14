@@ -29,8 +29,8 @@ const theme = createMuiTheme({
 function Impact(){
     const classes = useStyles();
     return (
-      <div className={classes.root}>
-        <div className="impact-section" id="impact" >
+      <div className={classes.root}  id="impact">
+        <div className="impact-section" >
           <Grid container alignItems="center" justify="center" >
             <Container >
             <div >

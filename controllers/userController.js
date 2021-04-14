@@ -94,6 +94,17 @@ class userController {
     }
   }
 
+  async getAll(request, response) {
+    // uses db.many to return one or more records, method rejects if no records are returned
+    // TODO:
+    try {
+      const data = await db.many("SELECT id, first_name, last_name, email, phone_number, username, is_organization, avatar FROM users");
+      return response.status(200).send(data);
+    } catch (err) {
+      response.status(500).send(err);
+    }
+  }
+
   // // retrieve a userID based on the JWT Token
   // async get_userID(request, response) {
   //   try {

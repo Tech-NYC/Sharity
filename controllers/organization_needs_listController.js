@@ -9,26 +9,33 @@ class organization_needs_listController {
         request.body
       );
 
-      return response
-        .status(200)
-        .send(
-          `Successfully insterted data for ${request.body.organization_id}`
-        );
+      return response.status(200).send(`Successfully insterted data for ${request.body.organization_id}`);
     } catch (err) {
-      console.log(err)
+      console.log(err);
+      response.status(500).send(err);
+    }
+  }
+
+  async getAll(request, response) {
+    // uses db.many to return one or more records, method rejects if no records are returned
+    // TODO:
+    try {
+      const data = await db.many("SELECT * FROM organization_needs_list");
+      return response.status(200).send(data);
+    } catch (err) {
       response.status(500).send(err);
     }
   }
 
   async list(request, response) {
     try {
-      const organization = parseInt(request.body.organization_id)
-      
+      const organization = parseInt(request.body.organization_id);
+
       const data = await db.one("SELECT * FROM organization_needs_list WHERE organization_id=$1", organization);
-      console.log('data', data)
-      return response.status(200).send(data)
+      console.log("data", data);
+      return response.status(200).send(data);
     } catch (err) {
-      return response.status(500).send(err)
+      return response.status(500).send(err);
     }
   }
 }

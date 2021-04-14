@@ -25,6 +25,7 @@ const organizationList = new organizationListController();
 const donationRequest = new donationRequestController();
 
 ////////////////////////////////User Routes---------------------------------
+app.get("/api/user/getAll", user.getAll);
 app.get("/api/user/fetch_info", user.fetch_info);
 app.get("/api/user/fetch_requests", user.fetch_requests);
 app.post("/api/user/register", user.register);
@@ -38,6 +39,7 @@ app.post("/api/organization/create", organization.create);
 app.get("/api/organization/fetch_info_by_org_id", organization.fetch_info_by_org_id);
 
 ////////////////////////////////Organization_needs_list Routes--------------
+app.get("/api/organization/getAll", user.getAll);
 app.get("/api/organization/organization_list", organizationList.list);
 app.post("/api/organization_list/create", organizationList.create);
 

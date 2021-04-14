@@ -53,7 +53,7 @@ function Header(){
                       <Typography variant="h5" className="help">Help make a difference in the lives of New York City residents and their families today. </Typography>
                     </ThemeProvider>
                   </div>
-                  <a href="#mission" class="btn-custom" className="btn-custom">Learn more</a>
+                  <a href="#mission" className="btn-custom">Learn more</a>
                   
                 </Container>
               </div>

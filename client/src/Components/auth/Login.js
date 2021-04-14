@@ -2,7 +2,8 @@ import React, {useState, useContext, useEffect} from 'react';
 import Navigation, {NavDefault} from "../home/Navigation"
 import { Button, TextField, Grid, Paper, AppBar, Typography, Toolbar, Link } from "@material-ui/core";
 import {ThemeProvider, createMuiTheme} from "@material-ui/core/styles";
-import {makeStyles} from "@material-ui/core/styles"
+import {makeStyles} from "@material-ui/core/styles";
+import Footer from '../home/Footer';
 
 
 
@@ -80,16 +81,16 @@ function Login(props){
     const nav = [
         {
             id: 1,
-            link: "#mission",
+            link: "/#mission",
             label: "Mission"
         },
         {
             id: 2,
-            link: "#impact",
+            link: "/#impact",
             label: "Impact"
         },
         {
-            id: 3, 
+            id: 3,
             link: "/organizations",
             label: "Donate"
         }
@@ -142,7 +143,7 @@ function Login(props){
                 </Grid>
             </Grid>
         </div>
-
+<Footer/>
         </>
     )
 }

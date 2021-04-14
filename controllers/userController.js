@@ -61,6 +61,7 @@ class userController {
   async fetch_info(request, response) {
     try {
       const user_id = parseInt(request.body.user_id);
+      console.log(user_id);
       const data = await db.any("SELECT * FROM users WHERE id=$1", user_id);
 
       return response.send(data);

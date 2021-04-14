@@ -9,6 +9,7 @@ class organizationController {
       // TODO: may need to edit the inclusion of request.body in response
       return response.status(200).send(`Successfully inserted ${request.body}`);
     } catch (err) {
+      console.log(err)
       response.status(500).send(err);
     }
   }
@@ -37,6 +38,36 @@ class organizationController {
       response.status(500).send(err);
     }
   }
+
+  // respond with associated info from users table, and organization needs table
+  async fetch_info_by_org_id(request, response) {
+    // called when user clicks on organization card
+    
+    try {
+      const organization_id = parseInt(request.body.id)
+      console.log('o id', organization_id)
+      console.log('log')
+      const userIdObject = await db.one("SELECT user_id FROM organizations WHERE id=$1", organization_id)
+      console.log(parseInt('LOG',userIdObject.user_id))
+      const userInfo = await db.one("SELECT * FROM users WHERE id=$1", parseInt(userIdObject.user_id))
+      const organizationInfo = await db.one("SELECT * FROM organizations WHERE user_id=$1", parseInt(userIdObject.user_id))
+      const organizationNeeds = await db.one("SELECT * FROM organization_needs_list WHERE organization_id=$1", organization_id)
+
+
+      const data = {
+        userInfo,
+        organizationInfo,
+        organizationNeeds
+      }
+
+      return response.status(200).send(data)
+
+    } catch (err) {
+      console.log(err)
+      response.status(500).send(err)
+    }
+  }
+
 }
 
 module.exports = organizationController;

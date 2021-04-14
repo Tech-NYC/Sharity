@@ -2,12 +2,10 @@ import React from "react"
 import Navigation, {NavDefault} from './home/Navigation';
 import SearchBar from "material-ui-search-bar";
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import {Paper, Grid, Typography, Button } from "@material-ui/core"
-import {ThemeProvider, createMuiTheme, makeStyles} from "@material-ui/core/styles";
-import {Link, useHistory} from "react-router-dom"
+import {Grid, Typography } from "@material-ui/core"
+import {makeStyles} from "@material-ui/core/styles";
+import {useHistory} from "react-router-dom"
 
 
 const useStyles = makeStyles({

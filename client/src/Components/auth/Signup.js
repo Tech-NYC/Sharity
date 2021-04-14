@@ -10,6 +10,7 @@ import { spacing } from '@material-ui/system';
 // import Tabs from '@material-ui/core/Tabs';
 // import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
+import Footer from '../home/Footer';
 
 const useStyle = makeStyles({
     root: {
@@ -42,16 +43,16 @@ const btntheme = createMuiTheme({
 const nav = [
     {
         id: 1,
-        link: "#mission",
+        link: "/#mission",
         label: "Mission"
     },
     {
         id: 2,
-        link: "#impact",
+        link: "/#impact",
         label: "Impact"
     },
     {
-        id: 3, 
+        id: 3,
         link: "/organizations",
         label: "Donate"
     }
@@ -196,6 +197,7 @@ function Signup(){
                     </TabContainer>
                 }
             </div>
+            <Footer/>
         </>
     )
 }

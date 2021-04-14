@@ -45,7 +45,6 @@ class organizationController {
 
     try {
       const organization_id = parseInt(request.body.id);
-      console.log(organization_id);
       const userIdObject = await db.one("SELECT user_id, id FROM organizations WHERE id=$1", organization_id);
 
       const userInfo = await db.one("SELECT * FROM users WHERE id=$1", parseInt(userIdObject.user_id));

@@ -9,6 +9,7 @@ class organizationController {
       // TODO: may need to edit the inclusion of request.body in response
       return response.status(200).send(`Successfully inserted ${request.body}`);
     } catch (err) {
+      console.log(err);
       response.status(500).send(err);
     }
   }
@@ -34,6 +35,31 @@ class organizationController {
       const data = await db.many("SELECT * FROM organizations");
       return response.status(200).send(data);
     } catch (err) {
+      response.status(500).send(err);
+    }
+  }
+
+  // respond with associated info from users table, and organization needs table
+  async fetch_info_by_org_id(request, response) {
+    // called when user clicks on organization card
+
+    try {
+      const organization_id = parseInt(request.body.id);
+      const userIdObject = await db.one("SELECT user_id, id FROM organizations WHERE id=$1", organization_id);
+
+      const userInfo = await db.one("SELECT * FROM users WHERE id=$1", parseInt(userIdObject.user_id));
+      const organizationInfo = await db.one("SELECT * FROM organizations WHERE user_id=$1", parseInt(userIdObject.user_id));
+      const organizationNeeds = await db.one("SELECT * FROM organization_needs_list WHERE organization_id=$1", organization_id);
+
+      const data = {
+        userInfo,
+        organizationInfo,
+        organizationNeeds,
+      };
+
+      return response.status(200).send(data);
+    } catch (err) {
+      console.log(err);
       response.status(500).send(err);
     }
   }

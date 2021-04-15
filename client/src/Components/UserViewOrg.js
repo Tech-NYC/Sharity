@@ -58,7 +58,7 @@ function UserViewOrg(props){
       })
       //need to make another fetch request to get the avatar of the org which is in users info
 
-      fetch("http://localhost:3000/api/user/fetch_info", {
+      fetch("http://localhost:3000/api/user/list", {
         method: "POST",
         body: {user_id: 0},
       }).then((response) => {

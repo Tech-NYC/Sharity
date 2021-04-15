@@ -43,9 +43,9 @@ function UserViewOrg(props){
           if(isCurrent){
             let allOrgs = []
             data.map((name) => {
-                console.log(name)
+                // console.log(name)
                 if(name.name === orgName){
-                    // setUserId(name.id)
+                    setUserId(name.user_id)
                     allOrgs.push(name)
                 }
               
@@ -57,12 +57,22 @@ function UserViewOrg(props){
           console.error(err);
       })
       //need to make another fetch request to get the avatar of the org which is in users info
+
+      fetch("http://localhost:3000/api/user/fetch_info", {
+        method: "POST",
+        body: {user_id: 0},
+      }).then((response) => {
+        return response.json()
+      }).then((data)=> {
+            console.log(data)
+      }).catch((err)=> {console.log(err)})
+
       return() => {
           isCurrent = false;
       }
   
     }, [thing]);
-    // console.log(org)
+    // console.log(userId)
     let daysArr = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     return(
         <>
@@ -83,12 +93,6 @@ function UserViewOrg(props){
                         <>
                         <ul>
                             <li key = {daysArr[i]}>{daysArr[i]}: {time}</li>
-                            {/* <li key = {i}>Tuesday: {time}</li>
-                            <li key = {i}>Wednesday: {time}</li>
-                            <li key = {i}>Thursday: {time}</li>
-                            <li key = {i}>Friday: {time}</li>
-                            <li key = {i}>Saturday: {time}</li>
-                            <li key = {i}>Sunday: {time}</li> */}
                         </ul>
                         </>
                     ))}</Typography>

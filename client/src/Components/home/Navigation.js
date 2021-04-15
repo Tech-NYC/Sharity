@@ -20,7 +20,7 @@ const useStyle = makeStyles({
 function NavLink ({item}){
     const { link, label } = item;
     const classes = useStyle();
-    console.log(link)
+    // console.log(link)
     return (
       <>
         {/* <Link className = {classes.linkStyle}  to={link} style= {{ paddingRight:'10%'}}>{label}</Link> */}

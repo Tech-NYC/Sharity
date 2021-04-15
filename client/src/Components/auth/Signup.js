@@ -84,7 +84,7 @@ TabContainer.propTypes = {
 
 function Signup(){
     const PROD = true
-    const URL = PROD ? 'http://sharity-technyc.herokuapp.com' : 'http://localhost:3000'
+    const URL = PROD ? 'http://sharity-technyc.herokuapp.com' : 'http://127.0.0.1:3000'
     const [state, setState] = React.useState(0)
     const [first_name, setFirstName] = React.useState('')
     const [last_name, setLastName] = React.useState('')
@@ -128,7 +128,7 @@ function Signup(){
             body: JSON.stringify(data)
 
         })
-        .then(response => response.json())
+        .then(response => console.log(response.json()))
         .then(data => console.log(data))
         
     }

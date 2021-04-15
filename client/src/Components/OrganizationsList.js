@@ -30,6 +30,11 @@ const useStyles = makeStyles({
 
   
 function OrganizationsList(props){
+    const PROD = true;
+
+  const URL = PROD
+    ? "https://sharity-technyc.herokuapp.com"
+    : "http://127.0.0.1:3000";
     const nav = [
         {
             id: 1,
@@ -59,7 +64,7 @@ function OrganizationsList(props){
     //making the fetch to get the information for the org list name, des, list of items needed
     React.useEffect(() => {
         let isCurrent = true;
-        fetch('http://localhost:3000/api/organizations/list').then((res) => {
+        fetch(`${URL}/api/organizations/list`).then((res) => {
             return res.json();
         }).then((data) => {
             const allOrgs = []

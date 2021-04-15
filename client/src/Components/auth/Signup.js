@@ -83,8 +83,17 @@ TabContainer.propTypes = {
   //make the org form post to the user table w the boolean true, and also the org table 
 
 function Signup(){
+    const PROD = true
 
+    const URL = PROD ? 'https://sharity-technyc.herokuapp.com' : 'http://127.0.0.1:3000'
     const [state, setState] = React.useState(0)
+    const [first_name, setFirstName] = React.useState('')
+    const [last_name, setLastName] = React.useState('')
+    const [username, setUserName] = React.useState('')
+    const [email, setEmail] = React.useState('')
+    const [phone_number, setPhoneNumber] = React.useState('')
+    const [password, setPassword] = React.useState('')
+    
     // const [phones, setPhone] = React.useState("")
     const handleChange = (event, value) => {
         setState( value );
@@ -97,6 +106,34 @@ function Signup(){
     //       setPhone({ phone: val });
     //     }
     // }
+
+    const registerUser = (e) => {
+        // is_organization should be set to false
+        e.preventDefault()
+        const data = {
+            first_name,
+            last_name,
+            username,
+            email,
+            phone_number,
+            password,
+            is_organization: false
+        }
+        console.log('data', data)
+        fetch(`${URL}/api/user/register`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            body: JSON.stringify(data)
+
+        })
+        .then(response => console.log(response.json()))
+        .then(data => console.log(data))
+        
+    }
+
 
 
     return(
@@ -112,26 +149,26 @@ function Signup(){
                 {state === 0 && 
                     <TabContainer>
                         <ThemeProvider theme={btntheme}>
-                            <form className={classes.form} noValidate style={{display:"inline-block"}}>
+                            <form className={classes.form} onSubmit={registerUser} style={{display:"inline-block"}}>
                                 <Grid container spacing={0} alignItems="center" justify="center" > 
                                     <Grid item xs={12} sm={6} style={{padding:"10px"}}>
-                                        <TextField autoComplete="fname" name="firstName" variant="outlined" required fullWidth id="firstName" label="First Name" InputLabelProps={{classes: {root: classes.cssLabel,  focused: classes.cssFocused}}} autoFocus/>
+                                        <TextField onChange={e => setFirstName(e.target.value)}autoComplete="fname" name="firstName" variant="outlined" required fullWidth id="firstName" label="First Name" InputLabelProps={{classes: {root: classes.cssLabel,  focused: classes.cssFocused}}} autoFocus/>
                                     </Grid>
                                     <Grid item xs={12} sm={6} style={{padding:"10px"}}>
-                                        <TextField variant="outlined" required fullWidth id="lastName" label="Last Name" name="lastName" autoComplete="lname" InputLabelProps={{classes: {root: classes.cssLabel,  focused: classes.cssFocused}}}/>
+                                        <TextField onChange={e => setLastName(e.target.value)}variant="outlined" required fullWidth id="lastName" label="Last Name" name="lastName" autoComplete="lname" InputLabelProps={{classes: {root: classes.cssLabel,  focused: classes.cssFocused}}}/>
                                     </Grid>
                                     <Grid item xs={12} sm={6} style={{padding:"10px"}}>
-                                        <TextField variant="outlined" required fullWidth id="username" label="Username" name="username" autoComplete="username" InputLabelProps={{classes: {root: classes.cssLabel,  focused: classes.cssFocused}}}/>
+                                        <TextField onChange={e => setUserName(e.target.value)}variant="outlined" required fullWidth id="username" label="Username" name="username" autoComplete="username" InputLabelProps={{classes: {root: classes.cssLabel,  focused: classes.cssFocused}}}/>
                                     </Grid>                                                
                                     <Grid item xs={12} sm= {6} style={{padding:"10px"}}>
                                         {/* <MuiPhoneNumber name="phone" label="Phone Number" data-cy="user-phone" defaultCountry={"us"} value={phones} onChange={handlePhoneChange}/> */}
-                                        <TextField variant="outlined" required fullWidth id="phonenum" label="Phone Number" name="phonenumber" autoComplete="phonenumber" InputLabelProps={{classes: {root: classes.cssLabel,  focused: classes.cssFocused}}}/>
+                                        <TextField onChange={e => setPhoneNumber(e.target.value)}variant="outlined" required fullWidth id="phonenum" label="Phone Number" name="phonenumber" autoComplete="phonenumber" InputLabelProps={{classes: {root: classes.cssLabel,  focused: classes.cssFocused}}}/>
                                     </Grid>
                                     <Grid item xs={12} style={{padding:"10px"}}>
-                                        <TextField variant="outlined" required fullWidth id="email" label="Email Address" name="email" autoComplete="email" InputLabelProps={{classes: {root: classes.cssLabel,  focused: classes.cssFocused}}}/>
+                                        <TextField onChange={e => setEmail(e.target.value)}variant="outlined" required fullWidth id="email" label="Email Address" name="email" autoComplete="email" InputLabelProps={{classes: {root: classes.cssLabel,  focused: classes.cssFocused}}}/>
                                     </Grid>
                                     <Grid item xs={12} style={{padding:"10px"}}>
-                                        <TextField variant="outlined" required fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password" InputLabelProps={{classes: {root: classes.cssLabel,  focused: classes.cssFocused}}}/>
+                                        <TextField onChange={e => setPassword(e.target.value)}variant="outlined" required fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password" InputLabelProps={{classes: {root: classes.cssLabel,  focused: classes.cssFocused}}}/>
                                     </Grid>
                                     <Grid direction = "column" >
                                         <Grid item direction="row" >
@@ -140,10 +177,12 @@ function Signup(){
                                         </Grid>
                                         <Grid container direction="row" justify="center" alignItems="center" >
                                             <Link to="/dashboard" style={{textDecoration:"none"}}>
-                                                <Button variant="contained" color="primary" style={{color:"white"}} >
+                                                 
+                                            </Link>
+                                            <Button type="submit" component="button" variant="contained" color="primary" style={{color:"white"}} >
                                                     Signup
-                                                </Button> 
-                                            </Link>      
+                                            </Button>  
+                                            
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -161,7 +200,7 @@ function Signup(){
                                     </Grid>
                                     <Grid item xs={12} sm= {6} style={{padding:"10px"}}>
                                         {/* <MuiPhoneNumber name="phone" label="Phone Number" data-cy="user-phone" defaultCountry={"us"} value={phones} onChange={handlePhoneChange}/> */}
-                                        <TextField variant="outlined" required fullWidth id="phonenum" label="Phone Number" name="phonenumber" autoComplete="phonenumber" InputLabelProps={{classes: {root: classes.cssLabel,  focused: classes.cssFocused}}}/>
+                                        <TextField variant="outlined" inputProps={{maxLength:10}} type="tel" required fullWidth id="phonenum" label="Phone Number" name="phonenumber" autoComplete="phonenumber" InputLabelProps={{classes: {root: classes.cssLabel,  focused: classes.cssFocused}}}/>
                                     </Grid>
                                     <Grid item xs={12} sm={6} style={{padding:"10px"}}>
                                         <TextField autoComplete="fname" name="firstName" variant="outlined" required fullWidth id="firstName" label="First Name" InputLabelProps={{classes: {root: classes.cssLabel,  focused: classes.cssFocused}}} />
@@ -185,10 +224,10 @@ function Signup(){
                                         </Grid>
                                         <Grid container direction="row" justify="center" alignItems="center" >
                                             <Link to="/orgdashboard" style={{textDecoration:"none"}}>
-                                                <Button variant="contained" color="primary" style={{color:"white"}} >
+                                                <Button  variant="contained" color="primary" style={{color:"white"}} >
                                                     Signup
                                                 </Button> 
-                                            </Link>      
+                                            </Link>
                                         </Grid>
                                     </Grid>
                                 </Grid>

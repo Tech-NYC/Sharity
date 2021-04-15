@@ -38,11 +38,7 @@ function UserViewOrg(props){
     : "http://127.0.0.1:3000";
 
     let orgName = props.match.params.value;
-    const PROD = true;
-
-    const URL = PROD
-      ? "https://sharity-technyc.herokuapp.com"
-      : "http://localhost:3000";
+    
     const [org, setOrg] = React.useState([])
     const [userId, setUserId] = React.useState("")
     const [user, setUser] = React.useState([])

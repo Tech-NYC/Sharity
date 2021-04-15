@@ -37,9 +37,11 @@ function UserViewOrg(props){
     const URL = PROD
       ? "https://sharity-technyc.herokuapp.com"
       : "http://localhost:3000";
-    const [org, setOrg] = React.useState("")
+    const [org, setOrg] = React.useState([])
     const [userId, setUserId] = React.useState("")
     const [user, setUser] = React.useState([])
+    const [orgId, setOrgId] = React.useState("")
+    const [orgNeeds, setOrgNeeds] = React.useState([])
     const [thing, setThing] = React.useState(0)
     React.useEffect(() => {
       let isCurrent = true;
@@ -49,18 +51,13 @@ function UserViewOrg(props){
         }).then((data) => {
           if(isCurrent){
             let allOrgs = []
-            let allUsers = []
             data.map((name) => {
-                // console.log(name)
                 if(name.name === orgName){
                     setUserId(name.user_id)
-                    // allUsers.push(name.user_id)
+                    setOrgId(name.id)
                     allOrgs.push(name)
                 }
-            //   console.log(allUsers)
             })
-            // setUserId(allUsers)
-            // console.log(userId)
             setOrg(allOrgs)
           }
       })
@@ -70,8 +67,8 @@ function UserViewOrg(props){
       }
 
       gettingOrgs();
+
       //need to make another fetch request to get the avatar of the org which is in users info
-      console.log(userId)
       fetch(`${URL}/api/user/getAll`).then((res) => {
         return res.json()
       }).then((data)=> {
@@ -87,69 +84,138 @@ function UserViewOrg(props){
             
       }).catch((err)=> {console.log(err)})
 
+      //need to fetch from organizations list in order to get the information for the needs
+      fetch(`${URL}/api/organization/getAll`).then((res) => {
+        return res.json()
+      }).then((data)=> {
+            let orgNeeds = []
+            // console.log(data)
+            data.map((info) => {
+                // console.log(info)
+                if(info.organization_id === orgId){
+                    orgNeeds.push(info)
+                }
+            }) 
+            setOrgNeeds(orgNeeds)
+            
+      }).catch((err)=> {console.log(err)})
+
       return() => {
           isCurrent = false;
       }
   
-    }, [orgName, thing, userId]);
-
-    // console.log(user)
+    
+    }, [orgName, thing, userId, orgId]);
+    // array of all info
+    let mergedArray = []
+    // merges the orgneeds, user and org arrays of objects to create a new array of object
+    const mergeArrays = () => {
+        //map over org
+        org.forEach((orgInfo) => {
+            //iterate through user
+            user.forEach((userInfo) => {
+                mergedArray.push({
+                    name: orgInfo.name,
+                    address: orgInfo.address,
+                    description: orgInfo.description,
+                    pickup: orgInfo.pickup_times,
+                    logo: userInfo.avatar,
+                })                
+            })
+        })
+        return mergedArray
+    }
+    
+    mergeArrays()
 
     let daysArr = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     return(
         <>
         <NavDefault nav = {nav}/>
-        {user && user.map((info)=> (
-            <Grid container xs={1} >
-                    <img alt="logo"  style={{paddingLeft: "10%", width:"75%", height:"75%"}} src={info.avatar}/>
-                    <Typography variant="h4">{info.first_name}</Typography>
-            </Grid>
-        ))}
-                
-        {org && org.map((orgs) => (
+        {mergedArray && mergedArray.map((data) => (
             <>
             <Grid container spacing={3} style={{ paddingTop: '5%' }}>
-                <Grid container item xs={8} direction="column">
-                    <Typography variant="h4">{orgs.name}</Typography>
+                <Grid container xs={2} >
+                    <img alt="logo"  style={{paddingLeft: "10%", width:"75%", height:"75%"}} src={data.logo}/>
+                </Grid>
+                <Grid container item xs={7} direction="column">
+                    <Typography variant="h4">{data.name}</Typography>
                     <Typography variant="h6">Address</Typography>
-                    <Typography variant="subtitle1">{orgs.address}</Typography>
+                    <Typography variant="subtitle2">{data.address}</Typography>
+                    <Typography variant="h6">Description</Typography>
+                    <Typography variant="subtitle2">{data.description}</Typography>
                     <Typography variant="h6">Pickup Times</Typography>
-                    {/* {console.log(orgs.pickup_times.split(","))} */}
                     <Typography variant="subtitle2">
-                        {!orgs.pickup_times ? <Typography>No Times Yet</Typography>: orgs.pickup_times.split(",").map((time, i)=>(
-                        <>
-                        {daysArr[i]}: {time}, 
-                        </>
-                    ))}</Typography>
+                        {!data.pickup ? <Typography>No Times Yet</Typography> : data.pickup.split(",").map((time, i)=>(
+                            <>
+                            {daysArr[i]}: {time}
+                            </>
+                        ))}
+                    </Typography>
                 </Grid>
                 <Grid container item xs={3} direction="column">
                     <ScheduleModal></ScheduleModal>
                 </Grid>
             </Grid>
-             
+         
             </>
         ))}
-            <hr/>
-            <Grid container spacing={3} justify="center" style={{paddingTop:"5%",paddingBottom:"10%"}}>
+        <hr/>
+    
+        {orgNeeds.length === 0 ? 
+                    <Grid container spacing={3} justify="center" style={{paddingTop:"5%",paddingBottom:"10%"}}>
+                        <Grid  item xs={3} >
+                            <Typography variant="h6">Items Needed List</Typography>
+                                <Typography>No Items Needed Currently</Typography> 
+                        </Grid>
+                        <Grid  item xs={3} >
+                            <Typography variant="h6">Item Approved Condition List </Typography>
+                            <Typography>No Items Needed Currently</Typography> 
+                        </Grid>
+                        <Grid  item  xs={3} >
+                            <Typography variant="h6">Item Not Approved Condition List </Typography>
+                            <Typography>No Items Needed Currently</Typography> 
+                        </Grid>
+                        
+                    </Grid>
+                : orgNeeds.map((data) => (
+                <Grid container spacing={3} justify="center" style={{paddingTop:"5%",paddingBottom:"10%"}}>
                 <Grid  item xs={3} >
                     <Typography variant="h6">Items Needed List</Typography>
-                    <ul>
-                        <li>Sweater</li>
-                    </ul>
+                    {!data.items_needed ? <Typography>No Items Needed Currently</Typography> : data.items_needed.split(",").map((item)=>(
+                        <>
+                        <ul>
+                            <li> {item}</li>
+                        </ul>
+                     
+                        </>
+                    ))}
                 </Grid>
                 <Grid  item xs={3} >
                     <Typography variant="h6">Item Approved Condition List </Typography>
-                    <ul>
-                        <li>Gently Used</li>
-                    </ul>
+                    {!data.conditions_accepted ? <Typography>No Items Needed Currently</Typography> : data.conditions_accepted.split(",").map((item)=>(
+                        <>
+                        <ul>
+                            <li> {item}</li>
+                        </ul>
+                     
+                        </>
+                    ))}
                 </Grid>
                 <Grid  item  xs={3} >
                     <Typography variant="h6">Item Not Approved Condition List </Typography>
-                    <ul>
-                        <li>Stuff with holes</li>
-                    </ul>
+                    {!data.conditions_not_accepted ? <Typography>No Items Needed Currently</Typography> : data.conditions_not_accepted.split(",").map((item)=>(
+                        <>
+                        <ul>
+                            <li> {item}</li>
+                        </ul>
+                     
+                        </>
+                    ))}
                 </Grid>
                 </Grid> 
+        ))}
+            
         
         <Footer/>
         </>

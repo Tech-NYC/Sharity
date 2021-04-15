@@ -28,10 +28,14 @@ export default function ScheduleModal() {
     setOpen(false);
   };
 
+  const handleDonation = (e) => {
+      console.log('hi')
+  }
+
   return (
     <div>
         <ThemeProvider theme={btntheme}>
-            <form >
+            <form onSubmit={handleDonation}>
                 <Button variant="outlined" color="primary" onClick={handleClickOpen}>
                     Schedule Now
                 </Button>
@@ -51,7 +55,7 @@ export default function ScheduleModal() {
                         <Button onClick={handleClose} color="primary">
                             Cancel
                         </Button>
-                        <Button color="primary">
+                        <Button type="submit" component="button" color="primary">
                             Schedule
                         </Button>
                     </DialogActions>

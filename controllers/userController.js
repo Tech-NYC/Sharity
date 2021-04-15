@@ -13,14 +13,38 @@ class userController {
         request.body
       );
 
-      // const token = jwt.sign({ username: request.body.username }, process.env.AUTH_KEY);
+      const token = jwt.sign({ username: request.body.username }, process.env.AUTH_KEY);
 
-      // return response.cookie("safeToken", token).sendStatus(200);
-
-      return response.send("User created");
+      return response.cookie("SharityToken", token).sendStatus(200);
     } catch (err) {
       console.log(err);
       response.status(500).json(err);
+    }
+  }
+
+  async login(request, response) {
+    try {
+      const username = request.body.username;
+      const password = request.body.password;
+
+      const user = await db.one("SELECT * FROM users WHERE username = ${username}", request.body);
+      console.log(user);
+
+      if (!user) {
+        return response.status(401).send("User does not exist.");
+      }
+      console.log(user.password, password);
+
+      if (await argon2.verify(user.password_hash, password)) {
+        // password match
+        const token = jwt.sign({ username: username }, process.env.AUTH_KEY);
+        response.cookie("SharityToken", token).status(200).send(user);
+      } else {
+        // password did not match
+        return response.status(401).send("Invalid login credentials.");
+      }
+    } catch (err) {
+      response.status(500).send(err);
     }
   }
 
@@ -65,6 +89,17 @@ class userController {
       const data = await db.any("SELECT * FROM users WHERE id=$1", user_id);
 
       return response.send(data);
+    } catch (err) {
+      response.status(500).send(err);
+    }
+  }
+
+  async getAll(request, response) {
+    // uses db.many to return one or more records, method rejects if no records are returned
+    // TODO:
+    try {
+      const data = await db.many("SELECT id, first_name, last_name, email, phone_number, username, is_organization, avatar FROM users");
+      return response.status(200).send(data);
     } catch (err) {
       response.status(500).send(err);
     }

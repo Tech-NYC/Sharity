@@ -31,6 +31,12 @@ const nav = [
 ]
 
 function UserViewOrg(props){
+    const PROD = true;
+
+    const URL = PROD
+    ? "https://sharity-technyc.herokuapp.com"
+    : "http://127.0.0.1:3000";
+
     let orgName = props.match.params.value;
     const PROD = true;
 

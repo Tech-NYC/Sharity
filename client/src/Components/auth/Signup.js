@@ -83,7 +83,8 @@ TabContainer.propTypes = {
   //make the org form post to the user table w the boolean true, and also the org table 
 
 function Signup(){
-    const URL = 'http://sharity-technyc.herokuapp.com'
+    const PROD = true
+    const URL = PROD ? 'http://sharity-technyc.herokuapp.com' : 'http://localhost:3000'
     const [state, setState] = React.useState(0)
     const [first_name, setFirstName] = React.useState('')
     const [last_name, setLastName] = React.useState('')
@@ -126,10 +127,9 @@ function Signup(){
             },
             body: JSON.stringify(data)
 
-        }).then(response => {
-            console.log(response.json())
-            return response.json()
         })
+        .then(response => response.json())
+        .then(data => console.log(data))
         
     }
 
@@ -175,7 +175,7 @@ function Signup(){
                                             <Link className={classes.linkStyle} to="/terms"> Terms and Conditions </Link>   
                                         </Grid>
                                         <Grid container direction="row" justify="center" alignItems="center" >
-                                            <Link to="/signup" style={{textDecoration:"none"}}>
+                                            <Link to="/dashboard" style={{textDecoration:"none"}}>
                                                  
                                             </Link>
                                             <Button type="submit" component="button" variant="contained" color="primary" style={{color:"white"}} >
@@ -199,7 +199,7 @@ function Signup(){
                                     </Grid>
                                     <Grid item xs={12} sm= {6} style={{padding:"10px"}}>
                                         {/* <MuiPhoneNumber name="phone" label="Phone Number" data-cy="user-phone" defaultCountry={"us"} value={phones} onChange={handlePhoneChange}/> */}
-                                        <TextField variant="outlined" required fullWidth id="phonenum" label="Phone Number" name="phonenumber" autoComplete="phonenumber" InputLabelProps={{classes: {root: classes.cssLabel,  focused: classes.cssFocused}}}/>
+                                        <TextField variant="outlined" inputProps={{maxLength:10}} type="tel" required fullWidth id="phonenum" label="Phone Number" name="phonenumber" autoComplete="phonenumber" InputLabelProps={{classes: {root: classes.cssLabel,  focused: classes.cssFocused}}}/>
                                     </Grid>
                                     <Grid item xs={12} sm={6} style={{padding:"10px"}}>
                                         <TextField autoComplete="fname" name="firstName" variant="outlined" required fullWidth id="firstName" label="First Name" InputLabelProps={{classes: {root: classes.cssLabel,  focused: classes.cssFocused}}} />

@@ -11,11 +11,16 @@ import UserViewOrg from "./Components/UserViewOrg"
 const UserContext = React.createContext()
 
 function App () {
+  const PROD = true;
+
+  const URL = PROD
+    ? "https://sharity-technyc.herokuapp.com"
+    : "http://localhost:3000";
   const [org, setOrg] = React.useState("")
   const [thing, setThing] = React.useState(0)
   React.useEffect(() => {
     let isCurrent = true;
-    fetch('http://localhost:3000/api/organizations/list').then((res) => {
+    fetch(`${URL}/api/organizations/list`).then((res) => {
         return res.json();
     }).then((data) => {
         if(isCurrent){

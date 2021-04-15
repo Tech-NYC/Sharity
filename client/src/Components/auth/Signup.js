@@ -11,6 +11,7 @@ import { spacing } from '@material-ui/system';
 // import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Footer from '../home/Footer';
+import {handleStateData} from './handlesStateData'
 
 const useStyle = makeStyles({
     root: {
@@ -93,7 +94,8 @@ function Signup(){
     const [email, setEmail] = React.useState('')
     const [phone_number, setPhoneNumber] = React.useState('')
     const [password, setPassword] = React.useState('')
-    
+    const [name, setName] = React.useState('')
+    const [address, setAddress] = React.useState('')
     // const [phones, setPhone] = React.useState("")
     const handleChange = (event, value) => {
         setState( value );
@@ -107,18 +109,25 @@ function Signup(){
     //     }
     // }
 
+    const userData = {
+        first_name,
+        last_name,
+        username,
+        email,
+        phone_number,
+        password
+    }
+
+    const organizationData = {
+        name,
+        address
+    }
+
+
     const registerUser = (e) => {
         // is_organization should be set to false
         e.preventDefault()
-        const data = {
-            first_name,
-            last_name,
-            username,
-            email,
-            phone_number,
-            password,
-            is_organization: false
-        }
+        const data = handleStateData(userData, organizationData, 'false')
         console.log('data', data)
         fetch(`${URL}/api/user/register`, {
             method: "POST",
@@ -134,7 +143,9 @@ function Signup(){
         
     }
 
-
+    const registerOrganization = (e) => {
+        e.preventDefault()
+    }
 
     return(
         <>

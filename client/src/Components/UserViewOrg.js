@@ -31,6 +31,12 @@ const nav = [
 ]
 
 function UserViewOrg(props){
+    const PROD = true;
+
+    const URL = PROD
+    ? "https://sharity-technyc.herokuapp.com"
+    : "http://127.0.0.1:3000";
+
     let orgName = props.match.params.value;
     const [org, setOrg] = React.useState("")
     const [userId, setUserId] = React.useState("")
@@ -39,7 +45,7 @@ function UserViewOrg(props){
     React.useEffect(() => {
       let isCurrent = true;
       async function gettingOrgs(){
-        await fetch('http://localhost:3000/api/organizations/list').then((res) => {
+        await fetch(`${URL}/api/organizations/list`).then((res) => {
           return res.json();
         }).then((data) => {
           if(isCurrent){
@@ -67,7 +73,7 @@ function UserViewOrg(props){
       gettingOrgs();
       //need to make another fetch request to get the avatar of the org which is in users info
       console.log(userId)
-      fetch("http://localhost:3000/api/user/getAll").then((res) => {
+      fetch(`${URL}/api/user/getAll`).then((res) => {
         return res.json()
       }).then((data)=> {
             let userInfo = []

@@ -9,7 +9,6 @@ const assets = path.resolve(__dirname, "client", "build");
 app.use(express.static(assets));
 app.use(express.json());
 app.use(cors())
-
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, (req, res) => {
@@ -40,7 +39,7 @@ app.post("/api/organization/create", organization.create);
 app.get("/api/organization/fetch_info_by_org_id", organization.fetch_info_by_org_id);
 
 ////////////////////////////////Organization_needs_list Routes--------------
-app.get("/api/organization/getAll", user.getAll);
+app.get("/api/organization/getAll", organizationList.getAll);
 app.get("/api/organization/organization_list", organizationList.list);
 app.post("/api/organization_list/create", organizationList.create);
 

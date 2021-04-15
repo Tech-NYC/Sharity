@@ -3,11 +3,12 @@ const path = require("path");
 const express = require("express");
 const app = express();
 const db = require("./connection.js");
-
+const cors = require('cors')
 // serve static files
 const assets = path.resolve(__dirname, "client", "build");
 app.use(express.static(assets));
 app.use(express.json());
+app.use(cors())
 
 const PORT = process.env.PORT || 3000;
 

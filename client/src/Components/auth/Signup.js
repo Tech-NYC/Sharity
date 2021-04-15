@@ -369,21 +369,20 @@ function Signup() {
                 >
                   <Grid item xs={12} sm={6} style={{ padding: "10px" }}>
                     <TextField
-                      onChange={(e) => setName(e.target.value)}
-                      autoComplete="orgname"
-                      name="orgName"
+                      onChange={(e) => setUserName(e.target.value)}
                       variant="outlined"
                       required
                       fullWidth
-                      id="orgName"
-                      label="Organization Name"
+                      id="username"
+                      label="Username"
+                      name="username"
+                      autoComplete="username"
                       InputLabelProps={{
                         classes: {
                           root: classes.cssLabel,
                           focused: classes.cssFocused,
                         },
                       }}
-                      autoFocus
                     />
                   </Grid>
                   <Grid item xs={12} sm={6} style={{ padding: "10px" }}>
@@ -441,6 +440,25 @@ function Signup() {
                           focused: classes.cssFocused,
                         },
                       }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} style={{ padding: "10px" }}>
+                    <TextField
+                      onChange={(e) => setName(e.target.value)}
+                      autoComplete="orgname"
+                      name="orgName"
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="orgName"
+                      label="Organization Name"
+                      InputLabelProps={{
+                        classes: {
+                          root: classes.cssLabel,
+                          focused: classes.cssFocused,
+                        },
+                      }}
+                      autoFocus
                     />
                   </Grid>
                   <Grid item xs={12} style={{ padding: "10px" }}>

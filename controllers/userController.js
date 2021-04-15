@@ -34,6 +34,13 @@ class userController {
       const password = request.body.password;
 
       const user = await db.one("SELECT * FROM users WHERE username = $(username)", request.body);
+      request.body.user_id = user.id;
+      let userData = user;
+
+      if (user.is_organization) {
+        const org = await db.one("SELECT * FROM organizations WHERE user_id = $(user_id)", request.body);
+        userData = { user, org };
+      }
 
       //TODO: user query does not work - due to where statement
       if (!user) {
@@ -43,7 +50,7 @@ class userController {
       if (await argon2.verify(user.password_hash, password)) {
         // password match
         const token = jwt.sign({ username: username }, process.env.AUTH_KEY);
-        response.cookie("SharityToken", token).status(200).send(user);
+        response.cookie("SharityToken", token).status(200).send(userData);
       } else {
         // password did not match
         return response.status(401).send("Invalid login credentials.");

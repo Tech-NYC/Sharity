@@ -42,7 +42,7 @@ app.post("/api/organization/create", organization.create);
 app.get("/api/organization/fetch_info_by_org_id", organization.fetch_info_by_org_id);
 
 ////////////////////////////////Organization_needs_list Routes--------------
-app.get("/api/organization/getAll", user.getAll);
+app.get("/api/organization/getAll", organizationList.getAll);
 app.get("/api/organization/organization_list", organizationList.list);
 app.post("/api/organization_list/create", organizationList.create);
 

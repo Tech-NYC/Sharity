@@ -8,10 +8,18 @@ class userController {
       const hashedPass = await argon2.hash(request.body.password);
       request.body.password = hashedPass;
 
-      await db.none(
+      const insert = db.none(
         "INSERT INTO users (first_name, last_name, username, email,phone_number, password_hash, is_organization) VALUES (${first_name},${last_name}, ${username}, ${email},${phone_number}, ${password}, ${is_organization})",
         request.body
       );
+
+      // TODO: org signup
+      // if (request.body.is_organization) {
+      //   const user = db.any("SELECT id, username FROM users WHERE username = $(username)", request.body);
+      //   user.id = 2;
+
+      //   await db.none(`INSERT INTO organizations (user_id, name, address) VALUES ($1),$(name),$(address))`, [user.id, request.body]);
+      // }
 
       const token = jwt.sign({ username: request.body.username }, process.env.AUTH_KEY);
 
@@ -27,13 +35,12 @@ class userController {
       const username = request.body.username;
       const password = request.body.password;
 
-      const user = await db.one("SELECT * FROM users WHERE username = ${username}", request.body);
-      console.log(user);
+      const user = await db.one("SELECT * FROM users WHERE username = $(username)", request.body);
 
+      //TODO: user query does not work - due to where statement
       if (!user) {
         return response.status(401).send("User does not exist.");
       }
-      console.log(user.password, password);
 
       if (await argon2.verify(user.password_hash, password)) {
         // password match

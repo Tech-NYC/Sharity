@@ -63,6 +63,7 @@ export default function ScheduleModal() {
                         <TextField autoFocus margin="dense" id="fname" label="First Name" type="text" fullWidth/>
                         <TextField margin="dense" id="lname" label="Last Name" type="text" fullWidth/>
                         <TextField margin="dense" id="address" label="Address" type="text" fullWidth/>
+                        <TextField margin="dense" id="items" label="Items" type="text" fullWidth/>
                         <TextField margin="dense" id="date" type="date" fullWidth/>
                         <TextField margin="dense" id="time" type="time" fullWidth onChange={e=> console.log(e.target.value)}/>
                     </DialogContent>

@@ -4,6 +4,9 @@ import Home from "./Components/Home"
 import Login from "./Components/auth/Login"
 import Signup from "./Components/auth/Signup"
 import Organizations from "./Components/OrganizationsList"
+import Privacy from "./Components/legal/Privacy"
+import Terms from "./Components/legal/Terms"
+import Contact from "./Components/legal/Contact"
 import UserViewOrg from "./Components/UserViewOrg"
 
 //userdashboard link is "/dashboard"
@@ -48,6 +51,9 @@ function App () {
           <Route path='/login' component={Login} />
           <Route path='/signup' component={Signup} />
           <Route path='/organizations' component={Organizations}/>
+          <Route path='/privacy' component={Privacy} />
+          <Route path='/terms' component={Terms} />
+          <Route path='/contact' component={Contact} />
           <UserContext.Provider value={org}>
             <Route path='/:value' render={(props) => <UserViewOrg {...props}/>} />
           </UserContext.Provider>

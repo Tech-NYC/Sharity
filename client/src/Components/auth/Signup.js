@@ -24,6 +24,7 @@ import { spacing } from "@material-ui/system";
 import Typography from "@material-ui/core/Typography";
 import Footer from "../home/Footer";
 import { handleStateData } from "./handleStateData";
+import { UserRegistrationForm } from './UserRegistrationForm'
 
 const useStyle = makeStyles({
   root: {
@@ -125,6 +126,9 @@ function Signup() {
   //     }
   // }
 
+  // pass into form as props
+
+  
   const userData = {
     first_name,
     last_name,
@@ -141,6 +145,7 @@ function Signup() {
 
   const registerUser = (e) => {
     e.preventDefault();
+    console.log('reached')
     const data = handleStateData(userData, organizationData, "false");
 
     fetch(`${URL}/api/user/register`, {
@@ -172,6 +177,17 @@ function Signup() {
       .then((data) => console.log(data))
   };
 
+  const stateFunctionsObject = {
+    setFirstName,
+    setLastName,
+    setUserName,
+    setEmail,
+    setPhoneNumber,
+    setPassword,
+    registerUser
+
+  }
+
   return (
     <>
       <NavDefault nav={nav} />
@@ -189,168 +205,7 @@ function Signup() {
           </Tabs>
         </ThemeProvider>
         {state === 0 && (
-          <TabContainer>
-            <ThemeProvider theme={btntheme}>
-              <form
-                className={classes.form}
-                onSubmit={registerUser}
-                style={{ display: "inline-block" }}
-              >
-                <Grid
-                  container
-                  spacing={0}
-                  alignItems="center"
-                  justify="center"
-                >
-                  <Grid item xs={12} sm={6} style={{ padding: "10px" }}>
-                    <TextField
-                      onChange={(e) => setFirstName(e.target.value)}
-                      autoComplete="fname"
-                      name="firstName"
-                      variant="outlined"
-                      required
-                      fullWidth
-                      id="firstName"
-                      label="First Name"
-                      InputLabelProps={{
-                        classes: {
-                          root: classes.cssLabel,
-                          focused: classes.cssFocused,
-                        },
-                      }}
-                      autoFocus
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6} style={{ padding: "10px" }}>
-                    <TextField
-                      onChange={(e) => setLastName(e.target.value)}
-                      variant="outlined"
-                      required
-                      fullWidth
-                      id="lastName"
-                      label="Last Name"
-                      name="lastName"
-                      autoComplete="lname"
-                      InputLabelProps={{
-                        classes: {
-                          root: classes.cssLabel,
-                          focused: classes.cssFocused,
-                        },
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6} style={{ padding: "10px" }}>
-                    <TextField
-                      onChange={(e) => setUserName(e.target.value)}
-                      variant="outlined"
-                      required
-                      fullWidth
-                      id="username"
-                      label="Username"
-                      name="username"
-                      autoComplete="username"
-                      InputLabelProps={{
-                        classes: {
-                          root: classes.cssLabel,
-                          focused: classes.cssFocused,
-                        },
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6} style={{ padding: "10px" }}>
-                    {/* <MuiPhoneNumber name="phone" label="Phone Number" data-cy="user-phone" defaultCountry={"us"} value={phones} onChange={handlePhoneChange}/> */}
-                    <TextField
-                      onChange={(e) => setPhoneNumber(e.target.value)}
-                      variant="outlined"
-                      required
-                      fullWidth
-                      id="phonenum"
-                      label="Phone Number"
-                      name="phonenumber"
-                      autoComplete="phonenumber"
-                      InputLabelProps={{
-                        classes: {
-                          root: classes.cssLabel,
-                          focused: classes.cssFocused,
-                        },
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={12} style={{ padding: "10px" }}>
-                    <TextField
-                      onChange={(e) => setEmail(e.target.value)}
-                      variant="outlined"
-                      required
-                      fullWidth
-                      id="email"
-                      label="Email Address"
-                      name="email"
-                      autoComplete="email"
-                      InputLabelProps={{
-                        classes: {
-                          root: classes.cssLabel,
-                          focused: classes.cssFocused,
-                        },
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={12} style={{ padding: "10px" }}>
-                    <TextField
-                      onChange={(e) => setPassword(e.target.value)}
-                      variant="outlined"
-                      required
-                      fullWidth
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="current-password"
-                      InputLabelProps={{
-                        classes: {
-                          root: classes.cssLabel,
-                          focused: classes.cssFocused,
-                        },
-                      }}
-                    />
-                  </Grid>
-                  <Grid direction="column">
-                    <Grid item direction="row">
-                      <Checkbox
-                        color="default"
-                        inputProps={{
-                          "aria-label": "checkbox with default color",
-                        }}
-                      />
-                      <Link className={classes.linkStyle} to="/terms">
-                        {" "}
-                        Terms and Conditions{" "}
-                      </Link>
-                    </Grid>
-                    <Grid
-                      container
-                      direction="row"
-                      justify="center"
-                      alignItems="center"
-                    >
-                      <Link
-                        to="/dashboard"
-                        style={{ textDecoration: "none" }}
-                      ></Link>
-                      <Button
-                        type="submit"
-                        component="button"
-                        variant="contained"
-                        color="primary"
-                        style={{ color: "white" }}
-                      >
-                        Signup
-                      </Button>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </form>
-            </ThemeProvider>
-          </TabContainer>
+          <UserRegistrationForm {...stateFunctionsObject}/>
         )}
         {state === 1 && (
           <TabContainer style={{ justifyConten: "center" }}>

@@ -4,6 +4,9 @@ import { Button, TextField, Grid, Paper, AppBar, Typography, Toolbar, Link } fro
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import Footer from "../home/Footer";
+import { UserContext } from "../../contexts/UserContext.js";
+import { Redirect } from "react-router-dom";
+import { red } from "@material-ui/core/colors";
 
 const theme = createMuiTheme({
   typography: {
@@ -44,6 +47,8 @@ function Login(props) {
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://127.0.0.1:3000";
   const [username, setUserName] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [redirect, setRedirect] = useState(false);
+  const { user, setUser } = useContext(UserContext);
 
   const loginUser = (e) => {
     e.preventDefault();
@@ -61,10 +66,28 @@ function Login(props) {
       },
       body: JSON.stringify(userAuth),
     })
-      .then((response) => console.log(response.json()))
+      .then((response) => response.json())
       .catch((err) => console.log(err))
-      .then((data) => console.log(data));
+      .then((data) => {
+        setUser(data);
+        console.log(data);
+      });
+
+    console.log(user);
+    setRedirect(true);
   };
+
+  function redirectBasedOnUserType() {
+    if (!user) {
+      return <Redirect to="/login" />;
+    }
+    if (user.is_organization) {
+      return <Redirect to="/profile" />;
+    } else if (user) {
+      return <Redirect to="/organizations" />;
+    }
+  }
+
   const classes = useStyle();
 
   const nav = [
@@ -156,6 +179,7 @@ function Login(props) {
           </Grid>
         </Grid>
       </div>
+      {redirect ? redirectBasedOnUserType() : null}
       <Footer />
     </>
   );

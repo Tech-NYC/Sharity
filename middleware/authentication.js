@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 const authenticate = async (request, response, next) => {
-  const token = request.cookies.safeToken;
+  const token = request.cookies.SharityToken;
 
   if (!token) {
     return response.send("Authentication failed. Missing JWT Token.");

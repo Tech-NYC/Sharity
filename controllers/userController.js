@@ -13,6 +13,12 @@ class userController {
         request.body
       );
 
+      if (request.body.is_organization) {
+        const user = await db.one("SELECT id, username FROM users WHERE username = $(username)", request.body);
+        request.body.user_id = user.id;
+        await db.none("INSERT INTO organizations (user_id, name, address) VALUES (${user_id},${name},${address})", request.body);
+      }
+
       const token = jwt.sign({ username: request.body.username }, process.env.AUTH_KEY);
 
       return response.cookie("SharityToken", token).sendStatus(200);
@@ -27,18 +33,24 @@ class userController {
       const username = request.body.username;
       const password = request.body.password;
 
-      const user = await db.one("SELECT * FROM users WHERE username = ${username}", request.body);
-      console.log(user);
+      const user = await db.one("SELECT * FROM users WHERE username = $(username)", request.body);
+      request.body.user_id = user.id;
+      let userData = user;
 
+      if (user.is_organization) {
+        const org = await db.one("SELECT * FROM organizations WHERE user_id = $(user_id)", request.body);
+        userData = { user, org };
+      }
+
+      //TODO: user query does not work - due to where statement
       if (!user) {
         return response.status(401).send("User does not exist.");
       }
-      console.log(user.password, password);
 
       if (await argon2.verify(user.password_hash, password)) {
         // password match
         const token = jwt.sign({ username: username }, process.env.AUTH_KEY);
-        response.cookie("SharityToken", token).status(200).send(user);
+        response.cookie("SharityToken", token).status(200).send(userData);
       } else {
         // password did not match
         return response.status(401).send("Invalid login credentials.");

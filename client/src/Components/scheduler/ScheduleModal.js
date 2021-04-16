@@ -17,6 +17,10 @@ const btntheme = createMuiTheme({
 })
 
 export default function ScheduleModal() {
+    // TODO: set organization_id
+    // TODO: set user_id
+    // TODO: set location, this is equivalent to address
+    //
   const [open, setOpen] = React.useState(false);
   const [time, setTime] = React.useState("")
 
@@ -29,17 +33,28 @@ export default function ScheduleModal() {
   };
 
   const handleDonation = (e) => {
-      console.log('hi')
+      e.preventDefault()
+      
+      const data = 
+      fetch(`${URL}/api/donationRequest/create`, {
+          method: "POST",
+          headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': "*"
+          },
+          body: JSON.stringify(data)
+      })
   }
 
   return (
     <div>
         <ThemeProvider theme={btntheme}>
-            <form onSubmit={handleDonation}>
                 <Button variant="outlined" color="primary" onClick={handleClickOpen}>
                     Schedule Now
                 </Button>
                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                    
+                <form onSubmit={handleDonation} noValidate>
                     <DialogTitle id="form-dialog-title">Schedule Now</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
@@ -59,8 +74,10 @@ export default function ScheduleModal() {
                             Schedule
                         </Button>
                     </DialogActions>
+                    
+                </form>
                 </Dialog>
-            </form>
+        
         </ThemeProvider>
     </div>
   );

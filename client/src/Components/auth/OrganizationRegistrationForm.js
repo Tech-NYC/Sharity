@@ -69,63 +69,30 @@ TabContainer.propTypes = {
   index: PropTypes.any.isRequired,
 };
 
-export const UserRegistrationForm = ({
+export const OrganizationRegistrationForm = ({
   setFirstName,
   setLastName,
   setUserName,
   setPhoneNumber,
   setEmail,
   setPassword,
+  setAddress,
+  setName,
   registerUser,
+  registerOrganization,
 }) => {
   const classes = useStyle();
 
   return (
-    <TabContainer>
+    <TabContainer style={{ justifyConten: "center" }}>
       <ThemeProvider theme={btntheme}>
         <form
           className={classes.form}
-          onSubmit={registerUser}
+          onSubmit={registerOrganization}
+          noValidate
           style={{ display: "inline-block" }}
         >
           <Grid container spacing={0} alignItems="center" justify="center">
-            <Grid item xs={12} sm={6} style={{ padding: "10px" }}>
-              <TextField
-                onChange={(e) => setFirstName(e.target.value)}
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                InputLabelProps={{
-                  classes: {
-                    root: classes.cssLabel,
-                    focused: classes.cssFocused,
-                  },
-                }}
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} style={{ padding: "10px" }}>
-              <TextField
-                onChange={(e) => setLastName(e.target.value)}
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-                InputLabelProps={{
-                  classes: {
-                    root: classes.cssLabel,
-                    focused: classes.cssFocused,
-                  },
-                }}
-              />
-            </Grid>
             <Grid item xs={12} sm={6} style={{ padding: "10px" }}>
               <TextField
                 onChange={(e) => setUserName(e.target.value)}
@@ -149,12 +116,87 @@ export const UserRegistrationForm = ({
               <TextField
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 variant="outlined"
+                inputProps={{ maxLength: 10 }}
+                type="tel"
                 required
                 fullWidth
                 id="phonenum"
                 label="Phone Number"
                 name="phonenumber"
                 autoComplete="phonenumber"
+                InputLabelProps={{
+                  classes: {
+                    root: classes.cssLabel,
+                    focused: classes.cssFocused,
+                  },
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} style={{ padding: "10px" }}>
+              <TextField
+                onChange={(e) => setFirstName(e.target.value)}
+                autoComplete="fname"
+                name="firstName"
+                variant="outlined"
+                required
+                fullWidth
+                id="firstName"
+                label="First Name"
+                InputLabelProps={{
+                  classes: {
+                    root: classes.cssLabel,
+                    focused: classes.cssFocused,
+                  },
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} style={{ padding: "10px" }}>
+              <TextField
+                onChange={(e) => setLastName(e.target.value)}
+                variant="outlined"
+                required
+                fullWidth
+                id="lastName"
+                label="Last Name"
+                name="lastName"
+                autoComplete="lname"
+                InputLabelProps={{
+                  classes: {
+                    root: classes.cssLabel,
+                    focused: classes.cssFocused,
+                  },
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} style={{ padding: "10px" }}>
+              <TextField
+                onChange={(e) => setName(e.target.value)}
+                autoComplete="orgname"
+                name="orgName"
+                variant="outlined"
+                required
+                fullWidth
+                id="orgName"
+                label="Organization Name"
+                InputLabelProps={{
+                  classes: {
+                    root: classes.cssLabel,
+                    focused: classes.cssFocused,
+                  },
+                }}
+                autoFocus
+              />
+            </Grid>
+            <Grid item xs={12} style={{ padding: "10px" }}>
+              <TextField
+                onChange={(e) => setAddress(e.target.value)}
+                variant="outlined"
+                required
+                fullWidth
+                id="address"
+                label="Address"
+                name="address"
+                autoComplete="address"
                 InputLabelProps={{
                   classes: {
                     root: classes.cssLabel,
@@ -219,7 +261,10 @@ export const UserRegistrationForm = ({
                 justify="center"
                 alignItems="center"
               >
-                <Link to="/dashboard" style={{ textDecoration: "none" }}></Link>
+                <Link
+                  to="/orgdashboard"
+                  style={{ textDecoration: "none" }}
+                ></Link>
                 <Button
                   type="submit"
                   component="button"

@@ -10,6 +10,8 @@ import Contact from "./Components/legal/Contact";
 import UserViewOrg from "./Components/UserViewOrg";
 import { UserProvider } from "./contexts/UserContext.js";
 import { NavDefault } from "./Components/home/Navigation";
+import {nav} from './Components/home/navlinks'
+
 const OrgContext = React.createContext();
 
 function App() {
@@ -46,6 +48,7 @@ function App() {
     <div>
       <BrowserRouter>
         <UserProvider>
+          <NavDefault nav={nav}></NavDefault>
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/login" component={Login} />

@@ -11,7 +11,6 @@ function Home(){
     
     return(
         <>
-        <NavDefault nav = {nav}/>
         <Header />
         <Mission />
         <Impact />

@@ -30,7 +30,6 @@ const Contact = () => {
           const classes = useStyles();
 return (
     <div>
-<NavDefault nav = {nav}/>
 <div className={classes.root} style={{background:"#dbe3f0"}} className="contact">
       <Grid container spacing={3}>
         <Grid item xs={12}>

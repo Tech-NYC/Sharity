@@ -148,7 +148,6 @@ function Signup() {
 
   return (
     <>
-      <NavDefault nav={nav} />
       <div className={classes.root}>
         <ThemeProvider theme={btntheme}>
           <Tabs value={state} onChange={handleChange} indicatorColor="primary" textColor="primary" centered>

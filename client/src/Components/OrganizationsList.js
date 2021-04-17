@@ -96,7 +96,6 @@ function OrganizationsList(props){
 
     return(
         <>
-        <NavDefault nav = {nav}/>
         <div className="searchbar" style={{paddingTop:"25px"}}> 
             <SearchBar placeholder= "Search for organizations, items needed" value={searched} onChange={(searchVal) => requestSearch(searchVal)} onCancelSearch={() => cancelSearch()} style={{ margin: '0 auto', maxWidth: 800 }}/>
         </div>

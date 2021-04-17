@@ -21,7 +21,6 @@ const Terms = () => {
             <div id="terms" style={{background:"#dbe3f0"}} className="background-tos" >
                <ThemeProvider theme={theme} >
                     <Typography variant="h3" style={{color: "#55a0cc", textAlign: "center"}} className="terms-words">  
-            <NavDefault nav = {nav}/>
             <h3>Terms of Service</h3>
             </Typography>
             </ThemeProvider>

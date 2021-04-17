@@ -137,7 +137,6 @@ function UserViewOrg(props) {
   let daysArr = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
   return (
     <>
-      <NavDefault nav={nav} />
       {mergedArray &&
         mergedArray.map((data) => (
           <>

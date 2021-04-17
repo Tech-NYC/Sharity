@@ -16,6 +16,8 @@ import { UserRegistrationForm } from "./UserRegistrationForm";
 import { OrganizationRegistrationForm } from "./OrganizationRegistrationForm";
 import { UserContext } from "../../contexts/UserContext.js";
 import { Redirect } from "react-router-dom";
+import {nav} from '../home/navlinks'
+
 
 const useStyle = makeStyles({
   root: {
@@ -41,24 +43,6 @@ const btntheme = createMuiTheme({
     },
   },
 });
-
-const nav = [
-  {
-    id: 1,
-    link: "/#mission",
-    label: "Mission",
-  },
-  {
-    id: 2,
-    link: "/#impact",
-    label: "Impact",
-  },
-  {
-    id: 3,
-    link: "/organizations",
-    label: "Donate",
-  },
-];
 
 function TabContainer(props) {
   const { value, index } = props;
@@ -195,7 +179,6 @@ function Signup() {
 
   return (
     <>
-      <NavDefault nav={nav} />
       <div className={classes.root}>
         <ThemeProvider theme={btntheme}>
           <Tabs value={state} onChange={handleChange} indicatorColor="primary" textColor="primary" centered>

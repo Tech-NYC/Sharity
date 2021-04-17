@@ -10,24 +10,7 @@ import { Link } from "react-router-dom";
 import { spacing } from "@material-ui/system";
 import Typography from "@material-ui/core/Typography";
 import ScheduleModal from "./scheduler/ScheduleModal";
-
-const nav = [
-  {
-    id: 1,
-    link: "/#mission",
-    label: "Mission",
-  },
-  {
-    id: 2,
-    link: "/#impact",
-    label: "Impact",
-  },
-  {
-    id: 3,
-    link: "/organizations",
-    label: "Donate",
-  },
-];
+import {nav} from './home/navlinks'
 
 function UserViewOrg(props) {
   const PROD = true;
@@ -154,7 +137,6 @@ function UserViewOrg(props) {
   let daysArr = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
   return (
     <>
-      <NavDefault nav={nav} />
       {mergedArray &&
         mergedArray.map((data) => (
           <>

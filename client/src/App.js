@@ -19,6 +19,14 @@ function App() {
   const [org, setOrg] = React.useState("");
   const [thing, setThing] = React.useState(0);
 
+  // temporary data store
+  const data = {
+    first_name: "John",
+    last_name: "Doe",
+    username: "JoDoe",
+    email: "email@example.com",
+    avatar: "https://www.seekpng.com/png/detail/514-5147412_default-avatar-icon.png"
+  }
   React.useEffect(() => {
     let isCurrent = true;
     fetch(`${URL}/api/organizations/list`)
@@ -50,7 +58,9 @@ function App() {
             <Route path="/" exact component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/userpage" component={UserProfilePage} />
+            <Route path="/userpage">
+              <UserProfilePage {...data}/>
+            </Route>
             <Route path="/organizations" component={Organizations} />
             <Route path="/privacy" component={Privacy} />
             <Route path="/terms" component={Terms} />

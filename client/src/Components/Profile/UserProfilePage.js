@@ -1,18 +1,13 @@
 import React from 'react'
 import { NavDefault } from '../home/Navigation'
-import nav from './navlinks'
+import { nav } from './navlinks'
 import { Grid, Typography } from '@material-ui/core'
 
-const UserProfilePage = () => {
-  // temporary data store
-  const data = {
-    first_name: "John",
-    last_name: "Doe",
-    email: "email@example.com",
-    phone_number: "(917) 533-8452",
-    username: "JoDoe",
-    avatar: "https://www.pngitem.com/pimgs/m/421-4212266_transparent-default-avatar-png-default-avatar-images-png.png"
-  }
+const UserProfilePage = ({data}) => {
+
+  // fetch data based on userid
+
+
   return (
     <div>
       <NavDefault nav={nav} ></NavDefault>
@@ -21,7 +16,7 @@ const UserProfilePage = () => {
           <img
             alt="logo"
             style={{ paddingLeft: "10%", width: "75%", height: "75%" }}
-            src={}
+            src={data.avatar}
           />
         </Grid>
         <Grid container item xs={7} direction="column">

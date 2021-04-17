@@ -8,7 +8,7 @@ import Privacy from "./Components/legal/Privacy";
 import Terms from "./Components/legal/Terms";
 import Contact from "./Components/legal/Contact";
 import UserViewOrg from "./Components/UserViewOrg";
-
+import UserProfilePage from "./Components/Profile/UserProfilePage"
 //userdashboard link is "/dashboard"
 //organization dashboard link is "/orgdashboard"
 const UserContext = React.createContext();
@@ -48,6 +48,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/login" component={Login} />
+          <Route path="/profile" component={UserProfilePage} />
           <Route path="/signup" component={Signup} />
           <Route path="/organizations" component={Organizations} />
           <Route path="/privacy" component={Privacy} />

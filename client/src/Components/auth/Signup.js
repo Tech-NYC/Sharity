@@ -1,20 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import Navigation, { NavDefault } from "../home/Navigation";
-import {
-  AppBar,
-  Paper,
-  Tabs,
-  Tab,
-  Grid,
-  Button,
-  Checkbox,
-} from "@material-ui/core";
+import { AppBar, Paper, Tabs, Tab, Grid, Button, Checkbox } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
-import {
-  ThemeProvider,
-  createMuiTheme,
-  makeStyles,
-} from "@material-ui/core/styles";
+import { ThemeProvider, createMuiTheme, makeStyles } from "@material-ui/core/styles";
 import MuiPhoneNumber from "material-ui-phone-number";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
@@ -71,14 +59,7 @@ const nav = [
 function TabContainer(props) {
   const { value, index } = props;
   return (
-    <Grid
-      container
-      direction="column"
-      alignItems="center"
-      justify="center"
-      style={{ minHeight: "300%" }}
-      autoFocus
-    >
+    <Grid container direction="column" alignItems="center" justify="center" style={{ minHeight: "300%" }} autoFocus>
       <Typography component="div" style={{ padding: 8 * 3 }}>
         <div role="tabpanel" hidden={value !== index}>
           {props.children}
@@ -100,9 +81,7 @@ TabContainer.propTypes = {
 function Signup() {
   const PROD = true;
 
-  const URL = PROD
-    ? "https://sharity-technyc.herokuapp.com"
-    : "http://127.0.0.1:3000";
+  const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "https://127.0.0.1:3000";
   const [state, setState] = React.useState(0);
   const [first_name, setFirstName] = React.useState("");
   const [last_name, setLastName] = React.useState("");
@@ -142,7 +121,7 @@ function Signup() {
   const registerUser = (e) => {
     e.preventDefault();
     const data = handleStateData(userData, organizationData, "false");
-
+    console.log("registering user:", data);
     fetch(`${URL}/api/user/register`, {
       method: "POST",
       headers: {
@@ -150,15 +129,13 @@ function Signup() {
         "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify(data),
-    })
-      .then((response) => console.log(response.json()))
-      .then((data) => console.log(data));
+    }).then((response) => console.log(response.json()));
   };
 
   const registerOrganization = (e) => {
     e.preventDefault();
     const data = handleStateData(userData, organizationData, "true");
-
+    console.log("registering org:", data);
     fetch(`${URL}/api/user/register`, {
       method: "POST",
       headers: {
@@ -166,10 +143,7 @@ function Signup() {
         "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify(data),
-    })
-      .then((response) => console.log(response.json()))
-      .catch(err => console.log(err))
-      .then((data) => console.log(data))
+    }).then((response) => console.log(response.json()));
   };
 
   return (
@@ -177,13 +151,7 @@ function Signup() {
       <NavDefault nav={nav} />
       <div className={classes.root}>
         <ThemeProvider theme={btntheme}>
-          <Tabs
-            value={state}
-            onChange={handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            centered
-          >
+          <Tabs value={state} onChange={handleChange} indicatorColor="primary" textColor="primary" centered>
             <Tab label="User Signup" autoFocus state={0} />
             <Tab label="Organization Signup" state={1} />
           </Tabs>
@@ -191,17 +159,8 @@ function Signup() {
         {state === 0 && (
           <TabContainer>
             <ThemeProvider theme={btntheme}>
-              <form
-                className={classes.form}
-                onSubmit={registerUser}
-                style={{ display: "inline-block" }}
-              >
-                <Grid
-                  container
-                  spacing={0}
-                  alignItems="center"
-                  justify="center"
-                >
+              <form className={classes.form} onSubmit={registerUser} style={{ display: "inline-block" }}>
+                <Grid container spacing={0} alignItems="center" justify="center">
                   <Grid item xs={12} sm={6} style={{ padding: "10px" }}>
                     <TextField
                       onChange={(e) => setFirstName(e.target.value)}
@@ -326,23 +285,9 @@ function Signup() {
                         Terms and Conditions{" "}
                       </Link>
                     </Grid>
-                    <Grid
-                      container
-                      direction="row"
-                      justify="center"
-                      alignItems="center"
-                    >
-                      <Link
-                        to="/dashboard"
-                        style={{ textDecoration: "none" }}
-                      ></Link>
-                      <Button
-                        type="submit"
-                        component="button"
-                        variant="contained"
-                        color="primary"
-                        style={{ color: "white" }}
-                      >
+                    <Grid container direction="row" justify="center" alignItems="center">
+                      <Link to="/dashboard" style={{ textDecoration: "none" }}></Link>
+                      <Button type="submit" component="button" variant="contained" color="primary" style={{ color: "white" }}>
                         Signup
                       </Button>
                     </Grid>
@@ -355,18 +300,8 @@ function Signup() {
         {state === 1 && (
           <TabContainer style={{ justifyConten: "center" }}>
             <ThemeProvider theme={btntheme}>
-              <form
-                className={classes.form}
-                onSubmit={registerOrganization}
-                noValidate
-                style={{ display: "inline-block" }}
-              >
-                <Grid
-                  container
-                  spacing={0}
-                  alignItems="center"
-                  justify="center"
-                >
+              <form className={classes.form} onSubmit={registerOrganization} noValidate style={{ display: "inline-block" }}>
+                <Grid container spacing={0} alignItems="center" justify="center">
                   <Grid item xs={12} sm={6} style={{ padding: "10px" }}>
                     <TextField
                       onChange={(e) => setUserName(e.target.value)}
@@ -529,23 +464,9 @@ function Signup() {
                         Terms and Conditions{" "}
                       </Link>
                     </Grid>
-                    <Grid
-                      container
-                      direction="row"
-                      justify="center"
-                      alignItems="center"
-                    >
-                      <Link
-                        to="/orgdashboard"
-                        style={{ textDecoration: "none" }}
-                      ></Link>
-                      <Button
-                        type="submit"
-                        component="button"
-                        variant="contained"
-                        color="primary"
-                        style={{ color: "white" }}
-                      >
+                    <Grid container direction="row" justify="center" alignItems="center">
+                      <Link to="/orgdashboard" style={{ textDecoration: "none" }}></Link>
+                      <Button type="submit" component="button" variant="contained" color="primary" style={{ color: "white" }}>
                         Signup
                       </Button>
                     </Grid>

@@ -3,11 +3,7 @@ import Navigation, { NavDefault } from "./home/Navigation";
 import Footer from "./home/Footer";
 import { Grid } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
-import {
-  ThemeProvider,
-  createMuiTheme,
-  makeStyles,
-} from "@material-ui/core/styles";
+import { ThemeProvider, createMuiTheme, makeStyles } from "@material-ui/core/styles";
 import MuiPhoneNumber from "material-ui-phone-number";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
@@ -36,9 +32,7 @@ const nav = [
 function UserViewOrg(props) {
   const PROD = true;
 
-  const URL = PROD
-    ? "https://sharity-technyc.herokuapp.com"
-    : "http://127.0.0.1:3000";
+  const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://127.0.0.1:3000";
 
   let orgName = props.match.params.value;
 
@@ -48,6 +42,7 @@ function UserViewOrg(props) {
   const [orgId, setOrgId] = React.useState("");
   const [orgNeeds, setOrgNeeds] = React.useState([]);
   const [thing, setThing] = React.useState(0);
+
   React.useEffect(() => {
     let isCurrent = true;
     async function gettingOrgs() {
@@ -76,48 +71,63 @@ function UserViewOrg(props) {
     gettingOrgs();
 
     //need to make another fetch request to get the avatar of the org which is in users info
-     async function gettingUsers(){
-          await fetch(`${URL}/api/user/getAll`).then((res) => {
-                return res.json()
-            }).then((data)=> {
-                if(isCurrent) {
-                    let userInfo = []
-                    // console.log(data)
-                    data.map((info) => {
-                        // console.log(info)
-                        if(info.id === userId){
-                            userInfo.push(info)
-                        }
-                    }) 
-                    setUser(userInfo)
-                }
-            }).catch((err)=> {console.log(err)})
-        }
-        gettingUsers()
-      //need to fetch from organizations list in order to get the information for the needs
-      async function gettingNeeds(){
-         await fetch(`${URL}/api/organization/getAll`).then((res) => {
-            return res.json()
-        }).then((data)=> {
-            if(isCurrent) {
-                let orgNeeds = []
-                // console.log(data)
-                data.map((info) => {
-                    // console.log(info)
-                    if(info.organization_id === orgId){
-                        orgNeeds.push(info)
-                    }
-                }) 
-                setOrgNeeds(orgNeeds)
-            }
-      }).catch((err)=> {console.log(err)})
+    async function gettingUsers() {
+      await fetch(`${URL}/api/user/getAll`)
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          if (isCurrent) {
+            let userInfo = [];
+            // console.log(data)
+            data.map((info) => {
+              // console.log(info)
+              if (info.id === userId) {
+                userInfo.push(info);
+              }
+            });
+            setUser(userInfo);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-    gettingNeeds()
+    gettingUsers();
+    //need to fetch from organizations list in order to get the information for the needs
+    async function gettingNeeds() {
+      await fetch(`${URL}/api/organization/getAll`, {
+        method: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          if (isCurrent) {
+            let orgNeeds = [];
+            // console.log(data)
+            data.map((info) => {
+              // console.log(info)
+              if (info.organization_id === orgId) {
+                orgNeeds.push(info);
+              }
+            });
+            setOrgNeeds(orgNeeds);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    gettingNeeds();
 
     return () => {
       isCurrent = false;
     };
-  }, [ thing, orgName, userId, orgId]);
+  }, [thing, orgName, userId, orgId]);
   // array of all info
   let mergedArray = [];
   // merges the orgneeds, user and org arrays of objects to create a new array of object
@@ -141,15 +151,7 @@ function UserViewOrg(props) {
 
   mergeArrays();
 
-  let daysArr = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
+  let daysArr = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
   return (
     <>
       <NavDefault nav={nav} />
@@ -158,11 +160,7 @@ function UserViewOrg(props) {
           <>
             <Grid key={data.id} container spacing={3} style={{ paddingTop: "5%" }}>
               <Grid container xs={2}>
-                <img
-                  alt="logo"
-                  style={{ paddingLeft: "10%", width: "75%", height: "75%" }}
-                  src={data.logo}
-                />
+                <img alt="logo" style={{ paddingLeft: "10%", width: "75%", height: "75%" }} src={data.logo} referrerPolicy="no-referrer" />
               </Grid>
               <Grid container item xs={7} direction="column">
                 <Typography variant="h4">{data.name}</Typography>
@@ -184,7 +182,7 @@ function UserViewOrg(props) {
                 </Typography>
               </Grid>
               <Grid container item xs={3} direction="column">
-                <ScheduleModal org_id={orgId} ></ScheduleModal>
+                <ScheduleModal org_id={orgId}></ScheduleModal>
               </Grid>
             </Grid>
           </>
@@ -192,12 +190,7 @@ function UserViewOrg(props) {
       <hr />
 
       {orgNeeds.length === 0 ? (
-        <Grid
-          container
-          spacing={3}
-          justify="center"
-          style={{ paddingTop: "5%", paddingBottom: "10%" }}
-        >
+        <Grid container spacing={3} justify="center" style={{ paddingTop: "5%", paddingBottom: "10%" }}>
           <Grid item xs={3}>
             <Typography variant="h6">Items Needed List</Typography>
             <Typography>No Items Needed Currently</Typography>
@@ -207,20 +200,13 @@ function UserViewOrg(props) {
             <Typography>No Items Needed Currently</Typography>
           </Grid>
           <Grid item xs={3}>
-            <Typography variant="h6">
-              Item Not Approved Condition List{" "}
-            </Typography>
+            <Typography variant="h6">Item Not Approved Condition List </Typography>
             <Typography>No Items Needed Currently</Typography>
           </Grid>
         </Grid>
       ) : (
         orgNeeds.map((data) => (
-          <Grid
-            container
-            spacing={3}
-            justify="center"
-            style={{ paddingTop: "5%", paddingBottom: "10%" }}
-          >
+          <Grid container spacing={3} justify="center" style={{ paddingTop: "5%", paddingBottom: "10%" }}>
             <Grid item xs={3}>
               <Typography variant="h6">Items Needed List</Typography>
               {!data.items_needed ? (
@@ -236,9 +222,7 @@ function UserViewOrg(props) {
               )}
             </Grid>
             <Grid item xs={3}>
-              <Typography variant="h6">
-                Item Approved Condition List{" "}
-              </Typography>
+              <Typography variant="h6">Item Approved Condition List </Typography>
               {!data.conditions_accepted ? (
                 <Typography>No Items Needed Currently</Typography>
               ) : (
@@ -252,9 +236,7 @@ function UserViewOrg(props) {
               )}
             </Grid>
             <Grid item xs={3}>
-              <Typography variant="h6">
-                Item Not Approved Condition List{" "}
-              </Typography>
+              <Typography variant="h6">Item Not Approved Condition List </Typography>
               {!data.conditions_not_accepted ? (
                 <Typography>No Items Needed Currently</Typography>
               ) : (

@@ -9,9 +9,8 @@ import Terms from "./Components/legal/Terms";
 import Contact from "./Components/legal/Contact";
 import UserViewOrg from "./Components/UserViewOrg";
 import UserProfilePage from "./Components/Profile/UserProfilePage"
-//userdashboard link is "/dashboard"
-//organization dashboard link is "/orgdashboard"
-const UserContext = React.createContext();
+import { UserProvider } from "./contexts/UserContext.js";
+const OrgContext = React.createContext();
 
 function App() {
   const PROD = true;
@@ -19,6 +18,7 @@ function App() {
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
   const [org, setOrg] = React.useState("");
   const [thing, setThing] = React.useState(0);
+
   React.useEffect(() => {
     let isCurrent = true;
     fetch(`${URL}/api/organizations/list`)
@@ -45,19 +45,20 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/profile" component={UserProfilePage} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/organizations" component={Organizations} />
-          <Route path="/privacy" component={Privacy} />
-          <Route path="/terms" component={Terms} />
-          <Route path="/contact" component={Contact} />
-          <UserContext.Provider value={org}>
-            <Route path="/:value" render={(props) => <UserViewOrg {...props} />} />
-          </UserContext.Provider>
-        </Switch>
+        <UserProvider>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
+            <Route path="/organizations" component={Organizations} />
+            <Route path="/privacy" component={Privacy} />
+            <Route path="/terms" component={Terms} />
+            <Route path="/contact" component={Contact} />
+            <OrgContext.Provider value={org}>
+              <Route path="/:value" exact render={(props) => <UserViewOrg {...props} />} />
+            </OrgContext.Provider>
+          </Switch>
+        </UserProvider>
       </BrowserRouter>
     </div>
   );

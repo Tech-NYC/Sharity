@@ -7,6 +7,7 @@ import Footer from "../home/Footer";
 import { UserContext } from "../../contexts/UserContext.js";
 import { Redirect } from "react-router-dom";
 import { red } from "@material-ui/core/colors";
+import {nav} from '../home/navlinks'
 
 const theme = createMuiTheme({
   typography: {
@@ -91,24 +92,6 @@ function Login(props) {
   }
 
   const classes = useStyle();
-
-  const nav = [
-    {
-      id: 1,
-      link: "/#mission",
-      label: "Mission",
-    },
-    {
-      id: 2,
-      link: "/#impact",
-      label: "Impact",
-    },
-    {
-      id: 3,
-      link: "/organizations",
-      label: "Donate",
-    },
-  ];
 
   return (
     <>

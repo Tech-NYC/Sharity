@@ -9,6 +9,7 @@ import Terms from "./Components/legal/Terms";
 import Contact from "./Components/legal/Contact";
 import UserViewOrg from "./Components/UserViewOrg";
 import { UserProvider } from "./contexts/UserContext.js";
+import { NavDefault } from "./Components/home/Navigation";
 const OrgContext = React.createContext();
 
 function App() {

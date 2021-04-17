@@ -14,6 +14,7 @@ import Footer from "../home/Footer";
 import { handleStateData } from "./handleStateData";
 import { UserRegistrationForm } from "./UserRegistrationForm";
 import { OrganizationRegistrationForm } from "./OrganizationRegistrationForm";
+import {nav} from '../home/navlinks'
 
 const useStyle = makeStyles({
   root: {
@@ -39,24 +40,6 @@ const btntheme = createMuiTheme({
     },
   },
 });
-
-const nav = [
-  {
-    id: 1,
-    link: "/#mission",
-    label: "Mission",
-  },
-  {
-    id: 2,
-    link: "/#impact",
-    label: "Impact",
-  },
-  {
-    id: 3,
-    link: "/organizations",
-    label: "Donate",
-  },
-];
 
 function TabContainer(props) {
   const { value, index } = props;

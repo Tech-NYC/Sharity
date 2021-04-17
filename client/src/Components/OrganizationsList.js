@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import {Grid, Typography } from "@material-ui/core"
 import {makeStyles} from "@material-ui/core/styles";
 import {useHistory} from "react-router-dom"
-
+import {nav} from "./home/navlinks"
 
 const useStyles = makeStyles({
     root: {
@@ -36,24 +36,6 @@ function OrganizationsList(props){
     ? "https://sharity-technyc.herokuapp.com"
     : "http://127.0.0.1:3000";
 
-    const nav = [
-        {
-            id: 1,
-            link: "/#mission",
-            label: "Mission"
-        },
-        {
-            id: 2,
-            link: "/#impact",
-            label: "Impact"
-        },
-        {
-            id: 3, 
-            link: "/organizations",
-            label: "Donate"
-        }
-
-    ]
 
     const [orgs, setOrgs] = React.useState([])
     const [thing, setThing] = React.useState(0)

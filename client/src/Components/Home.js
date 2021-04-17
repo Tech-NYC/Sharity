@@ -5,25 +5,10 @@ import Header from './home/Header'
 import Mission from './home/Mission';
 import Impact from './home/Impact';
 import Footer from './home/Footer'
+import {nav} from './home/navlinks'
 
 function Home(){
-    const nav = [
-        {
-            id: 1,
-            link: "#mission",
-            label: "Mission"
-        },
-        {
-            id: 2,
-            link: "#impact",
-            label: "Impact"
-        },
-        {
-            id: 3, 
-            link: "/organizations",
-            label: "Donate"
-        }
-    ]
+    
     return(
         <>
         <NavDefault nav = {nav}/>

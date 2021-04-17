@@ -50,6 +50,7 @@ function App() {
             <Route path="/" exact component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            <Route path="/userpage" component={UserProfilePage} />
             <Route path="/organizations" component={Organizations} />
             <Route path="/privacy" component={Privacy} />
             <Route path="/terms" component={Terms} />

@@ -67,23 +67,25 @@ function Login(props) {
       body: JSON.stringify(userAuth),
     })
       .then((response) => {
-        return response.json();
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw Error("Invalid credentials");
+        }
       })
       .then((data) => {
         setUser(data);
+        setRedirect(true);
       })
-      .catch((err) => err);
-
-    setRedirect(true);
+      .catch((err) => console.log(err));
   };
 
   function redirectBasedOnUserType() {
-    if (!user) {
-      return <Redirect to="/login" />;
-    }
     if (user.is_organization) {
+      console.log("org authorized");
       return <Redirect to="/profile" />;
-    } else if (user) {
+    } else {
+      console.log("donator authorized", user);
       return <Redirect to="/organizations" />;
     }
   }

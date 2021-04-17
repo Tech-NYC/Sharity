@@ -119,9 +119,10 @@ function OrganizationsList(props){
             <SearchBar placeholder= "Search for organizations, items needed" value={searched} onChange={(searchVal) => requestSearch(searchVal)} onCancelSearch={() => cancelSearch()} style={{ margin: '0 auto', maxWidth: 800 }}/>
         </div>
             {rows.map((row) => (
+                
                 <Grid container  style={{paddingTop:"10px", paddingBottom:"10px"}}  alignItems="center" justify="center" wrap="nowrap" key= {row.name}>   
                                                                                       {/* make it for the organizations user id ${row.name}*/}
-                    <Card className={classes.root} onClick={()=> console.log('clicked')} onClick={() => {history.push(`/${row.name}`) }}>
+                    <Card key={row.name}className={classes.root} onClick={() => {history.push(`/${row.name}`) }}>
                         <CardContent>
                             <Grid container spacing={1} justify="center">
                                 <Grid container item xs={3} direction="column" >
@@ -129,7 +130,7 @@ function OrganizationsList(props){
                                     {/* <CardMedia className={classes.media} image={row.image} title={row.name}/>  */}
                                 </Grid>
                                 <Grid container item xs={2} direction="column" >
-                                    <Typography variant="h5" component="h2"><br /> {row.name}</Typography>
+                                    <Typography variant="h5" component="h2"><br /> {row.name} </Typography>
                                     {/* <Typography variant="body2" component="p"> {row.description}</Typography>   */}
                                 </Grid>
                                 <Grid container item  xs={1} direction="column" >

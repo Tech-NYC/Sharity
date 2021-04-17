@@ -4,11 +4,11 @@ import Home from "./Components/Home";
 import Login from "./Components/auth/Login";
 import Signup from "./Components/auth/Signup";
 import Organizations from "./Components/OrganizationsList";
+import Privacy from "./Components/legal/Privacy";
+import Terms from "./Components/legal/Terms";
+import Contact from "./Components/legal/Contact";
 import UserViewOrg from "./Components/UserViewOrg";
 import { UserProvider } from "./contexts/UserContext.js";
-
-//userdashboard link is "/dashboard"
-//organization dashboard link is "/orgdashboard"
 const OrgContext = React.createContext();
 
 function App() {
@@ -50,6 +50,9 @@ function App() {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/organizations" component={Organizations} />
+            <Route path="/privacy" component={Privacy} />
+            <Route path="/terms" component={Terms} />
+            <Route path="/contact" component={Contact} />
             <OrgContext.Provider value={org}>
               <Route path="/:value" exact render={(props) => <UserViewOrg {...props} />} />
             </OrgContext.Provider>

@@ -45,7 +45,7 @@ function Header(){
                 <Container  >
                   <div>
                     <ThemeProvider theme={logotheme}>
-                        <Typography variant="h1" style={{color: "#55a0cc"}}> sharity </Typography>
+                        <Typography variant="h1" style={{color: "#55a0cc"}} className="title"> sharity </Typography>
                     </ThemeProvider>
                   </div>
                   <div className="centered">

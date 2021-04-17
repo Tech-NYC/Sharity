@@ -71,49 +71,58 @@ function UserViewOrg(props) {
     gettingOrgs();
 
     //need to make another fetch request to get the avatar of the org which is in users info
-    fetch(`${URL}/api/user/getAll`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        let userInfo = [];
-        // console.log(data)
-        data.map((info) => {
-          // console.log(info.id , userId)
-          if (info.id === userId) {
-            userInfo.push(info);
+    async function gettingUsers() {
+      await fetch(`${URL}/api/user/getAll`)
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          if (isCurrent) {
+            let userInfo = [];
+            // console.log(data)
+            data.map((info) => {
+              // console.log(info)
+              if (info.id === userId) {
+                userInfo.push(info);
+              }
+            });
+            setUser(userInfo);
           }
+        })
+        .catch((err) => {
+          console.log(err);
         });
-        setUser(userInfo);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
+    }
+    gettingUsers();
     //need to fetch from organizations list in order to get the information for the needs
-    fetch(`${URL}/api/organization/getAll`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        let orgNeeds = [];
-        // console.log(data)
-        data.map((info) => {
-          // console.log(info)
-          if (info.organization_id === orgId) {
-            orgNeeds.push(info);
+    async function gettingNeeds() {
+      await fetch(`${URL}/api/organization/getAll`)
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          if (isCurrent) {
+            let orgNeeds = [];
+            // console.log(data)
+            data.map((info) => {
+              // console.log(info)
+              if (info.organization_id === orgId) {
+                orgNeeds.push(info);
+              }
+            });
+            setOrgNeeds(orgNeeds);
           }
+        })
+        .catch((err) => {
+          console.log(err);
         });
-        setOrgNeeds(orgNeeds);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }
+    gettingNeeds();
 
     return () => {
       isCurrent = false;
     };
-  }, [orgName, thing, userId, orgId]);
+  }, [thing, orgName, userId, orgId]);
   // array of all info
   let mergedArray = [];
   // merges the orgneeds, user and org arrays of objects to create a new array of object
@@ -123,6 +132,7 @@ function UserViewOrg(props) {
       //iterate through user
       user.forEach((userInfo) => {
         mergedArray.push({
+          id: orgInfo.id,
           name: orgInfo.name,
           address: orgInfo.address,
           description: orgInfo.description,
@@ -143,13 +153,13 @@ function UserViewOrg(props) {
       {mergedArray &&
         mergedArray.map((data) => (
           <>
-            <Grid container spacing={3} style={{ paddingTop: "5%" }}>
+            <Grid key={data.id} container spacing={3} style={{ paddingTop: "5%" }}>
               <Grid container xs={2}>
                 <img alt="logo" style={{ paddingLeft: "10%", width: "75%", height: "75%" }} src={data.logo} />
               </Grid>
               <Grid container item xs={7} direction="column">
                 <Typography variant="h4">{data.name}</Typography>
-                <Typography variant="h6">Address</Typography>
+                <Typography variant="h6">Address </Typography>
                 <Typography variant="subtitle2">{data.address}</Typography>
                 <Typography variant="h6">Description</Typography>
                 <Typography variant="subtitle2">{data.description}</Typography>
@@ -167,7 +177,7 @@ function UserViewOrg(props) {
                 </Typography>
               </Grid>
               <Grid container item xs={3} direction="column">
-                <ScheduleModal></ScheduleModal>
+                <ScheduleModal org_id={orgId}></ScheduleModal>
               </Grid>
             </Grid>
           </>

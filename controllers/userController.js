@@ -8,17 +8,20 @@ class userController {
       const hashedPass = await argon2.hash(request.body.password);
       request.body.password = hashedPass;
 
+      console.log("Registering", request.body.username, request.body.is_organization);
+
       await db.none(
         "INSERT INTO users (first_name, last_name, username, email,phone_number, password_hash, is_organization) VALUES (${first_name},${last_name}, ${username}, ${email},${phone_number}, ${password}, ${is_organization})",
         request.body
       );
 
       if (request.body.is_organization) {
+        console.log("attempting to insert organization data");
         const user = await db.one("SELECT id, username FROM users WHERE username = $(username)", request.body);
         request.body.user_id = user.id;
         await db.none("INSERT INTO organizations (user_id, name, address) VALUES (${user_id},${name},${address})", request.body);
       }
-
+      console.log("----------------------------------------");
       const token = jwt.sign({ username: request.body.username }, process.env.AUTH_KEY);
 
       return response.cookie("SharityToken", token).sendStatus(200);

@@ -16,10 +16,23 @@ const btntheme = createMuiTheme({
     }
 })
 
-export default function ScheduleModal() {
+export default function ScheduleModal(props) {
+  const PROD = true
+
+  const URL = PROD
+    ? "https://sharity-technyc.herokuapp.com"
+    : "http://127.0.0.1:3000";
+  
+  const [user_id, setLoggedInId] = React.useState("125")
+  const [items, setItems] = React.useState("")
+  const [location, setLocation] = React.useState("")
   const [open, setOpen] = React.useState(false);
   const [time, setTime] = React.useState("")
+  const [date, setDate] = React.useState("")
 
+  // uses user_id 125 as default until we can have login functionality
+  
+  const organization_id = props.org_id
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -28,14 +41,40 @@ export default function ScheduleModal() {
     setOpen(false);
   };
 
+  const handleDonation = (e) => {
+      e.preventDefault()
+
+      const data = {
+          organization_id,
+          user_id,
+          location,
+          items,
+          time,
+          date,
+          status: "1"
+      }
+
+      fetch(`${URL}/api/donationRequest/create`, {
+          method: "POST",
+          headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': "*"
+          },
+          body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(data => handleClose)
+  }
+
   return (
     <div>
         <ThemeProvider theme={btntheme}>
-            <form >
                 <Button variant="outlined" color="primary" onClick={handleClickOpen}>
                     Schedule Now
                 </Button>
                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                    
+                <form onSubmit={handleDonation} noValidate>
                     <DialogTitle id="form-dialog-title">Schedule Now</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
@@ -43,20 +82,23 @@ export default function ScheduleModal() {
                         </DialogContentText>
                         <TextField autoFocus margin="dense" id="fname" label="First Name" type="text" fullWidth/>
                         <TextField margin="dense" id="lname" label="Last Name" type="text" fullWidth/>
-                        <TextField margin="dense" id="address" label="Address" type="text" fullWidth/>
-                        <TextField margin="dense" id="date" type="date" fullWidth/>
-                        <TextField margin="dense" id="time" type="time" fullWidth onChange={e=> console.log(e.target.value)}/>
+                        <TextField margin="dense" id="address" label="Address" type="text" fullWidth onChange={e => setLocation(e.target.value)}/>
+                        <TextField margin="dense" id="items" label="Items" type="text" fullWidth onChange={e => setItems(e.target.value)}/>
+                        <TextField margin="dense" id="date" type="date" fullWidth onChange={e => setDate(e.target.value)}/>
+                        <TextField margin="dense" id="time" type="time" fullWidth onChange={e => setTime(e.target.value)}/>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose} color="primary">
                             Cancel
                         </Button>
-                        <Button color="primary">
+                        <Button type="submit" onClick={handleClose} component="button" color="primary">
                             Schedule
                         </Button>
                     </DialogActions>
+                    
+                </form>
                 </Dialog>
-            </form>
+        
         </ThemeProvider>
     </div>
   );

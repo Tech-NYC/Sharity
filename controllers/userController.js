@@ -15,6 +15,7 @@ class userController {
         request.body
       );
 
+      console.log(request.body.is_organization);
       if (request.body.is_organization) {
         console.log("attempting to insert organization data");
         const user = await db.one("SELECT id, username FROM users WHERE username = $(username)", request.body);

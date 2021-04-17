@@ -96,7 +96,12 @@ function UserViewOrg(props) {
     gettingUsers();
     //need to fetch from organizations list in order to get the information for the needs
     async function gettingNeeds() {
-      await fetch(`${URL}/api/organization/getAll`)
+      await fetch(`${URL}/api/organization/getAll`, {
+        method: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
         .then((res) => {
           return res.json();
         })
@@ -155,7 +160,7 @@ function UserViewOrg(props) {
           <>
             <Grid key={data.id} container spacing={3} style={{ paddingTop: "5%" }}>
               <Grid container xs={2}>
-                <img alt="logo" style={{ paddingLeft: "10%", width: "75%", height: "75%" }} src={data.logo} />
+                <img alt="logo" style={{ paddingLeft: "10%", width: "75%", height: "75%" }} src={data.logo} referrerPolicy="no-referrer" />
               </Grid>
               <Grid container item xs={7} direction="column">
                 <Typography variant="h4">{data.name}</Typography>

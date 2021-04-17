@@ -6,25 +6,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import contactpic from '../style/imgs/contactpic.jpg'
+import {nav} from '../home/navlinks'
 
 const Contact = () => {
-    const nav = [
-        {
-            id: 1,
-            link: "/#mission",
-            label: "Mission"
-        },
-        {
-            id: 2,
-            link: "/#impact",
-            label: "Impact"
-        },
-        {
-            id: 3,
-            link: "/organizations",
-            label: "Donate"
-        }
-    ]
 
     const theme = createMuiTheme({
         typography: {
@@ -46,7 +30,6 @@ const Contact = () => {
           const classes = useStyles();
 return (
     <div>
-<NavDefault nav = {nav}/>
 <div className={classes.root} style={{background:"#dbe3f0"}} className="contact">
       <Grid container spacing={3}>
         <Grid item xs={12}>

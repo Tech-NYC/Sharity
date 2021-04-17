@@ -4,26 +4,10 @@ import Navigation, {NavDefault} from "../home/Navigation"
 import {Typography, Container }from "@material-ui/core"
 // import Container from "@material-ui/core/Container"
 import {ThemeProvider, createMuiTheme} from "@material-ui/core/styles";
+import {nav} from '../home/navlinks'
 
 const Privacy = () => {
-    const nav = [
-        {
-            id: 1,
-            link: "/#mission",
-            label: "Mission"
-        },
-        {
-            id: 2,
-            link: "/#impact",
-            label: "Impact"
-        },
-        {
-            id: 3,
-            link: "/organizations",
-            label: "Donate"
-        }
-    ]
-
+    
     const theme = createMuiTheme({
         typography: {
           fontFamily: [
@@ -38,7 +22,6 @@ const Privacy = () => {
     <div id="privacy" style={{background:"#dbe3f0"}} className="background" >
        <ThemeProvider theme={theme} >
             <Typography variant="h3" style={{color: "#55a0cc", textAlign: "center"}} className="terms-words">  
-    <NavDefault nav = {nav}/>
     <h3>Privacy Policy</h3>
     </Typography>
     </ThemeProvider>

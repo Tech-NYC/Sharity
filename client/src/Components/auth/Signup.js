@@ -1,20 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import Navigation, { NavDefault } from "../home/Navigation";
-import {
-  AppBar,
-  Paper,
-  Tabs,
-  Tab,
-  Grid,
-  Button,
-  Checkbox,
-} from "@material-ui/core";
+import { AppBar, Paper, Tabs, Tab, Grid, Button, Checkbox } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
-import {
-  ThemeProvider,
-  createMuiTheme,
-  makeStyles,
-} from "@material-ui/core/styles";
+import { ThemeProvider, createMuiTheme, makeStyles } from "@material-ui/core/styles";
 import MuiPhoneNumber from "material-ui-phone-number";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
@@ -73,14 +61,7 @@ const nav = [
 function TabContainer(props) {
   const { value, index } = props;
   return (
-    <Grid
-      container
-      direction="column"
-      alignItems="center"
-      justify="center"
-      style={{ minHeight: "300%" }}
-      autoFocus
-    >
+    <Grid container direction="column" alignItems="center" justify="center" style={{ minHeight: "300%" }} autoFocus>
       <Typography component="div" style={{ padding: 8 * 3 }}>
         <div role="tabpanel" hidden={value !== index}>
           {props.children}
@@ -102,9 +83,7 @@ TabContainer.propTypes = {
 function Signup() {
   const PROD = true;
 
-  const URL = PROD
-    ? "https://sharity-technyc.herokuapp.com"
-    : "http://127.0.0.1:3000";
+  const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "https://127.0.0.1:3000";
   const [state, setState] = React.useState(0);
   const [first_name, setFirstName] = React.useState("");
   const [last_name, setLastName] = React.useState("");
@@ -148,7 +127,7 @@ function Signup() {
     e.preventDefault();
     console.log('reached')
     const data = handleStateData(userData, organizationData, "false");
-
+    console.log("registering user:", data);
     fetch(`${URL}/api/user/register`, {
       method: "POST",
       headers: {
@@ -156,15 +135,13 @@ function Signup() {
         "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify(data),
-    })
-      .then((response) => console.log(response.json()))
-      .then((data) => console.log(data));
+    }).then((response) => console.log(response.json()));
   };
 
   const registerOrganization = (e) => {
     e.preventDefault();
     const data = handleStateData(userData, organizationData, "true");
-
+    console.log("registering org:", data);
     fetch(`${URL}/api/user/register`, {
       method: "POST",
       headers: {
@@ -172,10 +149,7 @@ function Signup() {
         "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify(data),
-    })
-      .then((response) => console.log(response.json()))
-      .catch(err => console.log(err))
-      .then((data) => console.log(data))
+    }).then((response) => console.log(response.json()));
   };
 
   const stateFunctionsObject = {
@@ -196,13 +170,7 @@ function Signup() {
       <NavDefault nav={nav} />
       <div className={classes.root}>
         <ThemeProvider theme={btntheme}>
-          <Tabs
-            value={state}
-            onChange={handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            centered
-          >
+          <Tabs value={state} onChange={handleChange} indicatorColor="primary" textColor="primary" centered>
             <Tab label="User Signup" autoFocus state={0} />
             <Tab label="Organization Signup" state={1} />
           </Tabs>

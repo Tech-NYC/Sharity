@@ -12,7 +12,7 @@ import { spacing } from "@material-ui/system";
 import Typography from "@material-ui/core/Typography";
 import Footer from "../home/Footer";
 import { handleStateData } from "./handleStateData";
-import { UserRegistrationForm } from './UserRegistrationForm'
+import { UserRegistrationForm } from "./UserRegistrationForm";
 import { OrganizationRegistrationForm } from "./OrganizationRegistrationForm";
 
 const useStyle = makeStyles({
@@ -81,9 +81,9 @@ TabContainer.propTypes = {
 //make the org form post to the user table w the boolean true, and also the org table
 
 function Signup() {
-  const PROD = true;
+  const PROD = false;
 
-  const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "https://127.0.0.1:3000";
+  const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
   const [state, setState] = React.useState(0);
   const [first_name, setFirstName] = React.useState("");
   const [last_name, setLastName] = React.useState("");
@@ -108,7 +108,6 @@ function Signup() {
 
   // pass into form as props
 
-  
   const userData = {
     first_name,
     last_name,
@@ -125,7 +124,6 @@ function Signup() {
 
   const registerUser = (e) => {
     e.preventDefault();
-    console.log('reached')
     const data = handleStateData(userData, organizationData, "false");
     console.log("registering user:", data);
     fetch(`${URL}/api/user/register`, {
@@ -162,8 +160,8 @@ function Signup() {
     setAddress,
     setName,
     registerUser,
-    registerOrganization
-  }
+    registerOrganization,
+  };
 
   return (
     <>
@@ -175,12 +173,8 @@ function Signup() {
             <Tab label="Organization Signup" state={1} />
           </Tabs>
         </ThemeProvider>
-        {state === 0 && (
-          <UserRegistrationForm {...stateFunctionsObject}/>
-        )}
-        {state === 1 && (
-          <OrganizationRegistrationForm {...stateFunctionsObject}/>
-        )}
+        {state === 0 && <UserRegistrationForm {...stateFunctionsObject} />}
+        {state === 1 && <OrganizationRegistrationForm {...stateFunctionsObject} />}
       </div>
       <Footer />
     </>

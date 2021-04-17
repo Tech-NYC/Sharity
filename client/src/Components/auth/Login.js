@@ -42,9 +42,9 @@ const btntheme = createMuiTheme({
 });
 
 function Login(props) {
-  const PROD = true;
+  const PROD = false;
 
-  const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://127.0.0.1:3000";
+  const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
   const [username, setUserName] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [redirect, setRedirect] = useState(false);
@@ -82,7 +82,7 @@ function Login(props) {
 
   function redirectBasedOnUserType() {
     if (user.is_organization) {
-      console.log("org authorized");
+      console.log("org authorized", user);
       return <Redirect to="/profile" />;
     } else {
       console.log("donator authorized", user);

@@ -8,24 +8,29 @@ class userController {
       const hashedPass = await argon2.hash(request.body.password);
       request.body.password = hashedPass;
 
-      console.log("Registering", request.body.username, request.body.is_organization);
+      // console.log("Registering", request.body.username, request.body.is_organization);
 
       await db.none(
         "INSERT INTO users (first_name, last_name, username, email,phone_number, password_hash, is_organization) VALUES (${first_name},${last_name}, ${username}, ${email},${phone_number}, ${password}, ${is_organization})",
         request.body
       );
 
-      console.log(request.body.is_organization);
+      let user = {};
+      let org = {};
       if (request.body.is_organization) {
-        console.log("attempting to insert organization data");
-        const user = await db.one("SELECT id, username FROM users WHERE username = $(username)", request.body);
+        user = await db.one("SELECT * FROM users WHERE username = $(username)", request.body);
         request.body.user_id = user.id;
         await db.none("INSERT INTO organizations (user_id, name, address) VALUES (${user_id},${name},${address})", request.body);
+        org = await db.one("SELECT * FROM organizations WHERE user_id=$(user_id)", request.body);
       }
-      console.log("----------------------------------------");
+
+      console.log({ ...org, ...user, organization_id: org.id });
       const token = jwt.sign({ username: request.body.username }, process.env.AUTH_KEY);
 
-      return response.cookie("SharityToken", token).sendStatus(200);
+      return response
+        .cookie("SharityToken", token)
+        .status(200)
+        .send({ ...org, ...user, organization_id: org.id });
     } catch (err) {
       console.log(err);
       response.status(500).json(err);
@@ -43,7 +48,8 @@ class userController {
 
       if (user.is_organization) {
         const org = await db.one("SELECT * FROM organizations WHERE user_id = $(user_id)", request.body);
-        userData = { user, org };
+        userData = { ...org, ...user, organization_id: org.id };
+        console.log(userData);
       }
 
       //TODO: user query does not work - due to where statement

@@ -12,8 +12,10 @@ import { spacing } from "@material-ui/system";
 import Typography from "@material-ui/core/Typography";
 import Footer from "../home/Footer";
 import { handleStateData } from "./handleStateData";
-import { UserRegistrationForm } from './UserRegistrationForm'
+import { UserRegistrationForm } from "./UserRegistrationForm";
 import { OrganizationRegistrationForm } from "./OrganizationRegistrationForm";
+import { UserContext } from "../../contexts/UserContext.js";
+import { Redirect } from "react-router-dom";
 
 const useStyle = makeStyles({
   root: {
@@ -93,10 +95,22 @@ function Signup() {
   const [password, setPassword] = React.useState("");
   const [name, setName] = React.useState("");
   const [address, setAddress] = React.useState("");
+  const [redirect, setRedirect] = useState(false);
+  const { user, setUser } = useContext(UserContext);
   // const [phones, setPhone] = React.useState("")
   const handleChange = (event, value) => {
     setState(value);
   };
+
+  function redirectBasedOnUserType() {
+    if (user.is_organization) {
+      console.log("org authorized");
+      return <Redirect to="/profile" />;
+    } else {
+      console.log("donator authorized", user);
+      return <Redirect to="/organizations" />;
+    }
+  }
 
   const classes = useStyle();
 
@@ -108,7 +122,6 @@ function Signup() {
 
   // pass into form as props
 
-  
   const userData = {
     first_name,
     last_name,
@@ -125,7 +138,6 @@ function Signup() {
 
   const registerUser = (e) => {
     e.preventDefault();
-    console.log('reached')
     const data = handleStateData(userData, organizationData, "false");
     console.log("registering user:", data);
     fetch(`${URL}/api/user/register`, {
@@ -135,7 +147,15 @@ function Signup() {
         "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify(data),
-    }).then((response) => console.log(response.json()));
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setUser(data);
+        setRedirect(true);
+      })
+      .catch((err) => console.log(err));
   };
 
   const registerOrganization = (e) => {
@@ -149,7 +169,15 @@ function Signup() {
         "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify(data),
-    }).then((response) => console.log(response.json()));
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setUser(data);
+        setRedirect(true);
+      })
+      .catch((err) => console.log(err));
   };
 
   const stateFunctionsObject = {
@@ -162,8 +190,8 @@ function Signup() {
     setAddress,
     setName,
     registerUser,
-    registerOrganization
-  }
+    registerOrganization,
+  };
 
   return (
     <>
@@ -175,13 +203,10 @@ function Signup() {
             <Tab label="Organization Signup" state={1} />
           </Tabs>
         </ThemeProvider>
-        {state === 0 && (
-          <UserRegistrationForm {...stateFunctionsObject}/>
-        )}
-        {state === 1 && (
-          <OrganizationRegistrationForm {...stateFunctionsObject}/>
-        )}
+        {state === 0 && <UserRegistrationForm {...stateFunctionsObject} />}
+        {state === 1 && <OrganizationRegistrationForm {...stateFunctionsObject} />}
       </div>
+      {redirect ? redirectBasedOnUserType() : null}
       <Footer />
     </>
   );

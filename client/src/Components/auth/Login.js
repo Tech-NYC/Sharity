@@ -66,14 +66,14 @@ function Login(props) {
       },
       body: JSON.stringify(userAuth),
     })
-      .then((response) => response.json())
-      .catch((err) => console.log(err))
+      .then((response) => {
+        return response.json();
+      })
       .then((data) => {
         setUser(data);
-        console.log(data);
-      });
+      })
+      .catch((err) => err);
 
-    console.log(user);
     setRedirect(true);
   };
 

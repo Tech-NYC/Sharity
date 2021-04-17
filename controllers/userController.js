@@ -10,7 +10,7 @@ class userController {
 
       console.log("Registering", request.body.username, request.body.is_organization);
 
-      db.none(
+      await db.none(
         "INSERT INTO users (first_name, last_name, username, email,phone_number, password_hash, is_organization) VALUES (${first_name},${last_name}, ${username}, ${email},${phone_number}, ${password}, ${is_organization})",
         request.body
       );
@@ -18,9 +18,9 @@ class userController {
 
       if (request.body.is_organization) {
         console.log("attempting to insert organization data");
-        const user =  db.one("SELECT id, username FROM users WHERE username = $(username)", request.body);
+        const user = await db.one("SELECT id, username FROM users WHERE username = $(username)", request.body);
         request.body.user_id = user.id;
-        db.none("INSERT INTO organizations (user_id, name, address) VALUES (${user_id},${name},${address})", request.body);
+        await db.none("INSERT INTO organizations (user_id, name, address) VALUES (${user_id},${name},${address})", request.body);
       }
       console.log("----------------------------------------");
       const token = jwt.sign({ username: request.body.username }, process.env.AUTH_KEY);

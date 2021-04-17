@@ -14,6 +14,8 @@ import Footer from "../home/Footer";
 import { handleStateData } from "./handleStateData";
 import { UserRegistrationForm } from "./UserRegistrationForm";
 import { OrganizationRegistrationForm } from "./OrganizationRegistrationForm";
+import { UserContext } from "../../contexts/UserContext.js";
+import { Redirect } from "react-router-dom";
 
 const useStyle = makeStyles({
   root: {
@@ -93,10 +95,22 @@ function Signup() {
   const [password, setPassword] = React.useState("");
   const [name, setName] = React.useState("");
   const [address, setAddress] = React.useState("");
+  const [redirect, setRedirect] = useState(false);
+  const { user, setUser } = useContext(UserContext);
   // const [phones, setPhone] = React.useState("")
   const handleChange = (event, value) => {
     setState(value);
   };
+
+  function redirectBasedOnUserType() {
+    if (user.is_organization) {
+      console.log("org authorized");
+      return <Redirect to="/profile" />;
+    } else {
+      console.log("donator authorized", user);
+      return <Redirect to="/organizations" />;
+    }
+  }
 
   const classes = useStyle();
 
@@ -133,7 +147,15 @@ function Signup() {
         "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify(data),
-    }).then((response) => console.log(response.json()));
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setUser(data);
+        setRedirect(true);
+      })
+      .catch((err) => console.log(err));
   };
 
   const registerOrganization = (e) => {
@@ -147,7 +169,15 @@ function Signup() {
         "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify(data),
-    }).then((response) => console.log(response.json()));
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setUser(data);
+        setRedirect(true);
+      })
+      .catch((err) => console.log(err));
   };
 
   const stateFunctionsObject = {
@@ -176,6 +206,7 @@ function Signup() {
         {state === 0 && <UserRegistrationForm {...stateFunctionsObject} />}
         {state === 1 && <OrganizationRegistrationForm {...stateFunctionsObject} />}
       </div>
+      {redirect ? redirectBasedOnUserType() : null}
       <Footer />
     </>
   );

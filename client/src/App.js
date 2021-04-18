@@ -5,9 +5,9 @@ import Login from "./Components/auth/Login"
 import Signup from "./Components/auth/Signup"
 import Organizations from "./Components/OrganizationsList"
 import UserViewOrg from "./Components/UserViewOrg"
+import OrgProfile from "./Components/profiles/OrgProfile"
 
-//userdashboard link is "/dashboard"
-//organization dashboard link is "/orgdashboard"
+
 const UserContext = React.createContext()
 
 function App () {
@@ -32,14 +32,15 @@ function App () {
     .catch ((err) => {
         console.error(err);
     })
-    //need to make another fetch request to get the avatar of the org which is in users info
     return() => {
         isCurrent = false;
     }
 
   }, [thing]);
 
-  // console.log(org)
+  
+  // const orgName = org.split(" ").join("")
+  // console.log(orgName)
   return (
     <div>
       <BrowserRouter>
@@ -48,10 +49,10 @@ function App () {
           <Route path='/login' component={Login} />
           <Route path='/signup' component={Signup} />
           <Route path='/organizations' component={Organizations}/>
+          <Route path='/profile' component={OrgProfile} />
           <UserContext.Provider value={org}>
-            <Route path='/:value' render={(props) => <UserViewOrg {...props}/>} />
+            <Route path='/:value' exact render={(props) => <UserViewOrg {...props}/>} />
           </UserContext.Provider>
-          
         </Switch>
       </BrowserRouter>
     </div>

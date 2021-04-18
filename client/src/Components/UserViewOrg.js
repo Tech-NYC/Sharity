@@ -71,58 +71,102 @@ function UserViewOrg(props){
       gettingOrgs();
 
       //need to make another fetch request to get the avatar of the org which is in users info
-      fetch(`${URL}/api/user/getAll`).then((res) => {
-        return res.json()
-      }).then((data)=> {
-            let userInfo = []
-            // console.log(data)
-            data.map((info) => {
-                // console.log(info.id , userId)
-                if(info.id === userId){
-                    userInfo.push(info)
-                }
-            }) 
-            setUser(userInfo)
-            
-      }).catch((err)=> {console.log(err)})
-
+      async function gettingUsers(){
+          await fetch(`${URL}/api/user/getAll`).then((res) => {
+                return res.json()
+            }).then((data)=> {
+                    let userInfo = []
+                    // console.log(data)
+                    data.map((info) => {
+                        // console.log(info)
+                        if(info.id === userId){
+                            userInfo.push(info)
+                        }
+                    }) 
+                    setUser(userInfo)
+                    
+            }).catch((err)=> {console.log(err)})
+        }
+        gettingUsers()
       //need to fetch from organizations list in order to get the information for the needs
-      fetch(`${URL}/api/organization/getAll`).then((res) => {
-        return res.json()
-      }).then((data)=> {
-            let orgNeeds = []
-            // console.log(data)
-            data.map((info) => {
-                // console.log(info)
-                if(info.organization_id === orgId){
-                    orgNeeds.push(info)
-                }
-            }) 
-            setOrgNeeds(orgNeeds)
-            
+      async function gettingNeeds(){
+         await fetch(`${URL}/api/organization/getAll`).then((res) => {
+            return res.json()
+        }).then((data)=> {
+                let orgNeeds = []
+                // console.log(data)
+                data.map((info) => {
+                    // console.log(info)
+                    if(info.organization_id === orgId){
+                        orgNeeds.push(info)
+                    }
+                }) 
+                setOrgNeeds(orgNeeds)
+                
       }).catch((err)=> {console.log(err)})
-
+    }
+    gettingNeeds()
       return() => {
           isCurrent = false;
       }
   
     
     }, [orgName, thing, userId, orgId]);
+    
     // array of all info
     let mergedArray = []
     // merges the orgneeds, user and org arrays of objects to create a new array of object
     const mergeArrays = () => {
         //map over org
+        // org.forEach((orgInfo) => {
+        //     //iterate through user
+        //     user.forEach((userInfo) => {
+        //         mergedArray.push({
+        //             id: orgInfo.id,
+        //             name: orgInfo.name,
+        //             address: orgInfo.address,
+        //             description: orgInfo.description,
+        //             pickup: orgInfo.pickup_times,
+        //             logo: userInfo.avatar,
+        //         })                
+        //     })
+        // })
         org.forEach((orgInfo) => {
             //iterate through user
             user.forEach((userInfo) => {
-                mergedArray.push({
-                    name: orgInfo.name,
-                    address: orgInfo.address,
-                    description: orgInfo.description,
-                    pickup: orgInfo.pickup_times,
-                    logo: userInfo.avatar,
-                })                
+                if(orgNeeds.length !== 0){
+                    orgNeeds.forEach((needs)=> {
+                        if(needs.organization_id === orgInfo.id){
+                             mergedArray.push({
+                                id: orgInfo.id,
+                                user: orgInfo.user_id,
+                                name: orgInfo.name,
+                                address: orgInfo.address,
+                                description: orgInfo.description,
+                                pickup: orgInfo.pickup_times,
+                                logo: userInfo.avatar,
+                                needed: needs.items_needed
+                            })       
+                        }
+                        
+                    })
+                }
+                else if(orgNeeds.length === 0){
+                    mergedArray.push({
+                        id: orgInfo.id,
+                        user: orgInfo.user_id,
+                        name: orgInfo.name,
+                        address: orgInfo.address,
+                        description: orgInfo.description,
+                        pickup: orgInfo.pickup_times,
+                        logo: userInfo.avatar,
+
+                    })     
+                    // setRows(mergedArray)  
+                }
+
+                    // setRows(mergedArray)
+                         
             })
         })
         return mergedArray
@@ -147,16 +191,14 @@ function UserViewOrg(props){
                     <Typography variant="h6">Description</Typography>
                     <Typography variant="subtitle2">{data.description}</Typography>
                     <Typography variant="h6">Pickup Times</Typography>
-                    <Typography variant="subtitle2">
-                        {!data.pickup ? <Typography>No Times Yet</Typography> : data.pickup.split(",").map((time, i)=>(
-                            <>
-                            {daysArr[i]}: {time}
-                            </>
-                        ))}
-                    </Typography>
+                    {!data.pickup ? <Typography>No Times Yet</Typography> : data.pickup.split(",").map((time, i)=>(
+                        <>
+                        <Typography variant="subtitle2">{daysArr[i]}:</Typography> <Typography variant="subtitle2"> {time}{" "}</Typography>
+                        </>
+                    ))}
                 </Grid>
                 <Grid container item xs={3} direction="column">
-                    <ScheduleModal></ScheduleModal>
+                    <ScheduleModal org_id= {data.id}></ScheduleModal>
                 </Grid>
             </Grid>
          
@@ -184,10 +226,10 @@ function UserViewOrg(props){
                 <Grid container spacing={3} justify="center" style={{paddingTop:"5%",paddingBottom:"10%"}}>
                 <Grid  item xs={3} >
                     <Typography variant="h6">Items Needed List</Typography>
-                    {!data.items_needed ? <Typography>No Items Needed Currently</Typography> : data.items_needed.split(",").map((item)=>(
+                    {!data.items_needed ? <Typography>No Items Needed Currently</Typography> : data.items_needed.split(",").map((item, i)=>(
                         <>
                         <ul>
-                            <li> {item}</li>
+                            <li key={i}> {item}</li>
                         </ul>
                      
                         </>
@@ -195,10 +237,10 @@ function UserViewOrg(props){
                 </Grid>
                 <Grid  item xs={3} >
                     <Typography variant="h6">Item Approved Condition List </Typography>
-                    {!data.conditions_accepted ? <Typography>No Items Needed Currently</Typography> : data.conditions_accepted.split(",").map((item)=>(
+                    {!data.conditions_accepted ? <Typography>No Items Needed Currently</Typography> : data.conditions_accepted.split(",").map((item, i)=>(
                         <>
                         <ul>
-                            <li> {item}</li>
+                            <li key={i}> {item}</li>
                         </ul>
                      
                         </>
@@ -206,10 +248,10 @@ function UserViewOrg(props){
                 </Grid>
                 <Grid  item  xs={3} >
                     <Typography variant="h6">Item Not Approved Condition List </Typography>
-                    {!data.conditions_not_accepted ? <Typography>No Items Needed Currently</Typography> : data.conditions_not_accepted.split(",").map((item)=>(
+                    {!data.conditions_not_accepted ? <Typography>No Items Needed Currently</Typography> : data.conditions_not_accepted.split(",").map((item,i )=>(
                         <>
                         <ul>
-                            <li> {item}</li>
+                            <li key={i}> {item}</li>
                         </ul>
                      
                         </>

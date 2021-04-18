@@ -1,13 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
-import Navigation, { NavDefault } from "../home/Navigation";
 import { Button, TextField, Grid, Paper, AppBar, Typography, Toolbar, Link } from "@material-ui/core";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import Footer from "../home/Footer";
 import { UserContext } from "../../contexts/UserContext.js";
 import { Redirect } from "react-router-dom";
-import { red } from "@material-ui/core/colors";
-import {nav} from '../home/navlinks'
 
 const theme = createMuiTheme({
   typography: {

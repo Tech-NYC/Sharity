@@ -46,8 +46,8 @@ function OrgProfile(props) {
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
 
   const sessionUser = useContext(UserContext);
-  console.log(sessionUser, "state user");
-  let orgName = sessionUser ? sessionUser.name : "";
+  console.log(sessionUser.user.name, "state user");
+  let orgName = sessionUser ? sessionUser.user.name : "";
 
   const [org, setOrg] = React.useState([]);
   const [userId, setUserId] = React.useState("");

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BrowserRouter, Switch, Route, useParams } from "react-router-dom";
 import Home from "./Components/Home";
 import Login from "./Components/auth/Login";
@@ -8,13 +8,23 @@ import Privacy from "./Components/legal/Privacy";
 import Terms from "./Components/legal/Terms";
 import Contact from "./Components/legal/Contact";
 import UserViewOrg from "./Components/UserViewOrg";
-import { UserProvider } from "./contexts/UserContext.js";
-import { NavDefault } from "./Components/home/Navigation";
-import {nav} from './Components/home/navlinks'
-import OrgProfile from "./Components/profiles/OrgProfile"
+import { UserProvider, UserContext } from "./contexts/UserContext.js";
+import { NavDefault, NavDonator, NavOrganization } from "./Components/home/Navigation";
+import OrgProfile from "./Components/profiles/OrgProfile";
 
 const OrgContext = React.createContext();
 
+function Nav() {
+  const { user, setUser } = useContext(UserContext);
+
+  if (!user) {
+    return <NavDefault></NavDefault>;
+  } else if (user.is_organization) {
+    return <NavOrganization></NavOrganization>;
+  } else {
+    return <NavDonator></NavDonator>;
+  }
+}
 function App() {
   const PROD = true;
 
@@ -37,21 +47,19 @@ function App() {
       })
       .catch((err) => {
         console.error(err);
-    })
-    return() => {
-        isCurrent = false;
-    }
-
+      });
+    return () => {
+      isCurrent = false;
+    };
   }, [thing]);
 
-  
   // const orgName = org.split(" ").join("")
   // console.log(orgName)
   return (
     <div>
       <BrowserRouter>
         <UserProvider>
-          <NavDefault nav={nav}></NavDefault>
+          <Nav></Nav>
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/login" component={Login} />
@@ -60,7 +68,7 @@ function App() {
             <Route path="/privacy" component={Privacy} />
             <Route path="/terms" component={Terms} />
             <Route path="/contact" component={Contact} />
-            <Route path='/profile' component={OrgProfile} />
+            <Route path="/profile" component={OrgProfile} />
             <OrgContext.Provider value={org}>
               <Route path="/:value" exact render={(props) => <UserViewOrg {...props} />} />
             </OrgContext.Provider>

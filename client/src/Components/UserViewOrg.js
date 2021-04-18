@@ -112,25 +112,49 @@ function UserViewOrg(props) {
     };
   }, [thing, orgName, userId, orgId]);
   // array of all info
-  let mergedArray = [];
+  let mergedArray = []
   // merges the orgneeds, user and org arrays of objects to create a new array of object
   const mergeArrays = () => {
-    //map over org
-    org.forEach((orgInfo) => {
-      //iterate through user
-      user.forEach((userInfo) => {
-        mergedArray.push({
-          id: orgInfo.id,
-          name: orgInfo.name,
-          address: orgInfo.address,
-          description: orgInfo.description,
-          pickup: orgInfo.pickup_times,
-          logo: userInfo.avatar,
-        });
-      });
-    });
-    return mergedArray;
-  };
+      //map over org
+      org.forEach((orgInfo) => {
+          //iterate through user
+          user.forEach((userInfo) => {
+              if(orgNeeds.length !== 0){
+                  orgNeeds.forEach((needs)=> {
+                      if(needs.organization_id === orgInfo.id){
+                           mergedArray.push({
+                              id: orgInfo.id,
+                              user: orgInfo.user_id,
+                              name: orgInfo.name,
+                              address: orgInfo.address,
+                              description: orgInfo.description,
+                              pickup: orgInfo.pickup_times,
+                              logo: userInfo.avatar,
+                              needed: needs.items_needed
+                          })       
+                      }
+                      
+                  })
+              }
+              else if(orgNeeds.length === 0){
+                  mergedArray.push({
+                      id: orgInfo.id,
+                      user: orgInfo.user_id,
+                      name: orgInfo.name,
+                      address: orgInfo.address,
+                      description: orgInfo.description,
+                      pickup: orgInfo.pickup_times,
+                      logo: userInfo.avatar,
+
+                  })     
+                  // setRows(mergedArray)  
+              }
+
+                  // setRows(mergedArray)
+                       
+          })
+        })
+  }
 
   mergeArrays();
 
@@ -169,8 +193,7 @@ function UserViewOrg(props) {
             </Grid>
           </>
         ))}
-      <hr />
-
+      <hr></hr>
       {orgNeeds.length === 0 ? (
         <Grid container spacing={3} justify="center" style={{ paddingTop: "5%", paddingBottom: "10%" }}>
           <Grid item xs={3}>

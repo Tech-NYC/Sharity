@@ -11,6 +11,7 @@ import UserViewOrg from "./Components/UserViewOrg";
 import { UserProvider } from "./contexts/UserContext.js";
 import { NavDefault } from "./Components/home/Navigation";
 import {nav} from './Components/home/navlinks'
+import OrgProfile from "./Components/profiles/OrgProfile"
 
 const OrgContext = React.createContext();
 
@@ -36,14 +37,16 @@ function App() {
       })
       .catch((err) => {
         console.error(err);
-      });
-    //need to make another fetch request to get the avatar of the org which is in users info
-    return () => {
-      isCurrent = false;
-    };
+    })
+    return() => {
+        isCurrent = false;
+    }
+
   }, [thing]);
 
-  // console.log(org)
+  
+  // const orgName = org.split(" ").join("")
+  // console.log(orgName)
   return (
     <div>
       <BrowserRouter>
@@ -57,6 +60,7 @@ function App() {
             <Route path="/privacy" component={Privacy} />
             <Route path="/terms" component={Terms} />
             <Route path="/contact" component={Contact} />
+            <Route path='/profile' component={OrgProfile} />
             <OrgContext.Provider value={org}>
               <Route path="/:value" exact render={(props) => <UserViewOrg {...props} />} />
             </OrgContext.Provider>

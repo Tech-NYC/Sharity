@@ -4,6 +4,10 @@ import { Button, TextField, Grid, Paper, AppBar, Typography, Toolbar, Link } fro
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import Footer from "../home/Footer";
+import { UserContext } from "../../contexts/UserContext.js";
+import { Redirect } from "react-router-dom";
+import { red } from "@material-ui/core/colors";
+import {nav} from '../home/navlinks'
 
 const theme = createMuiTheme({
   typography: {
@@ -41,9 +45,11 @@ const btntheme = createMuiTheme({
 function Login(props) {
   const PROD = true;
 
-  const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://127.0.0.1:3000";
+  const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
   const [username, setUserName] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [redirect, setRedirect] = useState(false);
+  const { user, setUser } = useContext(UserContext);
 
   const loginUser = (e) => {
     e.preventDefault();
@@ -61,33 +67,34 @@ function Login(props) {
       },
       body: JSON.stringify(userAuth),
     })
-      .then((response) => console.log(response.json()))
-      .catch((err) => console.log(err))
-      .then((data) => console.log(data));
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw Error("Invalid credentials");
+        }
+      })
+      .then((data) => {
+        setUser(data);
+        setRedirect(true);
+      })
+      .catch((err) => console.log(err));
   };
-  const classes = useStyle();
 
-  const nav = [
-    {
-      id: 1,
-      link: "/#mission",
-      label: "Mission",
-    },
-    {
-      id: 2,
-      link: "/#impact",
-      label: "Impact",
-    },
-    {
-      id: 3,
-      link: "/organizations",
-      label: "Donate",
-    },
-  ];
+  function redirectBasedOnUserType() {
+    if (user.is_organization) {
+      console.log("org authorized", user);
+      return <Redirect to="/profile" />;
+    } else {
+      console.log("donator authorized", user);
+      return <Redirect to="/organizations" />;
+    }
+  }
+
+  const classes = useStyle();
 
   return (
     <>
-      <NavDefault nav={nav} />
       <div>
         <Grid container spacing={0} direction="column" alignItems="center" justify="center" style={{ minHeight: "100vh" }}>
           <Grid item>
@@ -156,6 +163,7 @@ function Login(props) {
           </Grid>
         </Grid>
       </div>
+      {redirect ? redirectBasedOnUserType() : null}
       <Footer />
     </>
   );

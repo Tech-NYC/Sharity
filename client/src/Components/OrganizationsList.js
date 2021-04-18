@@ -6,8 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import {Grid, Typography, Box, CardMedia } from "@material-ui/core"
 import {makeStyles} from "@material-ui/core/styles";
 import {useHistory} from "react-router-dom"
-// import { InstantSearch, ConnectSearchBox } from "react-instan"
-
+import {nav} from "./home/navlinks"
 
 const useStyles = makeStyles({
     root: {
@@ -24,7 +23,7 @@ const useStyles = makeStyles({
     media: {
         height: 0,
         width: 0,
-        padding: '25%', // 16:9,
+        padding: '5%', // 16:9,
     },
 
 });
@@ -36,24 +35,6 @@ function OrganizationsList(props){
   const URL = PROD
     ? "https://sharity-technyc.herokuapp.com"
     : "http://127.0.0.1:3000";
-    const nav = [
-        {
-            id: 1,
-            link: "/#mission",
-            label: "Mission"
-        },
-        {
-            id: 2,
-            link: "/#impact",
-            label: "Impact"
-        },
-        {
-            id: 3, 
-            link: "/organizations",
-            label: "Donate"
-        }
-
-    ]
 
     const [orgs, setOrgs] = React.useState([])
     const [thing, setThing] = React.useState(0)
@@ -207,7 +188,6 @@ function OrganizationsList(props){
 
     return(
         <>
-        <NavDefault nav = {nav}/>
         <div className="searchbar" style={{paddingTop:"25px"}}> 
             <SearchBar placeholder= "Search for organizations, items needed" value={searched} onChange={(searchVal) => requestSearch(searchVal)} onCancelSearch={() => cancelSearch()} style={{ margin: '0 auto', maxWidth: 800 }}/>
         </div>
@@ -217,10 +197,9 @@ function OrganizationsList(props){
                     <Card className={classes.root} onClick={()=> console.log('clicked')} onClick={() => {history.push(`/${row.name}`) }}>
                         <CardContent>
                             <Box container spacing={1} justify="center">
-                                <Grid   item xs={1} direction="column" >
+                                <Box   item xs={1} direction="column" >
                                     <CardMedia className={classes.media} image={row.logo} title={row.name}/> 
-                                </Grid>
-                                
+                                </Box>
                                 <Box container item xs={1} direction="column" >
                                     <Typography variant="h5" component="h2"><br /> {row.name}</Typography>
                                     <Typography variant="body2" component="p"> {row.description}</Typography>  

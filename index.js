@@ -42,6 +42,9 @@ app.get("/api/organizations/list", organization.getAll);
 app.post("/api/organizations/organization_info", organization.getOne);
 app.post("/api/organization/create", organization.create);
 app.post("/api/organization/fetch_info_by_org_id", organization.fetch_info_by_org_id);
+app.post("/api/organization/fetch_requests_completed", organization.fetch_requests_completed);
+app.post("/api/organization/fetch_requests_pending", organization.fetch_requests_pending);
+app.post("/api/organization/fetch_requests_accepted", organization.fetch_requests_accepted);
 
 ////////////////////////////////Organization_needs_list Routes--------------
 app.get("/api/organization/getAll", organizationList.getAll);

@@ -11,6 +11,9 @@ import UserViewOrg from "./Components/UserViewOrg";
 import { UserProvider, UserContext } from "./contexts/UserContext.js";
 import { NavDefault, NavDonator, NavOrganization } from "./Components/home/Navigation";
 import OrgProfile from "./Components/profiles/OrgProfile";
+import {nav} from './Components/home/navlinks'
+import UserProfile from "./Components/profiles/UserProfile"
+
 
 const OrgContext = React.createContext();
 
@@ -32,6 +35,7 @@ function App() {
   const [org, setOrg] = React.useState("");
   const [thing, setThing] = React.useState(0);
 
+  
   React.useEffect(() => {
     let isCurrent = true;
     fetch(`${URL}/api/organizations/list`)
@@ -64,14 +68,15 @@ function App() {
             <Route path="/" exact component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            <Route path="/userpage" component={UserProfile}></Route>
             <Route path="/organizations" component={Organizations} />
             <Route path="/privacy" component={Privacy} />
             <Route path="/terms" component={Terms} />
             <Route path="/contact" component={Contact} />
             <Route path="/profile" component={OrgProfile} />
-            <OrgContext.Provider value={org}>
+            {/* <OrgContext.Provider value={org}> */}
               <Route path="/:value" exact render={(props) => <UserViewOrg {...props} />} />
-            </OrgContext.Provider>
+            {/* </OrgContext.Provider> */}
           </Switch>
         </UserProvider>
       </BrowserRouter>

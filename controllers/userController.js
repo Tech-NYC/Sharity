@@ -85,12 +85,15 @@ class userController {
   async fetch_requests(request, response) {
     try {
       console.log("fetching donations associated with user");
-      const user = await db.any("SELECT * FROM users WHERE id=$(id)", request.body);
 
-      const data = await db.any("SELECT * FROM donation_requests WHERE user_id=$(id)", request.body);
+      const data = await db.any(
+        "SELECT * FROM donation_requests INNER JOIN organizations ON donation_requests.organization_id = organizations.id WHERE donation_requests.user_id =$(id)",
+        request.body
+      );
 
       return response.status(200).send(data);
     } catch (err) {
+      console.log(err);
       return response.status(500).send(err);
     }
   }

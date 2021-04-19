@@ -186,7 +186,7 @@ function OrgProfile(props) {
           <>
             <Box container diplay="flex" style={{ paddingTop: "5%" }}>
               <Box flexDirection="row" flexWrap="wrap" xs={2}>
-                <img alt="logo" style={{ paddingLeft: "10%", width: "5%", height: "5%" }} src={data.logo} />
+                <img alt="logo" style={{ paddingLeft: "10%", width: "5%", height: "5%" }} src={data.logo} referrerPolicy="no-referrer" />
               </Box>
               <Box flexDirection="row" item xs={4} direction="column">
                 <Typography variant="h6">Organization Name</Typography>

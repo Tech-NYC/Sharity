@@ -41,7 +41,7 @@ const UserProfile = () => {
   const sessionUser = useContext(UserContext);
   console.log(sessionUser.user, "user");
   if(!sessionUser.user.avatar) {
-    sessionUser.user.avatar = "https://www.seekpng.com/png/detail/514-5147412_default-avatar-icon.png"
+    sessionUser.user.avatar = "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
   }
   return (
     <div>
@@ -51,6 +51,7 @@ const UserProfile = () => {
               alt="avatar"
               style={{ paddingLeft: "10%", width: "75%", height: "75%" }}
               src={sessionUser.user.avatar}
+              referrerPolicy="no-referrer" 
             />
           </Box>
           <Box flexDirection="row" item xs={4} direction="column">

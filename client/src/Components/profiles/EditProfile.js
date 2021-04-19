@@ -280,6 +280,7 @@ function EditProfile() {
                         className={classes.textField}
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
+                        type="text"
                         InputProps={{
                           classes: { disabled: classes.disabled },
                           endAdornment: state.mouseEnter ? (

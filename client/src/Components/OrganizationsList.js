@@ -48,9 +48,8 @@ function OrganizationsList(props) {
   const [searched, setSearched] = React.useState("");
   const [user, setUser] = React.useState([]);
   // const [userId, setUserId] = React.useState("")
-  // const [orgId, setOrgId] = React.useState("")
+//   const [orgId, setOrgId] = React.useState("")
   const [orgNeeds, setOrgNeeds] = React.useState([]);
-  const [merged, setMerged] = React.useState([]);
   const classes = useStyles();
 
   //making the fetch to get the information for the org list name, des, list of items needed
@@ -125,17 +124,17 @@ function OrganizationsList(props) {
     return () => {
       isCurrent = false;
     };
-  }, [URL, thing]);
+  }, [thing]);
 
     let mergedArray = []
     // merges the orgneeds, user and org arrays of objects to create a new array of object
     const mergeArrays = () => {
         //map over org
-        if(orgNeeds.length !== 0){
+        // if(orgNeeds.length !== 0){
         orgs.forEach((orgInfo) => {
             //iterate through user
             // user.forEach((userInfo) => {
-                // if(orgNeeds.length !== 0){
+                if(orgNeeds.length !== 0){
                     orgNeeds.forEach((needs)=> {
                         if(needs.organization_id === orgInfo.id){
                              mergedArray.push({
@@ -151,10 +150,9 @@ function OrganizationsList(props) {
                            
                         }
                     
-                    }
-                )})
-            }
-                 if(orgNeeds.length === 0){
+                    })
+                }
+                if(orgNeeds.length === 0){
                     orgs.forEach((orgInfo) => {
                     mergedArray.push({
                         id: orgInfo.id,
@@ -169,6 +167,9 @@ function OrganizationsList(props) {
                     // setRows(mergedArray)  
                 })
             }
+                })
+            // }
+                 
          
             // console.log(user)
             

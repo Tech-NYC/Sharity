@@ -5,7 +5,7 @@ import { Table,
   TableHead,
   TableBody,
   TableRow,
-  TableCell, Button, Box, CardContent,CardHeader, Card, Divider, Tab} from "@material-ui/core"
+  TableCell, Button, Box, CardContent,CardHeader, Card, Divider} from "@material-ui/core"
 import EditProfile from "./EditProfile"
 import {makeStyles} from "@material-ui/core/styles";
 

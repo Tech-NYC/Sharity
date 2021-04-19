@@ -118,10 +118,11 @@ function OrganizationsList(props){
     // merges the orgneeds, user and org arrays of objects to create a new array of object
     const mergeArrays = () => {
         //map over org
+        if(orgNeeds.length !== 0){
         orgs.forEach((orgInfo) => {
             //iterate through user
             // user.forEach((userInfo) => {
-                if(orgNeeds.length !== 0){
+                // if(orgNeeds.length !== 0){
                     orgNeeds.forEach((needs)=> {
                         if(needs.organization_id === orgInfo.id){
                              mergedArray.push({
@@ -137,9 +138,11 @@ function OrganizationsList(props){
                            
                         }
                     
-                    })
-                }
-                else if(orgNeeds.length === 0){
+                    }
+                )})
+            }
+                 if(orgNeeds.length === 0){
+                    orgs.forEach((orgInfo) => {
                     mergedArray.push({
                         id: orgInfo.id,
                         user: orgInfo.user_id,
@@ -151,8 +154,9 @@ function OrganizationsList(props){
 
                     })     
                     // setRows(mergedArray)  
-                }
-            })
+                })
+            }
+         
             // console.log(user)
             
             user.forEach((info)=>{
@@ -161,12 +165,15 @@ function OrganizationsList(props){
                         data.logo = info.avatar
                     }
                 })
+               
             })
-
         return mergedArray
     }
     
-
+    React.useEffect(()=> {
+        requestSearch("")
+    })
+    // console.log(rows)
 
     const requestSearch = (searchVal) => { 
         let search = searchVal.toLowerCase();

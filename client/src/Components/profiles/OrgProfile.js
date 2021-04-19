@@ -5,7 +5,7 @@ import { Table,
   TableHead,
   TableBody,
   TableRow,
-  TableCell, Button, Box, CardContent,CardHeader, Card, Divider} from "@material-ui/core"
+  TableCell, Button, Box, CardContent,CardHeader, Card, Divider, Tab} from "@material-ui/core"
 import EditProfile from "./EditProfile"
 import {makeStyles} from "@material-ui/core/styles";
 
@@ -37,18 +37,39 @@ function OrgProfile(props) {
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
 
   const sessionUser = useContext(UserContext);
-  console.log(sessionUser.user.organization_id, "state user");
+  console.log(sessionUser, "state user");
   ///////change it to "" before pushing
-  let orgID = sessionUser ? sessionUser.user.organization_id : "test";
+  let orgName = sessionUser ? sessionUser.user.name : "test";
   const [user, setUser] = React.useState([]);
+    /**
+     * Status mapping
+     *  1 = pending
+     *  2 = accepted
+     *  3 = rejected
+     *  4 = completed
+     *
+     * */
+  React.useEffect(()=> {
+     fetch(`${URL}/api/user/getAll`)
+     .then((res) => {
+       return res.json();
+     })
+     .then((data) => {
+       let userInfo = [];
+       console.log(data)
+       data.map((info) => {
+         // console.log(info.id , userId)
+        //  if (info.id === sessionUser.user.user_id) {
+           userInfo.push(info);
+        //  }
+       });
+       setUser(userInfo);
+     })
+     .catch((err) => {
+       console.log(err);
+     });
 
-  // app.post("/api/organization/fetch_requests_completed", organization.fetch_requests_completed);
-  // app.post("/api/organization/fetch_requests_pending", organization.fetch_requests_pending);
-  // app.post("/api/organization/fetch_requests_accepted", organization.fetch_requests_accepted);
-  // React.useEffect(()=> {
-    
-
-  // },[sessionUser.user.user_id])
+  },[URL, sessionUser.user.user_id])
 
   const classes = useStyles()
   return (

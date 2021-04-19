@@ -22,12 +22,9 @@ export default function ScheduleModal(props) {
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
 
   const user = useContext(UserContext);
-  if (user === null) {
-    //Until protected routes we can reroute login like this
-    console.log("user:", user);
 
-    window.location.replace("https://sharity-technyc.herokuapp.com/login");
-  }
+
+
 
   const [user_id, setLoggedInId] = React.useState(user.user.id);
   const [items, setItems] = React.useState("");

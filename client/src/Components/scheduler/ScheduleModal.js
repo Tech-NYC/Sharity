@@ -22,7 +22,7 @@ export default function ScheduleModal(props) {
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
 
   const user = useContext(UserContext);
-  if (user === null) {
+  if (user === null || !user.user_id) {
     //Until protected routes we can reroute login like this
     console.log("user:", user);
 

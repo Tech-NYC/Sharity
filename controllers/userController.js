@@ -77,32 +77,24 @@ class userController {
 
       return response.send(`The following user id has been deleted: ${deleteUser}`);
     } catch (err) {
-      response.status(500).send(err);
+      return response.status(500).send(err);
     }
   }
 
   // Dependent on org or donater user -  the user accepts or initiates the donation requests
   async fetch_requests(request, response) {
     try {
-      const user = parseInt(request.body.user_id);
-      const data = await db.any("SELECT * FROM donation_requests WHERE user_id=$1", user);
+      console.log("fetching donations associated with user");
+      const user = await db.any("SELECT * FROM users WHERE id=$(id)", request.body);
 
-      return response.send(data);
+      const data = await db.any("SELECT * FROM donation_requests WHERE user_id=$(id)", request.body);
+
+      return response.status(200).send(data);
     } catch (err) {
-      response.status(500).send(err);
+      return response.status(500).send(err);
     }
   }
 
-  // async create_request(request, response) {
-  //   try {
-  //     const user = parseInt(request.body.user_id);
-  //     const data = await db.any("SELECT * FROM donation_requests WHERE user_id=$1", user);
-
-  //     return response.send(data);
-  //   } catch (err) {
-  //     response.status(500).send(err);
-  //   }
-  // }
   async fetchByToken(request, response) {
     try {
       console.log("fetching by token");

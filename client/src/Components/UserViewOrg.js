@@ -10,7 +10,6 @@ import { Link } from "react-router-dom";
 import { spacing } from "@material-ui/system";
 import Typography from "@material-ui/core/Typography";
 import ScheduleModal from "./scheduler/ScheduleModal";
-import {nav} from './home/navlinks'
 
 function UserViewOrg(props) {
   const PROD = true;
@@ -119,17 +118,37 @@ function UserViewOrg(props) {
     org.forEach((orgInfo) => {
       //iterate through user
       user.forEach((userInfo) => {
-        mergedArray.push({
-          id: orgInfo.id,
-          name: orgInfo.name,
-          address: orgInfo.address,
-          description: orgInfo.description,
-          pickup: orgInfo.pickup_times,
-          logo: userInfo.avatar,
-        });
+        if (orgNeeds.length !== 0) {
+          orgNeeds.forEach((needs) => {
+            if (needs.organization_id === orgInfo.id) {
+              mergedArray.push({
+                id: orgInfo.id,
+                user: orgInfo.user_id,
+                name: orgInfo.name,
+                address: orgInfo.address,
+                description: orgInfo.description,
+                pickup: orgInfo.pickup_times,
+                logo: userInfo.avatar,
+                needed: needs.items_needed,
+              });
+            }
+          });
+        } else if (orgNeeds.length === 0) {
+          mergedArray.push({
+            id: orgInfo.id,
+            user: orgInfo.user_id,
+            name: orgInfo.name,
+            address: orgInfo.address,
+            description: orgInfo.description,
+            pickup: orgInfo.pickup_times,
+            logo: userInfo.avatar,
+          });
+          // setRows(mergedArray)
+        }
+
+        // setRows(mergedArray)
       });
     });
-    return mergedArray;
   };
 
   mergeArrays();
@@ -169,8 +188,7 @@ function UserViewOrg(props) {
             </Grid>
           </>
         ))}
-      <hr />
-
+      <hr></hr>
       {orgNeeds.length === 0 ? (
         <Grid container spacing={3} justify="center" style={{ paddingTop: "5%", paddingBottom: "10%" }}>
           <Grid item xs={3}>

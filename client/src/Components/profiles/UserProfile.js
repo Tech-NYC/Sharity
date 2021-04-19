@@ -1,16 +1,15 @@
-import React from 'react'
-import { NavDefault } from '../home/Navigation'
-import { nav } from './navlinks'
+import React, { useContext } from 'react'
 import { Grid, Typography } from '@material-ui/core'
+import { UserContext } from '../../contexts/UserContext';
 
 const UserProfilePage = (props) => {
 
-  // fetch data based on userid
-
+  // fetch from usecontext
+  const sessionUser = useContext(UserContext)
+  console.log(sessionUser.user, 'user')
 
   return (
     <div>
-      <NavDefault nav={nav} ></NavDefault>
       <Grid container spacing={3} style={{ paddingTop: "5%" }}>
         <Grid container xs={2}>
           <img

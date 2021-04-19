@@ -1,134 +1,246 @@
-import React from "react"
-import Navigation, {NavDefault} from './home/Navigation';
+import React from "react";
+
 import SearchBar from "material-ui-search-bar";
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import {Grid, Typography } from "@material-ui/core"
-import {makeStyles} from "@material-ui/core/styles";
-import {useHistory} from "react-router-dom"
-import {nav} from "./home/navlinks"
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import { Grid, Typography, Box, CardMedia } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { useHistory } from "react-router-dom";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
-    root: {
-        flexGrow: .75,
-        border: "2px solid",
-        borderColor: "#ffffff",
-        borderRadius: 16,
-        transition: "0.4s",
-        "&:hover": {
-          borderColor: "#55a0cc"
-        }
-
-      },
-    media: {
-        height: 0,
-        width: 0,
-        padding: '25%', // 16:9,
-    },
-
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: ["Fira Sans", "sans-serif"].join(","),
+  },
 });
 
-  
-function OrganizationsList(props){
-    const PROD = true;
+const useStyles = makeStyles({
+  root: {
+    flexGrow: 0.75,
+    border: "2px solid",
+    borderColor: "#ffffff",
+    borderRadius: 16,
+    transition: "0.4s",
+    "&:hover": {
+      borderColor: "#55a0cc",
+    },
+    paper: {
+      padding: theme.spacing(2),
+      textAlign: "center",
+      color: theme.palette.text.secondary,
+    },
+  },
+  media: {
+    height: 0,
+    width: 0,
+    padding: "5%", // 16:9,
+  },
+});
 
-    const URL = PROD
-    ? "https://sharity-technyc.herokuapp.com"
-    : "http://127.0.0.1:3000";
+function OrganizationsList(props) {
+  const PROD = true;
 
+  const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://127.0.0.1:3000";
 
-    const [orgs, setOrgs] = React.useState([])
-    const [thing, setThing] = React.useState(0)
-    const [rows, setRows] = React.useState(orgs)
-    const [searched, setSearched] = React.useState("")
+  const [orgs, setOrgs] = React.useState([]);
+  const [thing, setThing] = React.useState(0);
+  const [rows, setRows] = React.useState(orgs);
+  const [searched, setSearched] = React.useState("");
+  const [user, setUser] = React.useState([]);
+  // const [userId, setUserId] = React.useState("")
+  // const [orgId, setOrgId] = React.useState("")
+  const [orgNeeds, setOrgNeeds] = React.useState([]);
+  const [merged, setMerged] = React.useState([]);
+  const classes = useStyles();
 
-    const classes = useStyles();
-
-    //making the fetch to get the information for the org list name, des, list of items needed
-    React.useEffect(() => {
-        let isCurrent = true;
-        fetch(`${URL}/api/organizations/list`).then((res) => {
-            return res.json();
-        }).then((data) => {
-            const allOrgs = []
-            const orgs = data.map((name) => {
-                allOrgs.push(name)
-            })
-            setOrgs(allOrgs)
-            setRows(allOrgs)
-            return orgs
+  //making the fetch to get the information for the org list name, des, list of items needed
+  React.useEffect(() => {
+    let isCurrent = true;
+    async function gettingOrgs() {
+      await fetch(`${URL}/api/organizations/list`)
+        .then((res) => {
+          return res.json();
         })
-        .catch ((err) => {
-            console.error(err);
+        .then((data) => {
+          if (isCurrent) {
+            let allOrgs = [];
+            data.map((name) => {
+              //   console.log(name)
+              // setUserId(name.user_id)
+              // setOrgId(name.id)
+              allOrgs.push(name);
+            });
+            setOrgs(allOrgs);
+          }
         })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
 
+    gettingOrgs();
 
-        //need to make another fetch request to get the avatar of the org which is in users info
-        return() => {
-            isCurrent = false;
+    //need to make another fetch request to get the avatar of the org which is in users info
+    async function gettingUsers() {
+      await fetch(`${URL}/api/user/getAll`)
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          let userInfo = [];
+          // console.log(data)
+          data.map((info) => {
+            //   console.log(info)
+            userInfo.push(info);
+          });
+          setUser(userInfo);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    gettingUsers();
+
+    //need to fetch from organizations list in order to get the information for the needs
+    async function gettingNeeds() {
+      await fetch(`${URL}/api/organization/getAll`)
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          let orgNeeds = [];
+          // console.log(data)
+          data.map((info) => {
+            //   console.log(info)
+            orgNeeds.push(info);
+          });
+          setOrgNeeds(orgNeeds);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    gettingNeeds();
+
+    return () => {
+      isCurrent = false;
+    };
+  }, [URL, thing]);
+
+  let mergedArray = [];
+  // merges the orgneeds, user and org arrays of objects to create a new array of object
+  const mergeArrays = () => {
+    //map over org
+    orgs.forEach((orgInfo) => {
+      //iterate through user
+      // user.forEach((userInfo) => {
+      if (orgNeeds.length !== 0) {
+        orgNeeds.forEach((needs) => {
+          if (needs.organization_id === orgInfo.id) {
+            mergedArray.push({
+              id: orgInfo.id,
+              user: orgInfo.user_id,
+              name: orgInfo.name,
+              address: orgInfo.address,
+              description: orgInfo.description,
+              pickup: orgInfo.pickup_times,
+              // logo: userInfo.avatar,
+              needed: needs.items_needed,
+            });
+          }
+        });
+      } else if (orgNeeds.length === 0) {
+        mergedArray.push({
+          id: orgInfo.id,
+          user: orgInfo.user_id,
+          name: orgInfo.name,
+          address: orgInfo.address,
+          description: orgInfo.description,
+          pickup: orgInfo.pickup_times,
+          // logo: userInfo.avatar,
+        });
+        // setRows(mergedArray)
+      }
+    });
+    // console.log(user)
+
+    user.forEach((info) => {
+      mergedArray.forEach((data) => {
+        if (info.id === data.user) {
+          data.logo = info.avatar;
         }
+      });
+    });
 
-    }, [thing]);
-    
-    //combine the org list, user avatar, org needs into one function like in rested insta and set the rows to be all of that in order to display
-    //the correct info in the cards
+    return mergedArray;
+  };
 
-    const requestSearch = (searchVal) => { 
-        let search = searchVal.toLowerCase();
-        const filteredSearch = orgs.filter((org) => {
-            //can make it org.name || org.list of items needed
-            //need to add a thing that says not found if it isnt found
-            return org.name.toLowerCase().includes(search) 
-            //make this the name
-            //|| org.house.toLowerCase().includes(search)
-        })
-        
-        setRows(filteredSearch)
-    }
+  const requestSearch = (searchVal) => {
+    let search = searchVal.toLowerCase();
+    // console.log(mergedArray)
 
-    
-    const cancelSearch = () => {
-        setSearched("");
-        requestSearch(searched);
-    }
+    const filteredSearch = mergedArray.filter((org) => {
+      return org.name.toLowerCase().includes(search) || org.needed.toLowerCase().includes(search);
+    });
 
-    const history = useHistory()
+    setRows(filteredSearch);
+  };
 
-    return(
-        <>
-        <div className="searchbar" style={{paddingTop:"25px"}}> 
-            <SearchBar placeholder= "Search for organizations, items needed" value={searched} onChange={(searchVal) => requestSearch(searchVal)} onCancelSearch={() => cancelSearch()} style={{ margin: '0 auto', maxWidth: 800 }}/>
-        </div>
-            {rows.map((row) => (
-                
-                <Grid container  style={{paddingTop:"10px", paddingBottom:"10px"}}  alignItems="center" justify="center" wrap="nowrap" key= {row.name}>   
-                                                                                      {/* make it for the organizations user id ${row.name}*/}
-                    <Card key={row.name}className={classes.root} onClick={() => {history.push(`/${row.name}`) }}>
-                        <CardContent>
-                            <Grid container spacing={1} justify="center">
-                                <Grid container item xs={3} direction="column" >
-                                    <p> //here add the avatar</p>
-                                    {/* <CardMedia className={classes.media} image={row.image} title={row.name}/>  */}
-                                </Grid>
-                                <Grid container item xs={2} direction="column" >
-                                    <Typography variant="h5" component="h2"><br /> {row.name} </Typography>
-                                    {/* <Typography variant="body2" component="p"> {row.description}</Typography>   */}
-                                </Grid>
-                                <Grid container item  xs={1} direction="column" >
-                                    <p> //here add the list of items needed </p>
-                                    {/* <Typography variant="body2" component="p"> {row.items}</Typography>   */}
-                                </Grid>
-                            </Grid>
-                        </CardContent>
-                        {/* <CardActions>
-                            <Button size="small" > Learn More</Button>
-                        </CardActions> */}
-                    </Card>
-                </Grid> 
-            ))}
- 
-        </>
-    )
+  const cancelSearch = () => {
+    setSearched("");
+    requestSearch(searched);
+  };
+
+  const history = useHistory();
+
+  return (
+    <>
+      <div className="searchbar" style={{ paddingTop: "25px" }}>
+        <SearchBar
+          placeholder="Search for organizations, items needed"
+          value={searched}
+          onChange={(searchVal) => requestSearch(searchVal)}
+          onCancelSearch={() => cancelSearch()}
+          style={{ margin: "0 auto", maxWidth: 800 }}
+        />
+      </div>
+      {mergeArrays() &&
+        rows &&
+        rows.map((row, i) => (
+          <Box style={{ paddingTop: "10px", paddingBottom: "10px" }} alignItems="center" justify="center" wrap="nowrap" key={i}>
+            <Card
+              className={classes.root}
+              onClick={() => console.log("clicked")}
+              onClick={() => {
+                history.push(`/${row.name}`);
+              }}
+            >
+              <CardContent>
+                <Box container spacing={1} justify="center">
+                  <Box item xs={1} direction="column">
+                    <CardMedia className={classes.media} image={row.logo} title={row.name} />
+                  </Box>
+                  <Box container item xs={1} direction="column">
+                    <Typography variant="h5" component="h2">
+                      <br /> {row.name}
+                    </Typography>
+                    <Typography variant="body2" component="p">
+                      {" "}
+                      {row.description}
+                    </Typography>
+                  </Box>
+                  <Box container item xs={1} direction="column">
+                    <Typography variant="body2" component="p">
+                      Items Needed: {row.needed}
+                    </Typography>
+                  </Box>
+                </Box>
+              </CardContent>
+            </Card>
+          </Box>
+        ))}
+    </>
+  );
 }
 
 export default OrganizationsList;

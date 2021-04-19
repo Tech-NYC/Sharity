@@ -63,6 +63,46 @@ class organizationController {
       response.status(500).send(err);
     }
   }
+
+  // Dependent on org or donater user -  the user accepts or initiates the donation requests
+  async fetch_requests_completed(request, response) {
+    try {
+      const data = await db.any(
+        "SELECT * FROM donation_requests INNER JOIN users ON donation_requests.user_id = users.id WHERE donation_requests.organization_id =$(organization_id) AND status= 4",
+        request.body
+      );
+
+      return response.status(200).send(data);
+    } catch (err) {
+      return response.status(500).send(err);
+    }
+  }
+
+  async fetch_requests_pending(request, response) {
+    try {
+      const data = await db.any(
+        "SELECT * FROM donation_requests INNER JOIN users ON donation_requests.user_id = users.id WHERE donation_requests.organization_id =$(organization_id) AND status= 1",
+        request.body
+      );
+
+      return response.status(200).send(data);
+    } catch (err) {
+      return response.status(500).send(err);
+    }
+  }
+
+  async fetch_requests_accepted(request, response) {
+    try {
+      const data = await db.any(
+        "SELECT * FROM donation_requests INNER JOIN users ON donation_requests.user_id = users.id WHERE donation_requests.organization_id =$(organization_id) AND status= 2",
+        request.body
+      );
+
+      return response.status(200).send(data);
+    } catch (err) {
+      return response.status(500).send(err);
+    }
+  }
 }
 
 module.exports = organizationController;

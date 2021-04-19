@@ -23,6 +23,9 @@ export default function ScheduleModal(props) {
 
   const user = useContext(UserContext);
 
+
+
+
   const [user_id, setLoggedInId] = React.useState(user.user.id);
   const [items, setItems] = React.useState("");
   const [location, setLocation] = React.useState("");
@@ -36,10 +39,6 @@ export default function ScheduleModal(props) {
   };
 
   const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleRedirect = () => {
     setOpen(false);
   };
 

@@ -3,7 +3,7 @@ import React, { createContext, useState, useEffect } from "react";
 export const UserContext = createContext({});
 
 export const UserProvider = ({ children }) => {
-  const PROD = false;
+  const PROD = true;
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
   const [user, setUser] = useState(null);
 

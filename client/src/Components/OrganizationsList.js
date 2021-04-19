@@ -1,5 +1,5 @@
 import React from "react";
-
+import Footer from "./home/Footer";
 import SearchBar from "material-ui-search-bar";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -127,53 +127,67 @@ function OrganizationsList(props) {
     };
   }, [URL, thing]);
 
-  let mergedArray = [];
-  // merges the orgneeds, user and org arrays of objects to create a new array of object
-  const mergeArrays = () => {
-    //map over org
-    orgs.forEach((orgInfo) => {
-      //iterate through user
-      // user.forEach((userInfo) => {
-      if (orgNeeds.length !== 0) {
-        orgNeeds.forEach((needs) => {
-          if (needs.organization_id === orgInfo.id) {
-            mergedArray.push({
-              id: orgInfo.id,
-              user: orgInfo.user_id,
-              name: orgInfo.name,
-              address: orgInfo.address,
-              description: orgInfo.description,
-              pickup: orgInfo.pickup_times,
-              // logo: userInfo.avatar,
-              needed: needs.items_needed,
-            });
-          }
-        });
-      } else if (orgNeeds.length === 0) {
-        mergedArray.push({
-          id: orgInfo.id,
-          user: orgInfo.user_id,
-          name: orgInfo.name,
-          address: orgInfo.address,
-          description: orgInfo.description,
-          pickup: orgInfo.pickup_times,
-          // logo: userInfo.avatar,
-        });
-        // setRows(mergedArray)
-      }
-    });
-    // console.log(user)
+    let mergedArray = []
+    // merges the orgneeds, user and org arrays of objects to create a new array of object
+    const mergeArrays = () => {
+        //map over org
+        if(orgNeeds.length !== 0){
+        orgs.forEach((orgInfo) => {
+            //iterate through user
+            // user.forEach((userInfo) => {
+                // if(orgNeeds.length !== 0){
+                    orgNeeds.forEach((needs)=> {
+                        if(needs.organization_id === orgInfo.id){
+                             mergedArray.push({
+                                id: orgInfo.id,
+                                user: orgInfo.user_id,
+                                name: orgInfo.name,
+                                address: orgInfo.address,
+                                description: orgInfo.description,
+                                pickup: orgInfo.pickup_times,
+                                // logo: userInfo.avatar,
+                                needed: needs.items_needed
+                            })     
+                           
+                        }
+                    
+                    }
+                )})
+            }
+                 if(orgNeeds.length === 0){
+                    orgs.forEach((orgInfo) => {
+                    mergedArray.push({
+                        id: orgInfo.id,
+                        user: orgInfo.user_id,
+                        name: orgInfo.name,
+                        address: orgInfo.address,
+                        description: orgInfo.description,
+                        pickup: orgInfo.pickup_times,
+                        // logo: userInfo.avatar,
 
-    user.forEach((info) => {
-      mergedArray.forEach((data) => {
-        if (info.id === data.user) {
-          data.logo = info.avatar;
-        }
-      });
-    });
+                    })     
+                    // setRows(mergedArray)  
+                })
+            }
+         
+            // console.log(user)
+            
+            user.forEach((info)=>{
+                mergedArray.forEach((data)=>{
+                    if(info.id === data.user){
+                        data.logo = info.avatar
+                    }
+                })
+               
+            })
+        return mergedArray
+    }
+    
+    React.useEffect(()=> {
+        requestSearch("")
+    })
+    // console.log(rows)
 
-    return mergedArray;
-  };
 
   const requestSearch = (searchVal) => {
     let search = searchVal.toLowerCase();
@@ -239,6 +253,7 @@ function OrganizationsList(props) {
             </Card>
           </Box>
         ))}
+        <Footer/>
     </>
   );
 }

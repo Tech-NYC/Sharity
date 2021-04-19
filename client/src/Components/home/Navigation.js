@@ -18,8 +18,8 @@ const useStyle = makeStyles({
 function Logout() {
   console.log("logging out");
   const { user, setUser } = useContext(UserContext);
-  document.cookie = "expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
-  setUser({});
+  document.cookie = "name=SharityToken;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  setUser(null);
 }
 
 export const NavDefault = ({ nav }) => {

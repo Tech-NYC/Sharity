@@ -77,32 +77,51 @@ class userController {
 
       return response.send(`The following user id has been deleted: ${deleteUser}`);
     } catch (err) {
-      response.status(500).send(err);
+      return response.status(500).send(err);
     }
   }
 
   // Dependent on org or donater user -  the user accepts or initiates the donation requests
   async fetch_requests(request, response) {
     try {
-      const user = parseInt(request.body.user_id);
-      const data = await db.any("SELECT * FROM donation_requests WHERE user_id=$1", user);
+      console.log("fetching donations associated with user");
+      const user = await db.any("SELECT * FROM users WHERE id=$(id)", request.body);
 
-      return response.send(data);
+      const data = await db.any("SELECT * FROM donation_requests WHERE user_id=$(id)", request.body);
+
+      return response.status(200).send(data);
+    } catch (err) {
+      return response.status(500).send(err);
+    }
+  }
+
+  async fetchByToken(request, response) {
+    try {
+      console.log("fetching by token");
+      const token = jwt.verify(request.body.token.slice(13), process.env.AUTH_KEY);
+      console.log("token:", token);
+      request.body.username = token.username;
+
+      const user = await db.one("SELECT * FROM users WHERE username = $(username)", request.body);
+      console.log(user);
+      if (!user) {
+        return response.status(401).send("User does not exist.");
+      }
+
+      let userData = user;
+
+      if (user.is_organization) {
+        request.body.user_id = user.id;
+        const org = await db.one("SELECT * FROM organizations WHERE user_id = $(user_id)", request.body);
+        userData = { ...org, ...user, organization_id: org.id };
+        console.log(userData);
+      }
+
+      response.status(200).send(userData);
     } catch (err) {
       response.status(500).send(err);
     }
   }
-
-  // async create_request(request, response) {
-  //   try {
-  //     const user = parseInt(request.body.user_id);
-  //     const data = await db.any("SELECT * FROM donation_requests WHERE user_id=$1", user);
-
-  //     return response.send(data);
-  //   } catch (err) {
-  //     response.status(500).send(err);
-  //   }
-  // }
 
   async fetch_info(request, response) {
     try {
@@ -110,7 +129,7 @@ class userController {
       console.log(user_id);
       const data = await db.any("SELECT * FROM users WHERE id=$1", user_id);
 
-      return response.send(data);
+      return response.status(200).send(data);
     } catch (err) {
       response.status(500).send(err);
     }

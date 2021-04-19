@@ -15,16 +15,10 @@ const useStyle = makeStyles({
   },
 });
 
-function Logout() {
-  console.log("logging out");
-  const { user, setUser } = useContext(UserContext);
-  document.cookie = "expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
-  setUser({});
-}
-
 export const NavDefault = ({ nav }) => {
   const classes = useStyle();
   const { user, setUser } = useContext(UserContext);
+
   return (
     <>
       <AppBar position="sticky" color="default">
@@ -60,9 +54,14 @@ export const NavDefault = ({ nav }) => {
 export const NavDonator = ({ nav }) => {
   const classes = useStyle();
   const { user, setUser } = useContext(UserContext);
+  function Logout() {
+    document.cookie += "expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+    setUser(null);
+  }
   return (
     <>
-      <AppBar position="sticky" color="default">
+      <AppBar position="sticky" color="red">
         <Toolbar>
           <Typography variant="h6" className={classes.root}>
             <Link to="/#header">
@@ -76,12 +75,12 @@ export const NavDonator = ({ nav }) => {
             {/* <a href={"/#mission"} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
               Mission
             </a> */}
-            <Link to="/#mission" style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
+            {/* <Link to="/#mission" style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
               Mission
             </Link>
             <Link to="/#impact" style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
               Impact
-            </Link>
+            </Link> */}
             <Link to="/organizations" style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
               Donate
             </Link>
@@ -90,7 +89,7 @@ export const NavDonator = ({ nav }) => {
             </Link>
           </Typography>
           <Link className={classes.linkStyle} to="/">
-            <Button size="small" variant="outlined" onClick="Logout()">
+            <Button size="small" variant="outlined" onClick={Logout}>
               Logout
             </Button>
           </Link>
@@ -103,9 +102,14 @@ export const NavDonator = ({ nav }) => {
 export const NavOrganization = ({ nav }) => {
   const classes = useStyle();
   const { user, setUser } = useContext(UserContext);
+  function Logout() {
+    document.cookie += "expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+    setUser(null);
+  }
   return (
     <>
-      <AppBar position="sticky" color="default">
+      <AppBar position="sticky" color="red">
         <Toolbar>
           <Typography variant="h6" className={classes.root}>
             <Link to="/#header">
@@ -116,19 +120,19 @@ export const NavOrganization = ({ nav }) => {
             </a> */}
           </Typography>
           <Typography variant="h6" className={classes.root} style={{ marginLeft: "4%" }}>
-            <Link to="/#mission" style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
+            {/* <Link to="/#mission" style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
               Mission
             </Link>
             <Link to="/#impact" style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
               Impact
-            </Link>
+            </Link> */}
 
             <Link to="/profile" style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
               {user.username}
             </Link>
           </Typography>
           <Link className={classes.linkStyle} to="/">
-            <Button size="small" variant="outlined" onClick="Logout()">
+            <Button size="small" variant="outlined" onClick={Logout}>
               Logout
             </Button>
           </Link>

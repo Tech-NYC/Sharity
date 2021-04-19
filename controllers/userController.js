@@ -103,6 +103,33 @@ class userController {
   //     response.status(500).send(err);
   //   }
   // }
+  async fetchByToken(request, response) {
+    try {
+      console.log("fetching by token");
+      const token = jwt.verify(request.body.token.slice(13), process.env.AUTH_KEY);
+      console.log("token:", token);
+      request.body.username = token.username;
+
+      const user = await db.one("SELECT * FROM users WHERE username = $(username)", request.body);
+      console.log(user);
+      if (!user) {
+        return response.status(401).send("User does not exist.");
+      }
+
+      let userData = user;
+
+      if (user.is_organization) {
+        request.body.user_id = user.id;
+        const org = await db.one("SELECT * FROM organizations WHERE user_id = $(user_id)", request.body);
+        userData = { ...org, ...user, organization_id: org.id };
+        console.log(userData);
+      }
+
+      response.status(200).send(userData);
+    } catch (err) {
+      response.status(500).send(err);
+    }
+  }
 
   async fetch_info(request, response) {
     try {
@@ -110,7 +137,7 @@ class userController {
       console.log(user_id);
       const data = await db.any("SELECT * FROM users WHERE id=$1", user_id);
 
-      return response.send(data);
+      return response.status(200).send(data);
     } catch (err) {
       response.status(500).send(err);
     }

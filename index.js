@@ -8,7 +8,7 @@ const cors = require("cors");
 const assets = path.resolve(__dirname, "client", "build");
 
 app.use(cors());
-app.use(express.urlencoded())
+app.use(express.urlencoded());
 app.use(express.static(assets));
 app.use(express.json());
 app.use(cors());
@@ -29,6 +29,7 @@ const organizationList = new organizationListController();
 const donationRequest = new donationRequestController();
 
 ////////////////////////////////User Routes---------------------------------
+app.post("/api/user/fetchByToken", user.fetchByToken);
 app.get("/api/user/getAll", user.getAll);
 app.get("/api/user/fetch_info", user.fetch_info);
 app.get("/api/user/fetch_requests", user.fetch_requests);

@@ -61,7 +61,7 @@ TabContainer.propTypes = {
 //make the org form post to the user table w the boolean true, and also the org table
 
 function Signup() {
-  const PROD = true;
+  const PROD = false;
 
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
   const [state, setState] = React.useState(0);

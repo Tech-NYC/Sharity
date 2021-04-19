@@ -83,7 +83,7 @@ const UserProfile = () => {
   }, []);
 
   // data parsing
-  function createData(request_number, organization_id, date, time, items, status) {
+  function createData(request_number, name, date, time, items, status) {
     /**
      * Status mapping
      *  1 = pending
@@ -102,11 +102,11 @@ const UserProfile = () => {
     } else if (status === 4) {
       status = "Completed";
     }
-    return { request_number, organization_id, date, time, items, status };
+    return { request_number, name, date, time, items, status };
   }
 
   const rows = userDonations.map(donation => {
-    return createData(donation.id, donation.organization_id, donation.date, donation.time, donation.items, donation.status)
+    return createData(donation.id, donation.name, donation.date, donation.time, donation.items, donation.status)
   })
 
   return (
@@ -162,7 +162,7 @@ const UserProfile = () => {
                   <TableCell component="th" scope="row">
                     {row.request_number}
                   </TableCell>
-                  <TableCell align="center">{row.organization_id}</TableCell>
+                  <TableCell align="center">{row.name}</TableCell>
                   <TableCell align="right">{row.date}</TableCell>
                   <TableCell align="right">{row.time}</TableCell>
                   <TableCell align="right">{row.items}</TableCell>

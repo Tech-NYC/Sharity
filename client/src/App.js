@@ -74,9 +74,9 @@ function App() {
             <Route path="/terms" component={Terms} />
             <Route path="/contact" component={Contact} />
             <Route path="/profile" component={OrgProfile} />
-            <OrgContext.Provider value={org}>
+            {/* <OrgContext.Provider value={org}> */}
               <Route path="/:value" exact render={(props) => <UserViewOrg {...props} />} />
-            </OrgContext.Provider>
+            {/* </OrgContext.Provider> */}
           </Switch>
         </UserProvider>
       </BrowserRouter>

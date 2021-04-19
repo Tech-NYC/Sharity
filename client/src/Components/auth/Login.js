@@ -40,7 +40,7 @@ const btntheme = createMuiTheme({
 });
 
 function Login(props) {
-  const PROD = false;
+  const PROD = true;
 
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
   const [username, setUserName] = React.useState("");

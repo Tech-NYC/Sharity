@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { BrowserRouter, Switch, Route, useParams } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "./Components/Home";
 import Login from "./Components/auth/Login";
 import Signup from "./Components/auth/Signup";
@@ -11,7 +11,6 @@ import UserViewOrg from "./Components/UserViewOrg";
 import { UserProvider, UserContext } from "./contexts/UserContext.js";
 import { NavDefault, NavDonator, NavOrganization } from "./Components/home/Navigation";
 import OrgProfile from "./Components/profiles/OrgProfile";
-import {nav} from './Components/home/navlinks'
 import UserProfile from "./Components/profiles/UserProfile"
 
 
@@ -57,8 +56,7 @@ function App() {
     };
   }, [thing]);
 
-  // const orgName = org.split(" ").join("")
-  // console.log(orgName)
+
   return (
     <div>
       <BrowserRouter>
@@ -74,9 +72,9 @@ function App() {
             <Route path="/terms" component={Terms} />
             <Route path="/contact" component={Contact} />
             <Route path="/profile" component={OrgProfile} />
-            {/* <OrgContext.Provider value={org}> */}
+            <OrgContext.Provider value={org}>
               <Route path="/:value" exact render={(props) => <UserViewOrg {...props} />} />
-            {/* </OrgContext.Provider> */}
+            </OrgContext.Provider>
           </Switch>
         </UserProvider>
       </BrowserRouter>

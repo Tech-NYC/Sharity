@@ -37,31 +37,18 @@ function OrgProfile(props) {
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
 
   const sessionUser = useContext(UserContext);
-  console.log(sessionUser, "state user");
+  console.log(sessionUser.user.organization_id, "state user");
   ///////change it to "" before pushing
-  let orgName = sessionUser ? sessionUser.user.name : "test";
+  let orgID = sessionUser ? sessionUser.user.organization_id : "test";
   const [user, setUser] = React.useState([]);
-  React.useEffect(()=> {
-     fetch(`${URL}/api/user/getAll`)
-     .then((res) => {
-       return res.json();
-     })
-     .then((data) => {
-       let userInfo = [];
-       console.log(data)
-       data.map((info) => {
-         // console.log(info.id , userId)
-        //  if (info.id === sessionUser.user.user_id) {
-           userInfo.push(info);
-        //  }
-       });
-       setUser(userInfo);
-     })
-     .catch((err) => {
-       console.log(err);
-     });
 
-  },[URL, sessionUser.user.user_id])
+  // app.post("/api/organization/fetch_requests_completed", organization.fetch_requests_completed);
+  // app.post("/api/organization/fetch_requests_pending", organization.fetch_requests_pending);
+  // app.post("/api/organization/fetch_requests_accepted", organization.fetch_requests_accepted);
+  // React.useEffect(()=> {
+    
+
+  // },[sessionUser.user.user_id])
 
   const classes = useStyles()
   return (

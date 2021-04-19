@@ -184,9 +184,9 @@ function OrganizationsList(props) {
         return mergedArray
     }
     
-    React.useEffect(()=> {
-        requestSearch("")
-    })
+    // React.useEffect(()=> {
+    //     requestSearch("")
+    // })
     // console.log(rows)
 
 

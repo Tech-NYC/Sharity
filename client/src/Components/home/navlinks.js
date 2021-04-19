@@ -16,7 +16,7 @@ export const nav = [
   },
   {
     id: 4,
-    link: "/userpage",
+    link: "/userprofile",
     label: "TEST"
   }
 ];

@@ -98,47 +98,6 @@ class userController {
     }
   }
 
-  // Dependent on org or donater user -  the user accepts or initiates the donation requests
-  async fetch_requests_completed(request, response) {
-    try {
-      console.log("fetching donations associated with user");
-      const user = await db.any("SELECT * FROM users WHERE id=$(id)", request.body);
-
-      const data = await db.any("SELECT * FROM donation_requests WHERE user_id=$(id) AND status = 4", request.body);
-
-      return response.status(200).send(data);
-    } catch (err) {
-      return response.status(500).send(err);
-    }
-  }
-
-  // Dependent on org or donater user -  the user accepts or initiates the donation requests
-  async fetch_requests_pending(request, response) {
-    try {
-      console.log("fetching donations associated with user");
-      const user = await db.any("SELECT * FROM users WHERE id=$(id)", request.body);
-
-      const data = await db.any("SELECT * FROM donation_requests WHERE user_id=$(id) AND status = 4", request.body);
-
-      return response.status(200).send(data);
-    } catch (err) {
-      return response.status(500).send(err);
-    }
-  }
-
-  async fetch_requests_accepted(request, response) {
-    try {
-      console.log("fetching donations associated with user");
-      const user = await db.any("SELECT * FROM users WHERE id=$(id)", request.body);
-
-      const data = await db.any("SELECT * FROM donation_requests WHERE user_id=$(id) AND status = 4", request.body);
-
-      return response.status(200).send(data);
-    } catch (err) {
-      return response.status(500).send(err);
-    }
-  }
-
   async fetchByToken(request, response) {
     try {
       console.log("fetching by token");

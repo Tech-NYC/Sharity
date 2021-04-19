@@ -33,9 +33,6 @@ app.post("/api/user/fetchByToken", user.fetchByToken);
 app.get("/api/user/getAll", user.getAll);
 app.post("/api/user/fetch_info", user.fetch_info);
 app.post("/api/user/fetch_requests", user.fetch_requests);
-app.post("/api/user/fetch_requests_completed", user.fetch_requests_completed);
-app.post("/api/user/fetch_requests_pending", user.fetch_requests_pending);
-app.post("/api/user/fetch_requests_accepted", user.fetch_requests_accepted);
 app.post("/api/user/register", user.register);
 app.post("/api/user/login", user.login);
 app.delete("/api/user/delete", user.delete);
@@ -45,6 +42,9 @@ app.get("/api/organizations/list", organization.getAll);
 app.post("/api/organizations/organization_info", organization.getOne);
 app.post("/api/organization/create", organization.create);
 app.post("/api/organization/fetch_info_by_org_id", organization.fetch_info_by_org_id);
+app.post("/api/organization/fetch_requests_completed", organization.fetch_requests_completed);
+app.post("/api/organization/fetch_requests_pending", organization.fetch_requests_pending);
+app.post("/api/organization/fetch_requests_accepted", organization.fetch_requests_accepted);
 
 ////////////////////////////////Organization_needs_list Routes--------------
 app.get("/api/organization/getAll", organizationList.getAll);

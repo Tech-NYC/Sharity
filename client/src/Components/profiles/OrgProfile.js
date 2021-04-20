@@ -4,6 +4,7 @@ import { UserContext } from "../../contexts/UserContext";
 import { Table, TableHead, TableBody, TableRow, TableCell, Button, Box, CardContent, CardHeader, Card, Divider, Tab } from "@material-ui/core";
 import EditProfile from "./EditProfile";
 import { makeStyles } from "@material-ui/core/styles";
+import { Redirect } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -32,7 +33,7 @@ function OrgProfile(props) {
 
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
 
-  const sessionUser = useContext(UserContext);
+  let sessionUser = useContext(UserContext);
   // console.log(sessionUser, "state user");
   ///////change it to "" before pushing
   let orgId = sessionUser ? sessionUser.user.name : "test";
@@ -119,8 +120,9 @@ function OrgProfile(props) {
     }).then((res) => {
       return res.json();
     });
-    // this.forceUpdate();
-    window.location.reload(false);
+    // OrgProfile.forceUpdate();
+    // window.location.reload(false);
+    //return <Redirect to="/dashboard" />;
   }
 
   const classes = useStyles();

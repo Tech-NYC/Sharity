@@ -31,13 +31,14 @@ export const UserProvider = ({ children }) => {
           }
         })
         .then((data) => {
+          console.log(data);
           setUser(data);
         })
         .catch((err) => console.log(err));
     } else {
       setUser(null);
     }
-  }, [setUser]);
+  }, [URL, setUser]);
 
   return <UserContext.Provider value={{ user, setUser }}>{children}</UserContext.Provider>;
 };

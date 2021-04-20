@@ -119,10 +119,11 @@ function OrgProfile(props) {
     }).then((res) => {
       return res.json();
     });
-    // this.forceUpdate();
+
     window.location.reload(false);
   }
 
+  // console.log(completed)
   const classes = useStyles();
   return (
     <>

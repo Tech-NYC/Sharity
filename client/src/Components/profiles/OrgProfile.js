@@ -123,7 +123,6 @@ function OrgProfile(props) {
     window.location.reload(false);
   }
 
-  // console.log(completed)
   const classes = useStyles();
   return (
     <>

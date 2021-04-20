@@ -119,7 +119,7 @@ function OrgProfile(props) {
     }).then((res) => {
       return res.json();
     });
-
+    // this.forceUpdate();
     window.location.reload(false);
   }
 

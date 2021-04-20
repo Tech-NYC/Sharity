@@ -70,7 +70,7 @@ function App() {
             <Route path="/terms" component={Terms} />
             <Route path="/contact" component={Contact} />
             <Route path="/dashboard" component={OrgProfile} />
-            <Route path="/profile" component={UserProfile} />
+            <Route path="/profile"><UserOrg /></Route>
             <OrgContext.Provider value={orgName}>
               <Route path="/:value" exact render={(props) => <UserViewOrg {...props} />} />
             </OrgContext.Provider>

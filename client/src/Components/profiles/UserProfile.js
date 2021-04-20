@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { Typography, Box } from "@material-ui/core";
-import { UserContext } from "../../contexts/UserContext";
+import { UserContext } from "../../contexts/UserContext.js";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";

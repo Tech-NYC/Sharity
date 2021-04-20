@@ -15,7 +15,7 @@ import UserProfile from "./Components/profiles/UserProfile";
 
 const OrgContext = React.createContext();
 
-function Profile() {
+function Nav() {
   const { user, setUser } = useContext(UserContext);
   if (!user) {
     return <NavDefault></NavDefault>;

@@ -10,8 +10,9 @@ const useStyle = makeStyles({
     flexGrow: 1,
   },
   linkStyle: {
-    color: "#424242",
+    color: "#42424",
     textDecoration: "none",
+    fontFamily: 'Fira Sans'
   },
 });
 
@@ -30,13 +31,13 @@ export const NavDefault = ({ nav }) => {
             </a>
           </Typography>
           <Typography variant="h6" className={classes.root} style={{ marginLeft: "4%" }}>
-            <a href={"/#mission"} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
+            <a href={"/#mission"} className={classes.linkStyle} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}> 
               Mission
             </a>
-            <a href={"/#impact"} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
+            <a href={"/#impact"} className={classes.linkStyle} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
               Impact
             </a>
-            <a href={"/organizations"} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
+            <a href={"/organizations"} className={classes.linkStyle} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
               Donate
             </a>
           </Typography>
@@ -67,25 +68,14 @@ export const NavDonator = ({ nav }) => {
             <Link to="/#header">
               <img src={logo} style={{ width: "15%", height: "5%" }} />
             </Link>
-            {/* <a href="/#header">
-              <img src={logo} style={{ width: "15%", height: "5%" }} />
-            </a> */}
+            
           </Typography>
           <Typography variant="h6" className={classes.root} style={{ marginLeft: "4%" }}>
-            {/* <a href={"/#mission"} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
-              Mission
-            </a> */}
-            {/* <Link to="/#mission" style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
-              Mission
-            </Link>
-            <Link to="/#impact" style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
-              Impact
-            </Link> */}
             <Link to="/organizations" style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
               Donate
             </Link>
             <Link to="/userpage" style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
-              {user.username}
+              My Donations
             </Link>
           </Typography>
           <Link className={classes.linkStyle} to="/">
@@ -128,7 +118,7 @@ export const NavOrganization = ({ nav }) => {
             </Link> */}
 
             <Link to="/profile" style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
-              {user.username}
+              Dashboard
             </Link>
           </Typography>
           <Link className={classes.linkStyle} to="/">

@@ -190,7 +190,7 @@ function OrganizationsList(props) {
     // console.log(rows)
 
 
-  const requestSearch = (searchVal) => {
+  const requestSearch = (searchVal = "") => {
     let search = searchVal.toLowerCase();
     // console.log(mergedArray)
 
@@ -210,24 +210,24 @@ function OrganizationsList(props) {
 
   return (
     <>
-      <div className="searchbar" style={{ paddingTop: "25px" }}>
+      <div className="searchbar" style={{ margin: "auto", width: "60%", paddingTop: "25px" }}>
         <SearchBar
           placeholder="Search for organizations, items needed"
           value={searched}
           onChange={(searchVal) => requestSearch(searchVal)}
           onCancelSearch={() => cancelSearch()}
-          style={{ margin: "0 auto", maxWidth: 800 }}
+          style={{ margin: "auto", maxWidth: 800 }}
         />
       </div>
       {mergeArrays() &&
         rows &&
         rows.map((row, i) => (
           <Box style={{ paddingTop: "10px", paddingBottom: "10px" }} alignItems="center" justify="center" wrap="nowrap" key={i}>
+            
             <Card
               className={classes.root}
-              onClick={() => console.log("clicked")}
-              onClick={() => {
-                history.push(`/${row.name}`);
+              onClick={() => {   
+                history.push(`/${row.name.split(" ").join("")}`);
               }}
             >
               <CardContent>

@@ -10,7 +10,6 @@ function UserViewOrg(props) {
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://127.0.0.1:3000";
 
   let orgName = props.match.params.value;
-
   const [org, setOrg] = React.useState([]);
   const [userId, setUserId] = React.useState("");
   const [user, setUser] = React.useState([]);
@@ -29,7 +28,8 @@ function UserViewOrg(props) {
           if (isCurrent) {
             let allOrgs = [];
             data.map((name) => {
-              if (name.name === orgName) {
+              let orgn = name.name.split(" ").join("")
+              if (orgn === orgName) {
                 setUserId(name.user_id);
                 setOrgId(name.id);
                 allOrgs.push(name);

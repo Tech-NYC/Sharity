@@ -56,7 +56,6 @@ export const NavDonator = ({ nav }) => {
   const classes = useStyle();
   const { user, setUser } = useContext(UserContext);
   function logout() {
-    window.alert("logging out");
     document.cookie += "expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
     setUser(null);
@@ -93,7 +92,6 @@ export const NavOrganization = ({ nav }) => {
   const classes = useStyle();
   const { user, setUser } = useContext(UserContext);
   function logout() {
-    window.alert("logging out");
     document.cookie += "expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
     setUser(null);

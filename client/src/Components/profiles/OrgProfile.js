@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Footer from "../home/Footer";
-import { UserContext } from "../../contexts/UserContext";
+import { UserContext } from "../../contexts/UserContext.js";
 import { Table, TableHead, TableBody, TableRow, TableCell, Button, Box, CardContent, CardHeader, Card, Divider, Tab } from "@material-ui/core";
 import EditProfile from "./EditProfile";
 import { makeStyles } from "@material-ui/core/styles";

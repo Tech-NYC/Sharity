@@ -56,7 +56,7 @@ function App() {
     };
   }, [thing]);
 
-
+  let orgName = org.split(" ").join("")
   return (
     <div>
       <BrowserRouter>
@@ -71,8 +71,8 @@ function App() {
             <Route path="/privacy" component={Privacy} />
             <Route path="/terms" component={Terms} />
             <Route path="/contact" component={Contact} />
-            <Route path="/profile" component={OrgProfile} />
-            <OrgContext.Provider value={org}>
+            <Route path="/profile"  component={OrgProfile} />
+            <OrgContext.Provider value={orgName}>
               <Route path="/:value" exact render={(props) => <UserViewOrg {...props} />} />
             </OrgContext.Provider>
           </Switch>

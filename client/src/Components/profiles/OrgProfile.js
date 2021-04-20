@@ -37,32 +37,73 @@ function OrgProfile(props) {
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
 
   const sessionUser = useContext(UserContext);
-  console.log(sessionUser, "state user");
+  // console.log(sessionUser, "state user");
   ///////change it to "" before pushing
-  let orgName = sessionUser ? sessionUser.user.name : "test";
-  const [user, setUser] = React.useState([]);
+  let orgId = sessionUser ? sessionUser.user.name : "test";
+  const [pending, setPending] = React.useState([]);
+  const [accepted, setAccepted] = React.useState([]);
+  const [completed, setCompleted] = React.useState([]);
+    /**
+     * Status mapping
+     *  1 = pending
+     *  2 = accepted
+     *  3 = rejected
+     *  4 = completed
+     *
+     * */
+    //  app.post("/api/organization/fetch_requests_completed", organization.fetch_requests_completed);
+    //  app.post("/api/organization/fetch_requests_pending", organization.fetch_requests_pending);
+    //  app.post("/api/organization/fetch_requests_accepted", organization.fetch_requests_accepted);
+     
   React.useEffect(()=> {
-     fetch(`${URL}/api/user/getAll`)
-     .then((res) => {
-       return res.json();
-     })
-     .then((data) => {
-       let userInfo = [];
-       console.log(data)
-       data.map((info) => {
-         // console.log(info.id , userId)
-        //  if (info.id === sessionUser.user.user_id) {
-           userInfo.push(info);
-        //  }
-       });
-       setUser(userInfo);
-     })
-     .catch((err) => {
-       console.log(err);
-     });
+    fetch(`${URL}/api/organization/fetch_requests_pending`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        organization_id: sessionUser.user.organization_id,
+      }),
+    }).then((res)=>{
+      return res.json();
+    }).then((data)=> {
+      setPending(data)
+    })
 
-  },[URL, sessionUser.user.user_id])
+    fetch(`${URL}/api/organization/fetch_requests_accepted`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        organization_id: sessionUser.user.organization_id,
+      }),
+    }).then((res)=>{
+      return res.json();
+    }).then((data)=> {
+      setAccepted(data)
+    })
 
+    fetch(`${URL}/api/organization/fetch_requests_completed`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        organization_id: sessionUser.user.organization_id,
+      }),
+    }).then((res)=>{
+      return res.json();
+    }).then((data)=> {
+      setCompleted(data)
+    })
+      
+  },[URL, sessionUser.user.organization_id])
+
+  // console.log(completed)
   const classes = useStyles()
   return (
     <>
@@ -73,86 +114,96 @@ function OrgProfile(props) {
       <Box display="flex" alignItems="center" justifyContent="center" paddingTop="1em" paddingBottom="1em">
         <Card className={classes.root}>
           <CardHeader title="Your Pickups"/>
-          <Divider/>
+          <Divider/> 
           <Table>
-            <TableHead>
+            <TableRow>
+              <TableCell>Pickup #</TableCell>
               <TableCell>Donor Name</TableCell>
               <TableCell>Address</TableCell>
               <TableCell>Phone Number</TableCell>
-              <TableCell>Pickup #</TableCell>
               <TableCell>Item Description</TableCell>
               <TableCell align="center">Status</TableCell>
-            </TableHead>
+            </TableRow>
             <TableBody>
+            {accepted.map((data) => (
               <TableRow>
-                <TableCell>John Smith</TableCell>
-                <TableCell>123 Sand Ave</TableCell>
-                <TableCell>347-893-4321</TableCell>
-                <TableCell>#2345133</TableCell>
-                <TableCell>Socks, Sweaters, Pants</TableCell>
+                 <TableCell>#{data.request_id}</TableCell>
+                <TableCell>{data.first_name} {data.last_name}</TableCell>
+                <TableCell>{data.location}</TableCell>
+                <TableCell>{data.phone_number}</TableCell>
+                <TableCell>{data.items}</TableCell>
                 <TableCell align="center">
+                      <Button
+                        color="primary"
+                        // component={RouterLink}
+                        size="small"
+                        onClick={e => console.log("clicked")}
+                        variant="outlined"
+                      >
+                        Picked Up
+                      </Button>
+                </TableCell>
+              </TableRow>
+            
+            ))}
+            
+          {/* This is the donor request tables */}
+          <CardHeader title="Pending Requests"/>
+          <Divider />
+          {pending.map((data)=> (
+                <TableRow>
+                  <TableCell>#{data.request_id}</TableCell>
+                  <TableCell>{data.first_name} {data.last_name}</TableCell>
+                  <TableCell>{data.location}</TableCell>
+                  <TableCell>{data.phone_number}</TableCell>
+                  <TableCell>{data.items}</TableCell>
+                  <TableCell align="center">
+                    <Button
+                      color="primary"
+                      // component={RouterLink}
+                      size="small"
+                      onClick={e => console.log("clicked")}
+                      variant="outlined"
+                    >
+                      Accept
+                    </Button>
+                    <Button
+                      color="primary"
+                      // component={RouterLink}
+                      size="small"
+                      onClick={e => console.log("clicked")}
+                      variant="outlined"
+                    >
+                      Reject
+                    </Button>
+                  </TableCell>
+                  
+                </TableRow>
+              ))}
+    {/* This is the completed pickups table */}
+          <CardHeader title="Completed Pickups"/>
+          <Divider/>
+            {completed.map((data)=>(
+              <TableRow>
+                <TableCell>#{data.request_id}</TableCell>
+                <TableCell>{data.first_name} {data.last_name}</TableCell>
+                <TableCell>{data.location}</TableCell>
+                <TableCell>{data.phone_number}</TableCell>
+                <TableCell>{data.items}</TableCell>
+                <TableCell align="center"> 
                   <Button
                     color="primary"
                     // component={RouterLink}
                     size="small"
                     onClick={e => console.log("clicked")}
-                    variant="outlined"
+                    variant="disabled"
                   >
-                    Picked Up
+                    Completed 
                   </Button>
                 </TableCell>
               </TableRow>
-    {/* This is the donor request tables */}
-          <CardHeader title="Donor Requests"/>
-          <Divider />
-            <TableRow>
-              <TableCell>John Smith</TableCell>
-              <TableCell>123 Sand Ave</TableCell>
-              <TableCell>347-893-4321</TableCell>
-              <TableCell>#2345133</TableCell>
-              <TableCell>Socks, Sweaters, Pants</TableCell>
-              <TableCell align="center">
-                <Button
-                  color="primary"
-                  // component={RouterLink}
-                  size="small"
-                  onClick={e => console.log("clicked")}
-                  variant="outlined"
-                >
-                  Accept
-                </Button>
-                <Button
-                  color="primary"
-                  // component={RouterLink}
-                  size="small"
-                  onClick={e => console.log("clicked")}
-                  variant="outlined"
-                >
-                  Reject
-                </Button>
-              </TableCell>
-            </TableRow>
-    {/* This is the completed pickups table */}
-          <CardHeader title="Completed Pickups"/>
-          <Divider/>
-            <TableRow>
-              <TableCell>John Smith</TableCell>
-              <TableCell>123 Sand Ave</TableCell>
-              <TableCell>347-893-4321</TableCell>
-              <TableCell>#2345133</TableCell>
-              <TableCell>Socks, Sweaters, Pants</TableCell>
-              <TableCell align="center"> 
-                <Button
-                  color="primary"
-                  // component={RouterLink}
-                  size="small"
-                  onClick={e => console.log("clicked")}
-                  variant="disabled"
-                >
-                  Completed 
-                </Button>
-              </TableCell>
-            </TableRow>
+            
+            ))}
            
             </TableBody>
         </Table>

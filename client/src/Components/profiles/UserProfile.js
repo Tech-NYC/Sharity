@@ -16,18 +16,6 @@ const styles = makeStyles({
     flexWrap: "wrap",
     padding: 50,
   },
-  textField: {
-    marginLeft: "10%",
-    marginRight: "10%",
-    width: 300,
-    color: "black",
-    fontSize: 30,
-    opacity: 1,
-    borderBottom: 0,
-    "&:before": {
-      borderBottom: 0,
-    },
-  },
   disabled: {
     color: "black",
     borderBottom: 0,
@@ -122,7 +110,7 @@ const UserProfile = () => {
         </Box>
         <Box flexDirection="row" item xs={4} direction="column">
           <Typography variant="h6"> Username </Typography>
-          <Typography className={classes.textField} variant="h4">
+          <Typography style={{marginLeft: "10%", marginRight: "10%"}}variant="h4">
             {sessionUser.user.username}
           </Typography>
           <Typography variant="h6"> Email </Typography>

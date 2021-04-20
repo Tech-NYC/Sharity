@@ -52,7 +52,6 @@ class userController {
         console.log(userData);
       }
 
-      //TODO: user query does not work - due to where statement
       if (!user) {
         return response.status(401).send("User does not exist.");
       }

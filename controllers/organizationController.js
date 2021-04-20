@@ -68,7 +68,7 @@ class organizationController {
   async fetch_requests_completed(request, response) {
     try {
       const data = await db.any(
-        "SELECT * FROM donation_requests INNER JOIN users ON donation_requests.user_id = users.id WHERE donation_requests.organization_id =$(organization_id) AND status= 4",
+        "SELECT  donation_requests.id AS request_id,  users.first_name, users.last_name, donation_requests.location, users.phone_number, donation_requests.items, donation_requests.user_id FROM donation_requests INNER JOIN users ON donation_requests.user_id = users.id WHERE donation_requests.organization_id =$(organization_id) AND status= 4",
         request.body
       );
 
@@ -81,10 +81,9 @@ class organizationController {
   async fetch_requests_pending(request, response) {
     try {
       const data = await db.any(
-        "SELECT * FROM donation_requests INNER JOIN users ON donation_requests.user_id = users.id WHERE donation_requests.organization_id =$(organization_id) AND status= 1",
+        "SELECT  donation_requests.id AS request_id,  users.first_name, users.last_name, donation_requests.location, users.phone_number, donation_requests.items, donation_requests.user_id FROM donation_requests INNER JOIN users ON donation_requests.user_id = users.id WHERE donation_requests.organization_id =$(organization_id) AND status= 1",
         request.body
       );
-
       return response.status(200).send(data);
     } catch (err) {
       return response.status(500).send(err);
@@ -94,7 +93,7 @@ class organizationController {
   async fetch_requests_accepted(request, response) {
     try {
       const data = await db.any(
-        "SELECT * FROM donation_requests INNER JOIN users ON donation_requests.user_id = users.id WHERE donation_requests.organization_id =$(organization_id) AND status= 2",
+        "SELECT  donation_requests.id AS request_id,  users.first_name, users.last_name, donation_requests.location, users.phone_number, donation_requests.items, donation_requests.user_id FROM donation_requests INNER JOIN users ON donation_requests.user_id = users.id WHERE donation_requests.organization_id =$(organization_id) AND status= 2",
         request.body
       );
 

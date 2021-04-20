@@ -22,7 +22,11 @@ export default function ScheduleModal(props) {
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
 
   const user = useContext(UserContext);
-  const [user_id, setLoggedInId] = React.useState(user.user.id );
+
+
+
+
+  const [user_id, setLoggedInId] = React.useState(user.user.id);
   const [items, setItems] = React.useState("");
   const [location, setLocation] = React.useState("");
   const [open, setOpen] = React.useState(false);
@@ -37,10 +41,6 @@ export default function ScheduleModal(props) {
   };
 
   const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleRedirect = () => {
     setOpen(false);
   };
 

@@ -34,6 +34,8 @@ function OrgProfile(props) {
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
 
   let sessionUser = useContext(UserContext);
+  
+  console.log(sessionUser);
   // console.log(sessionUser, "state user");
   ///////change it to "" before pushing
   let orgId = sessionUser ? sessionUser.user.name : "test";

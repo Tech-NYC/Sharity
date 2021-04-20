@@ -110,15 +110,15 @@ const UserProfile = () => {
         </Box>
         <Box flexDirection="row" item xs={4} direction="column">
           <Typography variant="h6"> Username </Typography>
-          <Typography style={{marginLeft: "10%", marginRight: "10%"}}variant="h4">
+          <Typography style={{marginLeft: "10%", marginRight: "10%"}} variant="h4">
             {sessionUser.user.username}
           </Typography>
           <Typography variant="h6"> Email </Typography>
-          <Typography className={classes.textField} variant="h4">
+          <Typography style={{marginLeft: "10%", marginRight: "10%"}} variant="h4">
             {sessionUser.user.email}{" "}
           </Typography>
           <Typography variant="h6">Phone Number</Typography>
-          <Typography className={classes.textField} variant="h4">
+          <Typography style={{marginLeft: "10%", marginRight: "10%"}} variant="h4">
             {sessionUser.user.phone_number}{" "}
           </Typography>
         </Box>

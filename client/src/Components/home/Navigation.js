@@ -12,7 +12,7 @@ const useStyle = makeStyles({
   linkStyle: {
     color: "#42424",
     textDecoration: "none",
-    fontFamily: 'Fira Sans'
+    fontFamily: "Fira Sans",
   },
 });
 
@@ -31,7 +31,7 @@ export const NavDefault = ({ nav }) => {
             </a>
           </Typography>
           <Typography variant="h6" className={classes.root} style={{ marginLeft: "4%" }}>
-            <a href={"/#mission"} className={classes.linkStyle} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}> 
+            <a href={"/#mission"} className={classes.linkStyle} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
               Mission
             </a>
             <a href={"/#impact"} className={classes.linkStyle} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
@@ -55,7 +55,8 @@ export const NavDefault = ({ nav }) => {
 export const NavDonator = ({ nav }) => {
   const classes = useStyle();
   const { user, setUser } = useContext(UserContext);
-  function Logout() {
+  function logout() {
+    window.alert("logging out");
     document.cookie += "expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
     setUser(null);
@@ -68,7 +69,6 @@ export const NavDonator = ({ nav }) => {
             <Link to="/#header">
               <img src={logo} style={{ width: "15%", height: "5%" }} />
             </Link>
-            
           </Typography>
           <Typography variant="h6" className={classes.root} style={{ marginLeft: "4%" }}>
             <Link to="/organizations" style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
@@ -79,7 +79,7 @@ export const NavDonator = ({ nav }) => {
             </Link>
           </Typography>
           <Link className={classes.linkStyle} to="/">
-            <Button size="small" variant="outlined" onClick={Logout}>
+            <Button size="small" variant="outlined" onClick={logout}>
               Logout
             </Button>
           </Link>
@@ -92,7 +92,8 @@ export const NavDonator = ({ nav }) => {
 export const NavOrganization = ({ nav }) => {
   const classes = useStyle();
   const { user, setUser } = useContext(UserContext);
-  function Logout() {
+  function logout() {
+    window.alert("logging out");
     document.cookie += "expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
     setUser(null);
@@ -122,7 +123,7 @@ export const NavOrganization = ({ nav }) => {
             </Link>
           </Typography>
           <Link className={classes.linkStyle} to="/">
-            <Button size="small" variant="outlined" onClick={Logout}>
+            <Button size="small" variant="outlined" onClick={logout}>
               Logout
             </Button>
           </Link>

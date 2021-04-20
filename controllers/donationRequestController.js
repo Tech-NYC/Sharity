@@ -23,6 +23,7 @@ class donationRequestController {
       await db.none("UPDATE donation_requests SET status = ${status} WHERE id = ${donation_request_id}", request.body);
       return response.status(200).send(`Successfully updated ${request.body.donation_request_id} to status ${request.body.status}`);
     } catch (err) {
+      console.log(err);
       response.status(500).send(err);
     }
   }

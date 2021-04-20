@@ -1,13 +1,9 @@
 import React, { useContext } from "react";
 import Footer from "../home/Footer";
 import { UserContext } from "../../contexts/UserContext";
-import { Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell, Button, Box, CardContent,CardHeader, Card, Divider, Tab} from "@material-ui/core"
-import EditProfile from "./EditProfile"
-import {makeStyles} from "@material-ui/core/styles";
+import { Table, TableHead, TableBody, TableRow, TableCell, Button, Box, CardContent, CardHeader, Card, Divider, Tab } from "@material-ui/core";
+import EditProfile from "./EditProfile";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
@@ -21,14 +17,14 @@ const useStyles = makeStyles({
     width: "75em",
     maxHeight: "100%",
     overflowY: "auto",
-    maxWidth: "100%"
+    maxWidth: "100%",
   },
   content: {
-    padding: 0
+    padding: 0,
   },
   inner: {
-    minWidth: 700
-  }
+    minWidth: 700,
+  },
 });
 
 function OrgProfile(props) {
@@ -43,19 +39,19 @@ function OrgProfile(props) {
   const [pending, setPending] = React.useState([]);
   const [accepted, setAccepted] = React.useState([]);
   const [completed, setCompleted] = React.useState([]);
-    /**
-     * Status mapping
-     *  1 = pending
-     *  2 = accepted
-     *  3 = rejected
-     *  4 = completed
-     *
-     * */
-    //  app.post("/api/organization/fetch_requests_completed", organization.fetch_requests_completed);
-    //  app.post("/api/organization/fetch_requests_pending", organization.fetch_requests_pending);
-    //  app.post("/api/organization/fetch_requests_accepted", organization.fetch_requests_accepted);
-     
-  React.useEffect(()=> {
+  /**
+   * Status mapping
+   *  1 = pending
+   *  2 = accepted
+   *  3 = rejected
+   *  4 = completed
+   *
+   * */
+  //  app.post("/api/organization/fetch_requests_completed", organization.fetch_requests_completed);
+  //  app.post("/api/organization/fetch_requests_pending", organization.fetch_requests_pending);
+  //  app.post("/api/organization/fetch_requests_accepted", organization.fetch_requests_accepted);
+
+  React.useEffect(() => {
     fetch(`${URL}/api/organization/fetch_requests_pending`, {
       method: "POST",
       headers: {
@@ -65,11 +61,13 @@ function OrgProfile(props) {
       body: JSON.stringify({
         organization_id: sessionUser.user.organization_id,
       }),
-    }).then((res)=>{
-      return res.json();
-    }).then((data)=> {
-      setPending(data)
     })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setPending(data);
+      });
 
     fetch(`${URL}/api/organization/fetch_requests_accepted`, {
       method: "POST",
@@ -80,11 +78,13 @@ function OrgProfile(props) {
       body: JSON.stringify({
         organization_id: sessionUser.user.organization_id,
       }),
-    }).then((res)=>{
-      return res.json();
-    }).then((data)=> {
-      setAccepted(data)
     })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setAccepted(data);
+      });
 
     fetch(`${URL}/api/organization/fetch_requests_completed`, {
       method: "POST",
@@ -95,26 +95,46 @@ function OrgProfile(props) {
       body: JSON.stringify({
         organization_id: sessionUser.user.organization_id,
       }),
-    }).then((res)=>{
-      return res.json();
-    }).then((data)=> {
-      setCompleted(data)
     })
-      
-  },[URL, sessionUser.user.organization_id])
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setCompleted(data);
+      });
+  }, [URL, sessionUser.user.organization_id]);
+
+  // Updates status of the clicked request in the backend
+  function updateStatus(request_id, statusCode) {
+    fetch(`${URL}/api/donationRequest/setStatus`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        donation_request_id: request_id,
+        status: statusCode,
+      }),
+    }).then((res) => {
+      return res.json();
+    });
+
+    window.location.reload(false);
+  }
 
   // console.log(completed)
-  const classes = useStyles()
+  const classes = useStyles();
   return (
     <>
-      <EditProfile/>
+      <EditProfile />
       <hr></hr>
       {/* <OrgProfileTables users = {user}/> */}
       {/* This is the Your Pickups table */}
       <Box display="flex" alignItems="center" justifyContent="center" paddingTop="1em" paddingBottom="1em">
         <Card className={classes.root}>
-          <CardHeader title="Your Pickups"/>
-          <Divider/> 
+          <CardHeader title="Your Pickups" />
+          <Divider />
           <Table>
             <TableRow>
               <TableCell>Pickup #</TableCell>
@@ -125,35 +145,12 @@ function OrgProfile(props) {
               <TableCell align="center">Status</TableCell>
             </TableRow>
             <TableBody>
-            {accepted.map((data) => (
-              <TableRow>
-                 <TableCell>#{data.request_id}</TableCell>
-                <TableCell>{data.first_name} {data.last_name}</TableCell>
-                <TableCell>{data.location}</TableCell>
-                <TableCell>{data.phone_number}</TableCell>
-                <TableCell>{data.items}</TableCell>
-                <TableCell align="center">
-                      <Button
-                        color="primary"
-                        // component={RouterLink}
-                        size="small"
-                        onClick={e => console.log("clicked")}
-                        variant="outlined"
-                      >
-                        Picked Up
-                      </Button>
-                </TableCell>
-              </TableRow>
-            
-            ))}
-            
-          {/* This is the donor request tables */}
-          <CardHeader title="Pending Requests"/>
-          <Divider />
-          {pending.map((data)=> (
+              {accepted.map((data) => (
                 <TableRow>
                   <TableCell>#{data.request_id}</TableCell>
-                  <TableCell>{data.first_name} {data.last_name}</TableCell>
+                  <TableCell>
+                    {data.first_name} {data.last_name}
+                  </TableCell>
                   <TableCell>{data.location}</TableCell>
                   <TableCell>{data.phone_number}</TableCell>
                   <TableCell>{data.items}</TableCell>
@@ -162,7 +159,33 @@ function OrgProfile(props) {
                       color="primary"
                       // component={RouterLink}
                       size="small"
-                      onClick={e => console.log("clicked")}
+                      onClick={(e) => updateStatus(data.request_id, 4)}
+                      variant="outlined"
+                    >
+                      Picked Up
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+
+              {/* This is the donor request tables */}
+              <CardHeader title="Pending Requests" />
+              <Divider />
+              {pending.map((data) => (
+                <TableRow>
+                  <TableCell>#{data.request_id}</TableCell>
+                  <TableCell>
+                    {data.first_name} {data.last_name}
+                  </TableCell>
+                  <TableCell>{data.location}</TableCell>
+                  <TableCell>{data.phone_number}</TableCell>
+                  <TableCell>{data.items}</TableCell>
+                  <TableCell align="center">
+                    <Button
+                      color="primary"
+                      // component={RouterLink}
+                      size="small"
+                      onClick={(e) => updateStatus(data.request_id, 2)}
                       variant="outlined"
                     >
                       Accept
@@ -171,45 +194,44 @@ function OrgProfile(props) {
                       color="primary"
                       // component={RouterLink}
                       size="small"
-                      onClick={e => console.log("clicked")}
+                      onClick={(e) => updateStatus(data.request_id, 3)}
                       variant="outlined"
                     >
                       Reject
                     </Button>
                   </TableCell>
-                  
                 </TableRow>
               ))}
-    {/* This is the completed pickups table */}
-          <CardHeader title="Completed Pickups"/>
-          <Divider/>
-            {completed.map((data)=>(
-              <TableRow>
-                <TableCell>#{data.request_id}</TableCell>
-                <TableCell>{data.first_name} {data.last_name}</TableCell>
-                <TableCell>{data.location}</TableCell>
-                <TableCell>{data.phone_number}</TableCell>
-                <TableCell>{data.items}</TableCell>
-                <TableCell align="center"> 
-                  <Button
-                    color="primary"
-                    // component={RouterLink}
-                    size="small"
-                    onClick={e => console.log("clicked")}
-                    variant="disabled"
-                  >
-                    Completed 
-                  </Button>
-                </TableCell>
-              </TableRow>
-            
-            ))}
-           
+              {/* This is the completed pickups table */}
+              <CardHeader title="Completed Pickups" />
+              <Divider />
+              {completed.map((data) => (
+                <TableRow>
+                  <TableCell>#{data.request_id}</TableCell>
+                  <TableCell>
+                    {data.first_name} {data.last_name}
+                  </TableCell>
+                  <TableCell>{data.location}</TableCell>
+                  <TableCell>{data.phone_number}</TableCell>
+                  <TableCell>{data.items}</TableCell>
+                  <TableCell align="center">
+                    <Button
+                      color="primary"
+                      // component={RouterLink}
+                      size="small"
+                      onClick={(e) => console.log("clicked")}
+                      variant="disabled"
+                    >
+                      Completed
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
-        </Table>
-      </Card>
-    </Box>
-    <Footer />
+          </Table>
+        </Card>
+      </Box>
+      <Footer />
     </>
   );
 }

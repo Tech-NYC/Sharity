@@ -123,7 +123,7 @@ function OrgProfile(props) {
       return res.json();
     });
     // OrgProfile.forceUpdate();
-    // window.location.reload(false);
+    window.location.reload(false);
     //return <Redirect to="/dashboard" />;
   }
 

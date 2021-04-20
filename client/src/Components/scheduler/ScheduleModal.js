@@ -22,8 +22,7 @@ export default function ScheduleModal(props) {
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
 
   const user = useContext(UserContext);
-  console.log(user);
-  const [user_id, setLoggedInId] = React.useState(user ? 2 : user.user.id);
+  const [user_id, setLoggedInId] = React.useState(user.user.id );
   const [items, setItems] = React.useState("");
   const [location, setLocation] = React.useState("");
   const [open, setOpen] = React.useState(false);
@@ -31,8 +30,8 @@ export default function ScheduleModal(props) {
   const [date, setDate] = React.useState("");
 
   // uses user_id 125 as default until we can have login functionality
-
-  const organization_id = props.org_id;
+  const userInfo = user ? user.user : ""
+  const organization_id = props.org_id ? props.org_id : " " ;
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -74,15 +73,15 @@ export default function ScheduleModal(props) {
     <div>
       <ThemeProvider theme={btntheme}>
         <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-          Schedule Now
+          Request Pickup
         </Button>
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
           <form onSubmit={handleDonation} noValidate>
-            <DialogTitle id="form-dialog-title">Schedule Now</DialogTitle>
+            <DialogTitle id="form-dialog-title">Pickup Request</DialogTitle>
             <DialogContent>
               <DialogContentText>Please fill out the following in order to schedule a donation pickup.</DialogContentText>
-              <TextField autoFocus margin="dense" id="fname" label="First Name" type="text" fullWidth />
-              <TextField margin="dense" id="lname" label="Last Name" type="text" fullWidth />
+              <TextField autoFocus margin="dense" id="fname" label="First Name" value={user.user.first_name} disabled={!userInfo.first_name.editMode} fullWidth />
+              <TextField margin="dense" id="lname" label="Last Name"  value = {user.user.last_name} disabled={!userInfo.last_name.editMode} fullWidth />
               <TextField margin="dense" id="address" label="Address" type="text" fullWidth onChange={(e) => setLocation(e.target.value)} />
               <TextField margin="dense" id="items" label="Items" type="text" fullWidth onChange={(e) => setItems(e.target.value)} />
               <TextField margin="dense" id="date" type="date" fullWidth onChange={(e) => setDate(e.target.value)} />

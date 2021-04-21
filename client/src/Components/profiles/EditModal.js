@@ -18,7 +18,7 @@ const btntheme = createMuiTheme({
 });
 
 export default function EditModal(props) {
-  const PROD = false;
+  const PROD = true;
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
 
   const user = useContext(UserContext);

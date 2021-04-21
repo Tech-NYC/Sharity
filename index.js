@@ -51,6 +51,7 @@ app.patch("/api/organization/update", organization.update_info);
 app.get("/api/organization/getAll", organizationList.getAll);
 app.post("/api/organization/organization_list", organizationList.list);
 app.post("/api/organization_list/create", organizationList.create);
+app.patch("/api/organization_list/update", organizationList.update_list)
 
 ////////////////////////////////Donation Request Routes---------------------
 app.post("/api/donationRequest/create", donationRequest.create);

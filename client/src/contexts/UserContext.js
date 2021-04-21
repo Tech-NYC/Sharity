@@ -6,6 +6,7 @@ export const UserProvider = ({ children }) => {
   const PROD = true;
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = React.useState(true);
 
   useEffect(() => {
     if (document.cookie) {
@@ -31,13 +32,25 @@ export const UserProvider = ({ children }) => {
           }
         })
         .then((data) => {
+          console.log(data);
           setUser(data);
+          setLoading(false);
         })
-        .catch((err) => console.log(err));
+        .catch((err) =>{
+          console.log(err);
+          setLoading(false);
+      });
     } else {
       setUser(null);
+      setLoading(false);
     }
-  }, [setUser]);
+  }, [URL, setUser]);
+
+  
+
+if(loading){
+  return <div>loading..</div> 
+}
 
   return <UserContext.Provider value={{ user, setUser }}>{children}</UserContext.Provider>;
 };

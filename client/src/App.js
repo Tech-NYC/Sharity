@@ -15,17 +15,6 @@ import UserProfile from "./Components/profiles/UserProfile";
 
 const OrgContext = React.createContext();
 
-function Profile() {
-  const { user, setUser } = useContext(UserContext);
-  if (!user) {
-    return <Redirect to="/login"></Redirect>;
-  } else if (user.is_organization) {
-    return <OrgProfile></OrgProfile>;
-  } else {
-    return <UserProfile></UserProfile>;
-  }
-}
-
 function Nav() {
   const { user, setUser } = useContext(UserContext);
   if (!user) {
@@ -80,7 +69,8 @@ function App() {
             <Route path="/privacy" component={Privacy} />
             <Route path="/terms" component={Terms} />
             <Route path="/contact" component={Contact} />
-            <Route path="/profile" component={Profile} />
+            <Route path="/dashboard" component={OrgProfile} />
+            <Route path="/profile"component={UserProfile} />
             <OrgContext.Provider value={orgName}>
               <Route path="/:value" exact render={(props) => <UserViewOrg {...props} />} />
             </OrgContext.Provider>

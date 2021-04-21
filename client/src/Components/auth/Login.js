@@ -81,7 +81,7 @@ function Login(props) {
   function redirectBasedOnUserType() {
     if (user.is_organization) {
       console.log("org authorized", user);
-      return <Redirect to="/profile" />;
+      return <Redirect to="/dashboard" />;
     } else {
       console.log("donator authorized", user);
       return <Redirect to="/organizations" />;

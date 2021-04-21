@@ -1,13 +1,17 @@
 import React from "react";
 import Footer from "./home/Footer";
-import { Grid } from "@material-ui/core";
+import { Grid, Button} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import ScheduleModal from "./scheduler/ScheduleModal";
+import { UserContext } from "../contexts/UserContext";
+import { Link, Redirect} from "react-router-dom";
 
 function UserViewOrg(props) {
   const PROD = true;
 
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://127.0.0.1:3000";
+  const loggedIn = React.useContext(UserContext);
+  const userLoggedIn = loggedIn.user;
 
   let orgName = props.match.params.value;
   const [org, setOrg] = React.useState([]);
@@ -176,7 +180,10 @@ function UserViewOrg(props) {
                 </Typography>
               </Grid>
               <Grid container item xs={3} direction="column">
-                <ScheduleModal org_id={orgId}></ScheduleModal>
+                {userLoggedIn ? 
+                  <ScheduleModal org_id={orgId}></ScheduleModal> : <Button component={ Link } to="/login" variant="outlined" style={{margin:"auto"}}>Request Pickup</Button>
+                }
+                
               </Grid>
             </Grid>
           </>

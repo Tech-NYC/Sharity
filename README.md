@@ -2,6 +2,11 @@
 
 > A web platform where users can find organizations that need their donations and schedule pickups.
 
+
+## App is deployed here:
+
+[Sharity-TechNYC](https://sharity-technyc.herokuapp.com/)
+
 ## Team
 
   - __Product Owner__: Denysse Cunza
@@ -76,6 +81,3 @@ This project adheres to the [ESlint Guide](https://github.com/eslint/eslint) and
 
 See [BACKENDAPIUSAGE.md](BACKENDAPIUSAGE.md) for API usage.
 
-## App is deployed here:
-
-[Sharity-TechNYC](https://sharity-technyc.herokuapp.com/)

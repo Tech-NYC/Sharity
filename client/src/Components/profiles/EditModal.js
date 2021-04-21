@@ -18,7 +18,7 @@ const btntheme = createMuiTheme({
 });
 
 export default function EditModal(props) {
-  const PROD = false;
+  const PROD = true;
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
 
   const user = useContext(UserContext);
@@ -95,32 +95,30 @@ export default function EditModal(props) {
       return response.json()
     })
 
-    
   }
 
   const handleNeedsTable = (e) => {
     e.preventDefault();
     const data = {
       organization_id,
-      user_id,
       needed,
       accepted,
       notaccepted,
     };
-    //fetch(`${URL}/api/`, {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //       "Access-Control-Allow-Origin": "*",
-      //     },
-      //     body: JSON.stringify(data),
-      //   })
-      //     .then((response) => response.json())
-      //   dont add this?  .then((data) => handleClose);
-      // };
+    
+    console.log(data)
+    fetch(`${URL}/api/organization_list/update`, {
+         method: "PATCH",
+         headers: {
+           "Content-Type": "application/json",
+           "Access-Control-Allow-Origin": "*",
+         },
+         body: JSON.stringify(data),
+       })
+         .then((response) => {
+           return response.json()
+        })
 
-
-      //figure out if it is actually changing the data realtime
   }
 
   return (

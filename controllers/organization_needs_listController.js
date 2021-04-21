@@ -38,6 +38,17 @@ class organization_needs_listController {
       return response.status(500).send(err);
     }
   }
+
+  async update_list(request, response) {
+    try {
+      const data = await db.any("UPDATE organization_needs_list SET conditions_accepted=$(accepted), conditions_not_accepted=$(notaccepted), items_needed=$(needed) WHERE organization_id=${organization_id}", request.body)
+      console.log('d', data)
+      return response.status(200)      
+    } catch (err) {
+      console.log('err', err)
+      return response.status(500).send(err)
+    }
+  }
 }
 
 module.exports = organization_needs_listController;

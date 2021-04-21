@@ -60,7 +60,6 @@ app.patch("/api/donationRequest/setStatus", donationRequest.setStatus);
 // define fallback route
 // path.resolve prepends subsequent paths until absolute path is constructed
 app.get("*", async (req, res) => {
-  console.log("dir", __dirname);
   const indexHtml = path.resolve(__dirname, "client", "build/index.html");
   res.sendFile(indexHtml);
 });

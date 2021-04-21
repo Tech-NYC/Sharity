@@ -4,7 +4,10 @@ class organizationController {
   async create(request, response) {
     // TODO: Check if user_id exists in organizations table (may not be needed)
     try {
-      await db.none("INSERT INTO organizations (user_id, name, address, description) VALUES (${user_id}, ${name}, ${address}, ${description})", request.body);
+      await db.none(
+        "INSERT INTO organizations (user_id, name, address, description) VALUES (${user_id}, ${name}, ${address}, ${description})",
+        request.body
+      );
 
       // TODO: may need to edit the inclusion of request.body in response
       return response.status(200).send(`Successfully inserted ${request.body}`);
@@ -20,7 +23,10 @@ class organizationController {
       // TODO: Check if we need to access request params as opposed to request.body
       const organization = parseInt(request.body.user_id);
       console.log("org", organization);
-      const data = await db.any("SELECT * FROM organizations WHERE user_id=$1", organization);
+      const data = await db.any(
+        "SELECT * FROM organizations WHERE user_id=$1",
+        organization
+      );
 
       return response.status(200).send(data);
     } catch (err) {
@@ -45,11 +51,23 @@ class organizationController {
 
     try {
       const organization_id = parseInt(request.body.id);
-      const userIdObject = await db.one("SELECT user_id, id FROM organizations WHERE id=$1", organization_id);
+      const userIdObject = await db.one(
+        "SELECT user_id, id FROM organizations WHERE id=$1",
+        organization_id
+      );
 
-      const userInfo = await db.one("SELECT * FROM users WHERE id=$1", parseInt(userIdObject.user_id));
-      const organizationInfo = await db.one("SELECT * FROM organizations WHERE user_id=$1", parseInt(userIdObject.user_id));
-      const organizationNeeds = await db.one("SELECT * FROM organization_needs_list WHERE organization_id=$1", organization_id);
+      const userInfo = await db.one(
+        "SELECT * FROM users WHERE id=$1",
+        parseInt(userIdObject.user_id)
+      );
+      const organizationInfo = await db.one(
+        "SELECT * FROM organizations WHERE user_id=$1",
+        parseInt(userIdObject.user_id)
+      );
+      const organizationNeeds = await db.one(
+        "SELECT * FROM organization_needs_list WHERE organization_id=$1",
+        organization_id
+      );
 
       const data = {
         userInfo,
@@ -98,6 +116,20 @@ class organizationController {
       );
 
       return response.status(200).send(data);
+    } catch (err) {
+      return response.status(500).send(err);
+    }
+  }
+
+  async update_info(request, response) {
+    try {
+      // user sends in info to update. Some columns may update and some may not
+      const data = await db.any(
+        "UPDATE organizations SET name=$(name), address=$(location), description=$(description) WHERE id=$(id)",
+        request.body
+      );
+
+      return response.status(200);
     } catch (err) {
       return response.status(500).send(err);
     }

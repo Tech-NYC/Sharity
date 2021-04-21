@@ -45,6 +45,7 @@ app.post("/api/organization/fetch_info_by_org_id", organization.fetch_info_by_or
 app.post("/api/organization/fetch_requests_completed", organization.fetch_requests_completed);
 app.post("/api/organization/fetch_requests_pending", organization.fetch_requests_pending);
 app.post("/api/organization/fetch_requests_accepted", organization.fetch_requests_accepted);
+app.patch("/api/organization/update", organization.update_info);
 
 ////////////////////////////////Organization_needs_list Routes--------------
 app.get("/api/organization/getAll", organizationList.getAll);
@@ -58,7 +59,6 @@ app.patch("/api/donationRequest/setStatus", donationRequest.setStatus);
 // define fallback route
 // path.resolve prepends subsequent paths until absolute path is constructed
 app.get("*", async (req, res) => {
-  console.log("wildcard hit");
   console.log("dir", __dirname);
   const indexHtml = path.resolve(__dirname, "client", "build/index.html");
   res.sendFile(indexHtml);

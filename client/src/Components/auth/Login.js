@@ -93,7 +93,7 @@ function Login(props) {
   return (
     <>
       <div>
-        <Grid container spacing={0} direction="column" alignItems="center" justify="center" style={{ minHeight: "100vh" }}>
+        <Grid container spacing={0} direction="column" alignItems="center" justify="center" style={{ minHeight: "80vh" }}>
           <Grid item>
             <Grid container direction="column" spacing={2} className="login-form">
               <Grid item>

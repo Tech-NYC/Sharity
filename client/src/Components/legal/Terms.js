@@ -4,11 +4,10 @@ import Navigation, {NavDefault} from "../home/Navigation"
 import {Typography, Container }from "@material-ui/core"
 // import Container from "@material-ui/core/Container"
 import {ThemeProvider, createMuiTheme} from "@material-ui/core/styles";
-import {nav} from '../home/navlinks'
 
 const Terms = () => {
    
-        const theme = createMuiTheme({
+    const theme = createMuiTheme({
         typography: {
           fontFamily: [
             'Fira Sans',
@@ -18,9 +17,11 @@ const Terms = () => {
         const email = 'help@sharity.com';
 
         return (
-            <div id="terms" style={{background:"#dbe3f0"}} className="background-tos" >
+          <>
+            <div id="terms" style={{background:"#dbe3f0", position: "absolute", margin: "0px", padding: "0px"}} className="background-tos" >
                <ThemeProvider theme={theme} >
                     <Typography variant="h3" style={{color: "#55a0cc", textAlign: "center"}} className="terms-words">  
+                    
             <h3>Terms of Service</h3>
             </Typography>
             </ThemeProvider>
@@ -379,9 +380,10 @@ const Terms = () => {
             </Container>
               <Footer/>
               </div>
+              </>
           )
         }
         
         
         
-        export default Terms;       
+        export default Terms; 

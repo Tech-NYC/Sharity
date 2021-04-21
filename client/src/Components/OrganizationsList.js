@@ -207,22 +207,29 @@ function OrganizationsList(props) {
   };
 
   const history = useHistory();
-
+  const style = {
+    searchbar: {
+      paddingTop: "100px"
+    }
+  }
   return (
     <>
-      <div className="searchbar" style={{ margin: "auto", width: "60%", paddingTop: "25px" }}>
+      <div className="background" style={{background:"#dbe3f0"}} >
+      <div className="searchbar" style={{ margin: "auto", width: "60%", paddingTop: "200px" }}>
         <SearchBar
           placeholder="Search for organizations, items needed"
           value={searched}
+          onClick={(style)}
           onChange={(searchVal) => requestSearch(searchVal)}
           onCancelSearch={() => cancelSearch()}
           style={{ margin: "auto", maxWidth: 800 }}
         />
       </div>
+  
       {mergeArrays() &&
         rows &&
         rows.map((row, i) => (
-          <Box style={{ paddingTop: "10px", paddingBottom: "10px" }} alignItems="center" justify="center" wrap="nowrap" key={i}>
+          <Box style={{ paddingTop: "10px", paddingBottom: "10px"}} alignItems="center" justify="center" wrap="nowrap" key={i}>
             
             <Card
               className={classes.root}
@@ -254,7 +261,8 @@ function OrganizationsList(props) {
             </Card>
           </Box>
         ))}
-        <Footer/>
+        </div>
+        <Footer style={{paddingBottom:"20px"}} />
     </>
   );
 }

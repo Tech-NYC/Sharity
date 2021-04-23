@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import ScheduleModal from "./scheduler/ScheduleModal";
 import { UserContext } from "../contexts/UserContext";
 import { Link } from "react-router-dom";
+import {formatTime} from '../Components/profiles/parseDateTime'
 
 function UserViewOrg(props) {
   const PROD = true;
@@ -170,7 +171,7 @@ function UserViewOrg(props) {
                 ) : (
                   data.pickup.split(",").map((time, i) => (
                     <>
-                      <li style={{ listStyleType: "none" }} key={i}><b> {daysArr[i]} </b> {time} </li>
+                      <li style={{ listStyleType: "none" }} key={i}><b> {daysArr[i]} </b> {formatTime(time.split('-')[0]) + " - " + formatTime(time.split('-')[1])} </li>
                     </>
                   ))
                 )}

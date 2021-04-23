@@ -85,7 +85,9 @@ class userController {
     try {
       console.log("fetching donations associated with user");
       const data = await db.any(
-        "SELECT donation_requests.id AS request_id, date, time, location,items, status FROM donation_requests INNER JOIN organizations ON donation_requests.organization_id = organizations.id WHERE donation_requests.user_id =$(id)",
+
+        "SELECT donation_requests.id AS request_id, date, organizations.name AS name, time, location,items, status FROM donation_requests INNER JOIN organizations ON donation_requests.organization_id = organizations.id WHERE donation_requests.user_id =$(id)",
+
         request.body
       );
 

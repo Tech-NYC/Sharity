@@ -159,11 +159,11 @@ function UserViewOrg(props) {
               <img alt="logo"  src={data.logo} style={{ width: "100%" }} referrerPolicy="no-referrer" />
             </Box>
             <Box key={data.id} flexDirection="column" item xs={4} direction="column" >
-              <Typography variant="h4" style={{ margin:"1%"}}><b>{data.name} </b></Typography>
+              <Typography variant="h4" style={{ margin:"1%"}}>{data.name}</Typography>
               <Typography variant="h6" style={{ margin:"1%"}}>Address </Typography>
-              <Typography variant="subtitle2" style={{ margin:"1%"}}><b>{data.address} </b></Typography>
+              <Typography variant="subtitle2" style={{ margin:"1%"}}>{data.address}</Typography>
               <Typography variant="h6" style={{ margin:"1%"}}>Description</Typography>
-              <Typography variant="subtitle2" style={{ margin:"1%"}}><b>{data.description} </b></Typography>
+              <Typography variant="subtitle2" style={{ margin:"1%"}}>{data.description}</Typography>
               <Typography variant="h6" style={{ margin:"1%"}}>Pickup Times</Typography>
               <Typography variant="subtitle2"style={{ margin:"1%"}} >
                 {!data.pickup ? (
@@ -190,47 +190,47 @@ function UserViewOrg(props) {
         <Box container display="flex" justify="center" align="center" style={{  width: "1200px", overflow: "hidden", margin: "auto",padding:"25px" }}>
           <Box style={{ width: "400px", float:"center"}}>
             <Typography variant="h6">Items Needed List</Typography>
-            <Typography><b>No Items Needed Currently </b></Typography>
+            <Typography>No Items Needed Currently</Typography>
           </Box>
           <Box style={{ width: "400px", float:"center"}}>
             <Typography variant="h6">Item Approved Condition List </Typography>
-            <Typography><b>No Items Needed Currently </b></Typography>
+            <Typography>No Items Needed Currently </Typography>
           </Box>
           <Box style={{ width: "400px", float:"center"}}>
             <Typography variant="h6">Item Not Approved Condition List </Typography>
-            <Typography><b> No Items Needed Currently</b></Typography>
+            <Typography>No Items Needed Currently</Typography>
           </Box>
         </Box>
       ) : (
         orgNeeds.map((data) => (
           <Box container display="flex" justify="center" align="center" style={{  width: "1200px", overflow: "hidden", margin: "auto",padding:"25px" }}>
             <Box style={{ width: "400px", float:"center"}}>
-              <Typography variant="h5">Items Needed List</Typography>
+              <Typography variant="h6">Items Needed List</Typography>
               {!data.items_needed ? (
-                <Typography><b> No Items Needed Currently</b></Typography>
+                <Typography> No Items Needed Currently</Typography>
               ) : (
                 data.items_needed.split(",").map((item) => (
-                  <Typography variant="subtitle1"><b> {item}</b></Typography>
+                  <Typography variant="subtitle1">{item}</Typography>
                 ))
               )}
             </Box>
             <Box style={{ width: "400px", float:"center"}}>
-              <Typography variant="h5">Item Approved Condition List </Typography>
+              <Typography variant="h6">Item Approved Condition List </Typography>
               {!data.conditions_accepted ? (
-                <Typography><b>No Items Needed Currently </b></Typography>
+                <Typography>No Items Needed Currently</Typography>
               ) : (
                 data.conditions_accepted.split(",").map((item) => (
-                  <Typography variant="subtitle1"><b> {item}</b></Typography>
+                  <Typography variant="subtitle1">{item}</Typography>
                 ))
               )}
             </Box>
             <Box style={{ width: "400px", float:"center"}}>
-              <Typography variant="h5">Item Not Approved Condition List </Typography>
+              <Typography variant="h6">Item Not Approved Condition List </Typography>
               {!data.conditions_not_accepted ? (
                 <Typography>No Items Needed Currently</Typography>
               ) : (
                 data.conditions_not_accepted.split(",").map((item) => (
-                  <Typography variant="subtitle1"><b>{item} </b></Typography>
+                  <Typography variant="subtitle1">{item}</Typography>
                 ))
               )}
             </Box>

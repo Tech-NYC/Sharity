@@ -78,7 +78,6 @@ export default function EditModal(props) {
       notaccepted,
     };
     
-    console.log(data)
     fetch(`${URL}/api/organization_list/update`, {
          method: "PATCH",
          headers: {
@@ -108,6 +107,7 @@ export default function EditModal(props) {
                 <TextField autoFocus margin="dense" id="orgname" label="Organization Name" type="text" fullWidth onChange={(e) => setName(e.target.value)} />
                 <TextField margin="dense" id="address" label="Address" type="text" fullWidth onChange={(e) => setLocation(e.target.value)} />
                 <TextField margin="dense" id="description" label="Description" type="text" fullWidth onChange={(e) => setDescription(e.target.value)}/>
+                <TextField margin="dense" id="times" label="Pickup Times" type="text" fullWidth />
                 <DialogActions>
                   <Button type="submit" component="button" color="primary">
                     Submit

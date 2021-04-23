@@ -1,10 +1,10 @@
 import React from "react";
 import Footer from "./home/Footer";
-import { Grid, Button} from "@material-ui/core";
+import { Button, Box } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import ScheduleModal from "./scheduler/ScheduleModal";
 import { UserContext } from "../contexts/UserContext";
-import { Link, Redirect} from "react-router-dom";
+import { Link } from "react-router-dom";
 import {formatTime} from '../Components/profiles/parseDateTime'
 
 function UserViewOrg(props) {
@@ -108,13 +108,13 @@ function UserViewOrg(props) {
       isCurrent = false;
     };
   }, [thing, orgName, userId, orgId]);
+  
   // array of all info
   let mergedArray = [];
+
   // merges the orgneeds, user and org arrays of objects to create a new array of object
   const mergeArrays = () => {
-    //map over org
     org.forEach((orgInfo) => {
-      //iterate through user
       user.forEach((userInfo) => {
         if (orgNeeds.length !== 0) {
           orgNeeds.forEach((needs) => {
@@ -141,10 +141,7 @@ function UserViewOrg(props) {
             pickup: orgInfo.pickup_times,
             logo: userInfo.avatar,
           });
-          // setRows(mergedArray)
         }
-
-        // setRows(mergedArray)
       });
     });
   };
@@ -154,103 +151,90 @@ function UserViewOrg(props) {
   let daysArr = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
   return (
     <>
+      <Box container display="flex"  style={{ paddingTop: "5%", paddingBottom: "5%"}}>
       {mergedArray &&
         mergedArray.map((data) => (
           <>
-            <Grid key={data.id} container spacing={3} style={{ paddingTop: "5%" }}>
-              <Grid container xs={2}>
-                <img alt="logo" style={{ paddingLeft: "10%", width: "75%", height: "75%" }} src={data.logo} referrerPolicy="no-referrer" />
-              </Grid>
-              <Grid container item xs={7} direction="column">
-                <Typography variant="h4">{data.name}</Typography>
-                <Typography variant="h6">Address </Typography>
-                <Typography variant="subtitle2">{data.address}</Typography>
-                <Typography variant="h6">Description</Typography>
-                <Typography variant="subtitle2">{data.description}</Typography>
-                <Typography variant="h6">Pickup Times</Typography>
-                <Typography variant="subtitle2">
-                  {!data.pickup ? (
-                    <Typography>No Times Yet</Typography>
-                  ) : (
-                    data.pickup.split(",").map((time, i) => (
-                      <>
-                        {daysArr[i]}: {formatTime(time.split('-')[0]) + " - " + formatTime(time.split('-')[1]) }
-                      </>
-                    ))
-                  )}
-                </Typography>
-              </Grid>
-              <Grid container item xs={3} direction="column">
-                {userLoggedIn ? 
-                  <ScheduleModal org_id={orgId}></ScheduleModal> : <Button component={ Link } to="/login" variant="outlined" style={{margin:"auto"}}>Request Pickup</Button>
-                }
-                
-              </Grid>
-            </Grid>
+            <Box flexDirection="column" flexWrap="wrap" paddingLeft="5%" xs={2}>
+              <img alt="logo"  src={data.logo} style={{ width: "100%" }} referrerPolicy="no-referrer" />
+            </Box>
+            <Box key={data.id} flexDirection="column" item xs={4} direction="column" >
+              <Typography variant="h4" style={{ margin:"1%"}}><b>{data.name} </b></Typography>
+              <Typography variant="h6" style={{ margin:"1%"}}>Address </Typography>
+              <Typography variant="subtitle2" style={{ margin:"1%"}}><b>{data.address} </b></Typography>
+              <Typography variant="h6" style={{ margin:"1%"}}>Description</Typography>
+              <Typography variant="subtitle2" style={{ margin:"1%"}}><b>{data.description} </b></Typography>
+              <Typography variant="h6" style={{ margin:"1%"}}>Pickup Times</Typography>
+              <Typography variant="subtitle2"style={{ margin:"1%"}} >
+                {!data.pickup ? (
+                  <Typography>No Times Yet</Typography>
+                ) : (
+                  data.pickup.split(",").map((time, i) => (
+                    <>
+                      <li style={{ listStyleType: "none" }} key={i}><b> {daysArr[i]} </b> {formatTime(time.split('-')[0]) + " - " + formatTime(time.split('-')[1])} </li>
+                    </>
+                  ))
+                )}
+              </Typography>
+            </Box>
+            <Box  flexDirection="column" item xs={4} direction="column" style={{paddingRight:"5%"}}>
+              {userLoggedIn ? 
+                <ScheduleModal org_id={orgId}></ScheduleModal> : <Button align="center" component={ Link } to="/login" variant="outlined" style={{margin:"auto"}}>Request Pickup</Button>
+              }
+            </Box>
           </>
         ))}
+        </Box>
       <hr></hr>
       {orgNeeds.length === 0 ? (
-        <Grid container spacing={3} justify="center" style={{ paddingTop: "5%", paddingBottom: "10%" }}>
-          <Grid item xs={3}>
+        <Box container display="flex" justify="center" align="center" style={{  width: "1200px", overflow: "hidden", margin: "auto",padding:"25px" }}>
+          <Box style={{ width: "400px", float:"center"}}>
             <Typography variant="h6">Items Needed List</Typography>
-            <Typography>No Items Needed Currently</Typography>
-          </Grid>
-          <Grid item xs={3}>
+            <Typography><b>No Items Needed Currently </b></Typography>
+          </Box>
+          <Box style={{ width: "400px", float:"center"}}>
             <Typography variant="h6">Item Approved Condition List </Typography>
-            <Typography>No Items Needed Currently</Typography>
-          </Grid>
-          <Grid item xs={3}>
+            <Typography><b>No Items Needed Currently </b></Typography>
+          </Box>
+          <Box style={{ width: "400px", float:"center"}}>
             <Typography variant="h6">Item Not Approved Condition List </Typography>
-            <Typography>No Items Needed Currently</Typography>
-          </Grid>
-        </Grid>
+            <Typography><b> No Items Needed Currently</b></Typography>
+          </Box>
+        </Box>
       ) : (
         orgNeeds.map((data) => (
-          <Grid container spacing={3} justify="center" style={{ paddingTop: "5%", paddingBottom: "10%" }}>
-            <Grid item xs={3}>
-              <Typography variant="h6">Items Needed List</Typography>
+          <Box container display="flex" justify="center" align="center" style={{  width: "1200px", overflow: "hidden", margin: "auto",padding:"25px" }}>
+            <Box style={{ width: "400px", float:"center"}}>
+              <Typography variant="h5">Items Needed List</Typography>
               {!data.items_needed ? (
-                <Typography>No Items Needed Currently</Typography>
+                <Typography><b> No Items Needed Currently</b></Typography>
               ) : (
                 data.items_needed.split(",").map((item) => (
-                  <>
-                    <ul>
-                      <li> {item}</li>
-                    </ul>
-                  </>
+                  <Typography variant="subtitle1"><b> {item}</b></Typography>
                 ))
               )}
-            </Grid>
-            <Grid item xs={3}>
-              <Typography variant="h6">Item Approved Condition List </Typography>
+            </Box>
+            <Box style={{ width: "400px", float:"center"}}>
+              <Typography variant="h5">Item Approved Condition List </Typography>
               {!data.conditions_accepted ? (
-                <Typography>No Items Needed Currently</Typography>
+                <Typography><b>No Items Needed Currently </b></Typography>
               ) : (
                 data.conditions_accepted.split(",").map((item) => (
-                  <>
-                    <ul>
-                      <li> {item}</li>
-                    </ul>
-                  </>
+                  <Typography variant="subtitle1"><b> {item}</b></Typography>
                 ))
               )}
-            </Grid>
-            <Grid item xs={3}>
-              <Typography variant="h6">Item Not Approved Condition List </Typography>
+            </Box>
+            <Box style={{ width: "400px", float:"center"}}>
+              <Typography variant="h5">Item Not Approved Condition List </Typography>
               {!data.conditions_not_accepted ? (
                 <Typography>No Items Needed Currently</Typography>
               ) : (
                 data.conditions_not_accepted.split(",").map((item) => (
-                  <>
-                    <ul>
-                      <li> {item}</li>
-                    </ul>
-                  </>
+                  <Typography variant="subtitle1"><b>{item} </b></Typography>
                 ))
               )}
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         ))
       )}
 

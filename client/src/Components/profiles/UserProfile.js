@@ -95,17 +95,17 @@ console.log(userDonations)
           />
         </Box>
         <Box flexDirection="row" item xs={4} flexWrap="nowrap" style={{ paddingLeft: "5%"}}  >
-          <Typography variant="h5" style={{ margin:"1%"}}>Username</Typography>
-          <Typography variant="h6" style={{ margin:"1%"}}>
-            <b>{sessionUser.user.username} </b>
+          <Typography variant="h6" style={{ margin:"1%"}}>Username</Typography>
+          <Typography variant="subtitle1" style={{ margin:"1%"}}>
+            {sessionUser.user.username}
           </Typography>
-          <Typography variant="h5" style={{ margin:"1%"}}>Email</Typography>
-          <Typography variant="h6" style={{ margin:"1%"}}>
-            <b>{sessionUser.user.email}{" "} </b>
+          <Typography variant="h6" style={{ margin:"1%"}}>Email</Typography>
+          <Typography variant="subtitle1" style={{ margin:"1%"}}>
+            {sessionUser.user.email}{" "}
           </Typography>
-          <Typography variant="h5" style={{ margin:"1%"}}>Phone Number</Typography>
-          <Typography variant="h6" style={{ margin:"1%"}}>
-            <b> {sessionUser.user.phone_number}{" "}</b>
+          <Typography variant="h6" style={{ margin:"1%"}}>Phone Number</Typography>
+          <Typography variant="subtitle1" style={{ margin:"1%"}}>
+            {sessionUser.user.phone_number}{" "}
           </Typography>
         </Box>
       </Box>

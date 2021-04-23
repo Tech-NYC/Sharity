@@ -159,13 +159,13 @@ function UserViewOrg(props) {
               <img alt="logo"  src={data.logo} style={{ width: "100%" }} referrerPolicy="no-referrer" />
             </Box>
             <Box key={data.id} flexDirection="column" item xs={4} direction="column" >
-              <Typography variant="h4" style={{ margin:"1%"}}>{data.name}</Typography>
+              <Typography variant="h3" style={{ margin:"1%"}}>{data.name}</Typography>
               <Typography variant="h6" style={{ margin:"1%"}}>Address </Typography>
-              <Typography variant="subtitle2" style={{ margin:"1%"}}>{data.address}</Typography>
+              <Typography variant="subtitle1" style={{ margin:"1%"}}>{data.address}</Typography>
               <Typography variant="h6" style={{ margin:"1%"}}>Description</Typography>
-              <Typography variant="subtitle2" style={{ margin:"1%"}}>{data.description}</Typography>
+              <Typography variant="subtitle1" style={{ margin:"1%"}}>{data.description}</Typography>
               <Typography variant="h6" style={{ margin:"1%"}}>Pickup Times</Typography>
-              <Typography variant="subtitle2"style={{ margin:"1%"}} >
+              <Typography variant="subtitle1"style={{ margin:"1%"}} >
                 {!data.pickup ? (
                   <Typography>No Times Yet</Typography>
                 ) : (

@@ -31,10 +31,7 @@ export default function EditModal(props) {
   const [notaccepted, setNotAccepted] = React.useState("");
 
   const [open, setOpen] = React.useState(false);
-  // const [time, setTime] = React.useState("");
-  // const [date, setDate] = React.useState("");
 
-  // uses user_id 125 as default until we can have login functionality
 
   const organization_id = props.org_id;
   const handleClickOpen = () => {
@@ -48,31 +45,6 @@ export default function EditModal(props) {
   const handleRedirect = () => {
     setOpen(false);
   };
-
-  // const handleDonation = (e) => {
-  //   e.preventDefault();
-
-  //   const data = {
-  //     organization_id,
-  //     user_id,
-  //     location,
-  //     items,
-  //     time,
-  //     date,
-  //     status: "1",
-  //   };
-
-  //   fetch(`${URL}/api/donationRequest/create`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "Access-Control-Allow-Origin": "*",
-  //     },
-  //     body: JSON.stringify(data),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => handleClose);
-  // };
 
   const handleOrgTable = (e) => {
     // updates organization name, description, and location

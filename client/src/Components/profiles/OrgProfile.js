@@ -119,6 +119,7 @@ function OrgProfile() {
     <>
       <EditProfile />
       <Divider/>
+      <p>ORG PROFILE</p>
       {/* This is the Your Pickups table */}
       <Box display="flex" alignItems="center" justifyContent="center" paddingTop="1em" paddingBottom="1em">
         <Card >

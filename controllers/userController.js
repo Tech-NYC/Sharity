@@ -20,10 +20,10 @@ class userController {
       if (request.body.is_organization) {
         user = await db.one("SELECT * FROM users WHERE username = $(username)", request.body);
         request.body.user_id = user.id;
-        await db.none("INSERT INTO organizations (user_id, name, address) VALUES (${user_id},${name},${address})", request.body);        
+        await db.none("INSERT INTO organizations (user_id, name, address) VALUES (${user_id},${name},${address})", request.body);
         org = await db.one("SELECT * FROM organizations WHERE user_id=$(user_id)", request.body);
-    
-        const data = await db.any("INSERT INTO organization_needs_list (organization_id, items_needed, conditions_accepted, conditions_not_accepted) VALUES ($(id),' ',' ',' ')", org)
+
+        const data = await db.any("INSERT INTO organization_needs_list (organization_id, items_needed, conditions_accepted, conditions_not_accepted) VALUES ($(id),' ',' ',' ')", org);
       }
       const token = jwt.sign({ username: request.body.username }, process.env.AUTH_KEY);
 
@@ -84,9 +84,8 @@ class userController {
   async fetch_requests(request, response) {
     try {
       console.log("fetching donations associated with user");
-
       const data = await db.any(
-        "SELECT * FROM donation_requests INNER JOIN organizations ON donation_requests.organization_id = organizations.id WHERE donation_requests.user_id =$(id)",
+        "SELECT donation_requests.id AS request_id, date, time, location,items, status FROM donation_requests INNER JOIN organizations ON donation_requests.organization_id = organizations.id WHERE donation_requests.user_id =$(id)",
         request.body
       );
 

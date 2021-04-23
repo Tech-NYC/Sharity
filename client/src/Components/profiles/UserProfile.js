@@ -67,14 +67,6 @@ const UserProfile = () => {
 
   // data parsing
   function createData(request_number, name, date, time, items, status, location) {
-    /**
-     * Status mapping
-     *  1 = pending
-     *  2 = accepted
-     *  3 = rejected
-     *  4 = completed
-     *
-     * */
 
     if (status === 1) {
       status = "Pending";
@@ -97,12 +89,12 @@ console.log(userDonations)
         <Box flexDirection="row" flexWrap="wrap" align="center" xs={2}>
           <img
             alt="avatar"
-            style={{ paddingLeft: "5%", width: "25%", }}
+            style={{ paddingLeft: "5%" }}
             src={sessionUser.user.avatar}
             referrerPolicy="no-referrer"
           />
         </Box>
-        <Box flexDirection="row" item xs={4} flexWrap="nowrap" >
+        <Box flexDirection="row" item xs={4} flexWrap="nowrap" style={{ paddingLeft: "5%"}}  >
           <Typography variant="h5" style={{ margin:"1%"}}>Username</Typography>
           <Typography variant="h6" style={{ margin:"1%"}}>
             <b>{sessionUser.user.username} </b>

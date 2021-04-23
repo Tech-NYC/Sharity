@@ -3,7 +3,6 @@ export const formatTime = (t) => {
   // time parsing for 24:59:00 format
 
   if (t === 'CLOSED' || !t) return 'CLOSED'
-  console.log('t', t)
   let time = t.split(":")
   let hh = Number(time[0])
   let m = Number(time[1])

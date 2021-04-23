@@ -1,14 +1,8 @@
 import React, { useContext, useEffect } from "react";
-import { Typography, Box } from "@material-ui/core";
+import { Typography, Box, Table, TableBody, TableCell, Button, Card, CardHeader, TableRow, Divider } from "@material-ui/core";
 import { UserContext } from "../../contexts/UserContext.js";
 import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
+import Footer from "../home/Footer"
 
 const styles = makeStyles({
   container: {
@@ -71,7 +65,7 @@ const UserProfile = () => {
   }, []);
 
   // data parsing
-  function createData(request_number, name, date, time, items, status) {
+  function createData(request_number, name, date, time, items, status, location) {
     /**
      * Status mapping
      *  1 = pending
@@ -90,78 +84,80 @@ const UserProfile = () => {
     } else if (status === 4) {
       status = "Completed";
     }
-    return { request_number, name, date, time, items, status };
+    return { request_number, name, date, time, items, status, location };
   }
-
+console.log(userDonations)
   const rows = userDonations.map(donation => {
-    return createData(donation.id, donation.name, donation.date, donation.time, donation.items, donation.status)
+    return createData(donation.request_id, donation.name, donation.date, donation.time, donation.items, donation.status, donation.location)
   })
-
   return (
-    <div>
-      <Box container display="flex" style={{ paddingTop: "5%" }}>
-        <Box flexDirection="row" flexWrap="wrap" xs={2}>
+    <>
+    <Box container display="flex"  style={{ paddingTop: "5%", paddingBottom: "5%"}}>
+        <Box flexDirection="row" flexWrap="wrap" align="center" xs={2}>
           <img
             alt="avatar"
-            style={{ paddingLeft: "10%", width: "75%", height: "75%" }}
+            style={{ paddingLeft: "5%", width: "25%", }}
             src={sessionUser.user.avatar}
             referrerPolicy="no-referrer"
           />
         </Box>
-        <Box flexDirection="row" item xs={4} direction="column">
-          <Typography variant="h6"> Username </Typography>
-          <Typography style={{marginLeft: "10%", marginRight: "10%"}} variant="h4">
-            {sessionUser.user.username}
+        <Box flexDirection="row" item xs={4} flexWrap="nowrap" >
+          <Typography variant="h5" style={{ margin:"1%"}}>Username</Typography>
+          <Typography variant="h6" style={{ margin:"1%"}}>
+            <b>{sessionUser.user.username} </b>
           </Typography>
-          <Typography variant="h6"> Email </Typography>
-          <Typography style={{marginLeft: "10%", marginRight: "10%"}} variant="h4">
-            {sessionUser.user.email}{" "}
+          <Typography variant="h5" style={{ margin:"1%"}}>Email</Typography>
+          <Typography variant="h6" style={{ margin:"1%"}}>
+            <b>{sessionUser.user.email}{" "} </b>
           </Typography>
-          <Typography variant="h6">Phone Number</Typography>
-          <Typography style={{marginLeft: "10%", marginRight: "10%"}} variant="h4">
-            {sessionUser.user.phone_number}{" "}
+          <Typography variant="h5" style={{ margin:"1%"}}>Phone Number</Typography>
+          <Typography variant="h6" style={{ margin:"1%"}}>
+            <b> {sessionUser.user.phone_number}{" "}</b>
           </Typography>
         </Box>
-        <Box
-          flexDirection="row"
-          flexWrap="wrap"
-          item
-          xs={3}
-          direction="column"
-        ></Box>
       </Box>
-      <hr />
-      <Box container display="flex" style={{ paddingTop: "2%", padding: "5%" }}>
-        <TableContainer component={Paper}>
+      <Divider/>
+      <Box display="flex" alignItems="center"  justifyContent="center" paddingTop="1em" paddingBottom="1em">
+        <Card>
           <Table className={classes.table} aria-label="simple table">
-            <TableHead>
               <TableRow>
-                <TableCell>Donation Request Number</TableCell>
-                <TableCell alight="left">Donating To</TableCell>
-                <TableCell align="right">Date</TableCell>
-                <TableCell align="right">Time</TableCell>
-                <TableCell align="left">Description</TableCell>
-                <TableCell align="right">Request Status</TableCell>
+                <TableCell style={{backgroundColor:"#dbe3f0"}}><CardHeader title="Pickup Requests" /></TableCell>
+                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
               </TableRow>
-            </TableHead>
+              <TableRow>
+                <TableCell >Request #</TableCell>
+                <TableCell alight="left">Organization</TableCell>
+                <TableCell align="left">Address</TableCell>
+                <TableCell align="left">Description</TableCell>
+                <TableCell align="center">Request Status</TableCell>
+              </TableRow>
             <TableBody>
               {rows.map((row) => (
                 <TableRow key={row.request_number}>
-                  <TableCell component="th" scope="row">
-                    {row.request_number}
+                  <TableCell component="th" scope="row" align="center"> 
+                    #{row.request_number} {row.date} {row.time}
                   </TableCell>
                   <TableCell align="center">{row.name}</TableCell>
-                  <TableCell align="right">{row.date}</TableCell>
-                  <TableCell align="right">{row.time}</TableCell>
-                  <TableCell align="right">{row.items}</TableCell>
-                  <TableCell align="center">{row.status}</TableCell>
+                  <TableCell align="left">{row.location}</TableCell>
+                  <TableCell align="left">{row.items}</TableCell>
+                  <TableCell><Button
+                              color="primary"
+                              size="small"
+                              variant="disabled"
+                              align="right"
+                              >{row.status}</Button> </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
-        </TableContainer>
+        </Card>
       </Box>
-    </div>
+      <Footer/>
+    </>
+    
   );
 };
 

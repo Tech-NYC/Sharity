@@ -71,7 +71,7 @@ function OrgProfile(props) {
       .then((data) => {
         setPending(data);
       });
-
+  
     fetch(`${URL}/api/organization/fetch_requests_accepted`, {
       method: "POST",
       headers: {
@@ -126,19 +126,26 @@ function OrgProfile(props) {
     window.location.reload(false);
     //return <Redirect to="/dashboard" />;
   }
-
+console.log(pending, "pending")
+console.log(accepted, "accepted")
+console.log(completed, "completed")
   const classes = useStyles();
   return (
     <>
       <EditProfile />
-      <hr></hr>
-      {/* <OrgProfileTables users = {user}/> */}
+      <Divider/>
       {/* This is the Your Pickups table */}
       <Box display="flex" alignItems="center" justifyContent="center" paddingTop="1em" paddingBottom="1em">
-        <Card className={classes.root}>
-          <CardHeader title="Your Pickups" />
-          <Divider />
+        <Card >
           <Table>
+            <TableRow>
+              <TableCell style={{backgroundColor:"#dbe3f0"}}><CardHeader title="Pending Requests" /></TableCell>
+              <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+              <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+              <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+              <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+              <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+            </TableRow>
             <TableRow>
               <TableCell>Pickup #</TableCell>
               <TableCell>Donor Name</TableCell>
@@ -148,39 +155,15 @@ function OrgProfile(props) {
               <TableCell align="center">Status</TableCell>
             </TableRow>
             <TableBody>
-              {accepted.map((data) => (
-                <TableRow>
-                  <TableCell>#{data.request_id}</TableCell>
-                  <TableCell>
-                    {data.first_name} {data.last_name}
-                  </TableCell>
-                  <TableCell>{data.location}</TableCell>
-                  <TableCell>{data.phone_number}</TableCell>
-                  <TableCell>{data.items}</TableCell>
-                  <TableCell align="center">
-                    <Button
-                      color="primary"
-                      // component={RouterLink}
-                      size="small"
-                      onClick={(e) => updateStatus(data.request_id, 4)}
-                      variant="outlined"
-                    >
-                      Picked Up
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-
               {/* This is the donor request tables */}
-              <CardHeader title="Pending Requests" />
-              <Divider />
               {pending.map((data) => (
                 <TableRow>
-                  <TableCell>#{data.request_id}</TableCell>
+                  <TableCell>#{data.request_id} {data.date} {data.time}</TableCell>
                   <TableCell>
                     {data.first_name} {data.last_name}
                   </TableCell>
                   <TableCell>{data.location}</TableCell>
+                  {/* <TableCell>{data.date} {data.time}</TableCell> */}
                   <TableCell>{data.phone_number}</TableCell>
                   <TableCell>{data.items}</TableCell>
                   <TableCell align="center">
@@ -205,12 +188,51 @@ function OrgProfile(props) {
                   </TableCell>
                 </TableRow>
               ))}
+              <TableRow>
+                <TableCell style={{backgroundColor:"#dbe3f0"}}><CardHeader title="Your Pickups" /></TableCell>
+                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+              </TableRow>
+              {accepted.map((data) => (
+                <TableRow>
+                  <TableCell>#{data.request_id} {data.date} {data.time}</TableCell>
+                  <TableCell>
+                    {data.first_name} {data.last_name}
+                  </TableCell>
+                  <TableCell>{data.location}</TableCell>
+                  {/* <TableCell>{data.date} {data.time}</TableCell> */}
+                  <TableCell>{data.phone_number}</TableCell>
+                  <TableCell>{data.items}</TableCell>
+                  <TableCell align="center">
+                    <Button
+                      color="primary"
+                      // component={RouterLink}
+                      size="small"
+                      onClick={(e) => updateStatus(data.request_id, 4)}
+                      variant="outlined"
+                    >
+                      Picked Up
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+
               {/* This is the completed pickups table */}
-              <CardHeader title="Completed Pickups" />
-              <Divider />
+              <TableRow>
+                <TableCell style={{backgroundColor:"#dbe3f0"}}><CardHeader title="Completed Requests" /></TableCell>
+                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+              </TableRow>
+             
               {completed.map((data) => (
                 <TableRow>
-                  <TableCell>#{data.request_id}</TableCell>
+                  <TableCell>#{data.request_id} {data.date} {data.time}</TableCell>
                   <TableCell>
                     {data.first_name} {data.last_name}
                   </TableCell>

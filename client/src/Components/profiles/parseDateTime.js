@@ -1,5 +1,6 @@
 const formatTime = (t) => {
-  // time parsing
+
+  // time parsing for 24:59:00 format
 
   let time = t.split(":")
   let hh = Number(time[0])
@@ -22,4 +23,7 @@ const formatTime = (t) => {
 
 }
 
-console.log(formatTime("19:00:00"))
+// const formatDate = (d) => {
+//   // date formating for 2021-02-30T00:00:00.000Z
+//   let date = d.
+// }

@@ -69,10 +69,10 @@ export const NavDonator = ({ nav }) => {
             </Link>
           </Typography>
           <Typography variant="h6" className={classes.root} style={{ marginLeft: "4%" }}>
-            <Link to="/organizations" style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
+            <Link to="/organizations" className={classes.linkStyle} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
               Donate
             </Link>
-            <Link to="/profile" style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
+            <Link to="/profile" className={classes.linkStyle} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
               My Donations
             </Link>
           </Typography>
@@ -115,7 +115,7 @@ export const NavOrganization = ({ nav }) => {
               Impact
             </Link> */}
 
-            <Link to="/dashboard" style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
+            <Link to="/dashboard" className={classes.linkStyle} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
               Dashboard
             </Link>
           </Typography>

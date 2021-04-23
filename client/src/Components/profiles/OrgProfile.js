@@ -5,7 +5,7 @@ import { Table, TableHead, TableBody, TableRow, TableCell, Button, Box, CardCont
 import EditProfile from "./EditProfile";
 import { makeStyles } from "@material-ui/core/styles";
 import { Redirect } from "react-router-dom";
-
+import {formatTime, formatDate} from './parseDateTime'
 const useStyles = makeStyles({
   root: {
     // display: "flex",
@@ -158,7 +158,7 @@ console.log(completed, "completed")
               {/* This is the donor request tables */}
               {pending.map((data) => (
                 <TableRow>
-                  <TableCell>#{data.request_id} {data.date} {data.time}</TableCell>
+                  <TableCell>#{data.request_id} {formatDate(data.date)} {formatTime(data.time)}</TableCell>
                   <TableCell>
                     {data.first_name} {data.last_name}
                   </TableCell>
@@ -198,7 +198,7 @@ console.log(completed, "completed")
               </TableRow>
               {accepted.map((data) => (
                 <TableRow>
-                  <TableCell>#{data.request_id} {data.date} {data.time}</TableCell>
+                  <TableCell>#{data.request_id} {formatDate(data.date)} {formatTime(data.time)}</TableCell>
                   <TableCell>
                     {data.first_name} {data.last_name}
                   </TableCell>
@@ -232,7 +232,7 @@ console.log(completed, "completed")
              
               {completed.map((data) => (
                 <TableRow>
-                  <TableCell>#{data.request_id} {data.date} {data.time}</TableCell>
+                  <TableCell>#{data.request_id} {formatDate(data.date)} {formatTime(data.time)}</TableCell>
                   <TableCell>
                     {data.first_name} {data.last_name}
                   </TableCell>

@@ -3,6 +3,7 @@ import { Typography, Box, Table, TableBody, TableCell, Button, Card, CardHeader,
 import { UserContext } from "../../contexts/UserContext.js";
 import { makeStyles } from "@material-ui/core/styles";
 import Footer from "../home/Footer"
+import {formatTime, formatDate} from "../profiles/parseDateTime"
 
 const styles = makeStyles({
   container: {
@@ -138,7 +139,7 @@ console.log(userDonations)
               {rows.map((row) => (
                 <TableRow key={row.request_number}>
                   <TableCell component="th" scope="row" align="center"> 
-                    #{row.request_number} {row.date} {row.time}
+                    #{row.request_number} {formatDate(row.date)} {formatTime(row.time)}
                   </TableCell>
                   <TableCell align="center">{row.name}</TableCell>
                   <TableCell align="left">{row.location}</TableCell>

@@ -25,7 +25,13 @@ export const formatTime = (t) => {
 
 }
 
-// const formatDate = (d) => {
-//   // date formating for 2021-02-30T00:00:00.000Z
-//   let date = d.
-// }
+export const formatDate = (d) => {
+  // date formating for 2021-02-30T00:00:00.000Z
+  let date = d.split('T')[0]
+  let splitDate = date.split('-')
+  let day = splitDate[2]
+  let month = splitDate[1]
+  let year = splitDate[0]
+
+  return month + "/" + day + "/" + year
+}

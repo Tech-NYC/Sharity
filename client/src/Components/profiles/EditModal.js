@@ -34,7 +34,6 @@ export default function EditModal(props) {
   // const [time, setTime] = React.useState("");
   // const [date, setDate] = React.useState("");
 
-  // uses user_id 125 as default until we can have login functionality
 
   const organization_id = props.org_id;
   const handleClickOpen = () => {
@@ -48,31 +47,6 @@ export default function EditModal(props) {
   const handleRedirect = () => {
     setOpen(false);
   };
-
-  // const handleDonation = (e) => {
-  //   e.preventDefault();
-
-  //   const data = {
-  //     organization_id,
-  //     user_id,
-  //     location,
-  //     items,
-  //     time,
-  //     date,
-  //     status: "1",
-  //   };
-
-  //   fetch(`${URL}/api/donationRequest/create`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "Access-Control-Allow-Origin": "*",
-  //     },
-  //     body: JSON.stringify(data),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => handleClose);
-  // };
 
   const handleOrgTable = (e) => {
     // updates organization name, description, and location
@@ -106,7 +80,6 @@ export default function EditModal(props) {
       notaccepted,
     };
     
-    console.log(data)
     fetch(`${URL}/api/organization_list/update`, {
          method: "PATCH",
          headers: {
@@ -136,6 +109,7 @@ export default function EditModal(props) {
                 <TextField autoFocus margin="dense" id="orgname" label="Organization Name" type="text" fullWidth onChange={(e) => setName(e.target.value)} />
                 <TextField margin="dense" id="address" label="Address" type="text" fullWidth onChange={(e) => setLocation(e.target.value)} />
                 <TextField margin="dense" id="description" label="Description" type="text" fullWidth onChange={(e) => setDescription(e.target.value)}/>
+                <TextField margin="dense" id="times" label="Pickup Times" type="text" fullWidth />
                 <DialogActions>
                   <Button type="submit" component="button" color="primary">
                     Submit

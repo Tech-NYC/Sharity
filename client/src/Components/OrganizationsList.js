@@ -126,73 +126,55 @@ function OrganizationsList(props) {
     };
   }, [thing]);
 
-    let mergedArray = []
-    // merges the orgneeds, user and org arrays of objects to create a new array of object
-    const mergeArrays = () => {
-        //map over org
-        // if(orgNeeds.length !== 0){
+  let mergedArray = []
+  // merges the orgneeds, user and org arrays of objects to create a new array of object
+  const mergeArrays = () => {
+    orgs.forEach((orgInfo) => {
+      if(orgNeeds.length !== 0){
+          orgNeeds.forEach((needs)=> {
+              if(needs.organization_id === orgInfo.id){
+                mergedArray.push({
+                  id: orgInfo.id,
+                  user: orgInfo.user_id,
+                  name: orgInfo.name,
+                  address: orgInfo.address,
+                  description: orgInfo.description,
+                  pickup: orgInfo.pickup_times,
+                  needed: needs.items_needed
+                })     
+              }
+          })
+      }
+      if(orgNeeds.length === 0){
         orgs.forEach((orgInfo) => {
-            //iterate through user
-            // user.forEach((userInfo) => {
-                if(orgNeeds.length !== 0){
-                    orgNeeds.forEach((needs)=> {
-                        if(needs.organization_id === orgInfo.id){
-                             mergedArray.push({
-                                id: orgInfo.id,
-                                user: orgInfo.user_id,
-                                name: orgInfo.name,
-                                address: orgInfo.address,
-                                description: orgInfo.description,
-                                pickup: orgInfo.pickup_times,
-                                // logo: userInfo.avatar,
-                                needed: needs.items_needed
-                            })     
-                           
-                        }
-                    
-                    })
-                }
-                if(orgNeeds.length === 0){
-                    orgs.forEach((orgInfo) => {
-                    mergedArray.push({
-                        id: orgInfo.id,
-                        user: orgInfo.user_id,
-                        name: orgInfo.name,
-                        address: orgInfo.address,
-                        description: orgInfo.description,
-                        pickup: orgInfo.pickup_times,
-                        // logo: userInfo.avatar,
-
-                    })     
-                    // setRows(mergedArray)  
-                })
-            }
-                })
-            // }
-                 
-         
-            // console.log(user)
-            
-            user.forEach((info)=>{
-                mergedArray.forEach((data)=>{
-                    if(info.id === data.user){
-                        data.logo = info.avatar
-                    }
-                })
-               
-            })
-        return mergedArray
-    }
+          mergedArray.push({
+            id: orgInfo.id,
+            user: orgInfo.user_id,
+            name: orgInfo.name,
+            address: orgInfo.address,
+            description: orgInfo.description,
+            pickup: orgInfo.pickup_times,
+          })     
+        })
+      }
+    })
+        
+    user.forEach((info)=>{
+      mergedArray.forEach((data)=>{
+        if(info.id === data.user){
+          data.logo = info.avatar
+        }
+      })
+        
+    })
+    return mergedArray
+  }
     
-    // React.useEffect(()=> {
-    //     requestSearch("")
-    // })
-    // console.log(rows)
+
 
 
   const requestSearch = (searchVal = "") => {
     let search = searchVal.toLowerCase();
-    // console.log(mergedArray)
 
     const filteredSearch = mergedArray.filter((org) => {
       return org.name.toLowerCase().includes(search) || org.needed.toLowerCase().includes(search);
@@ -214,22 +196,22 @@ function OrganizationsList(props) {
   }
   return (
     <>
-      <div className="background" style={{background:"#dbe3f0"}} >
-      <div className="searchbar" style={{ margin: "auto", width: "60%", paddingTop: "200px" }}>
-        <SearchBar
-          placeholder="Search for organizations, items needed"
-          value={searched}
-          onClick={(style)}
-          onChange={(searchVal) => requestSearch(searchVal)}
-          onCancelSearch={() => cancelSearch()}
-          style={{ margin: "auto", maxWidth: 800 }}
-        />
-      </div>
-  
+      <Box bgcolor="#dbe3f0" height="525vh" display="flex" flexDirection="column">        
+      <div className="searchbar" style={{paddingTop:"50px"}}>
+          <SearchBar
+            placeholder="Search for organizations, items needed"
+            value={searched}
+            onClick={(style)}
+            onChange={(searchVal) => requestSearch(searchVal)}
+            onCancelSearch={() => cancelSearch()}
+            style={{ margin: "auto", maxWidth: 800 }}
+          />
+        </div>
+
       {mergeArrays() &&
         rows &&
         rows.map((row, i) => (
-          <Box style={{ paddingTop: "10px", paddingBottom: "10px"}} alignItems="center" justify="center" wrap="nowrap" key={i}>
+          <Box style={{ padding:"30px"}} alignItems="center" justify="center" wrap="nowrap" key={i}>
             
             <Card
               className={classes.root}
@@ -261,8 +243,11 @@ function OrganizationsList(props) {
             </Card>
           </Box>
         ))}
-        </div>
-        <Footer style={{paddingBottom:"20px"}} />
+
+      </Box>
+   
+      <Footer zIndex = "5"/>
+    
     </>
   );
 }

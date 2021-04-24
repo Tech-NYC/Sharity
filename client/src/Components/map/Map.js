@@ -5,12 +5,14 @@ import "./map.css";
 require("dotenv").config({ path: "../../../../.env" });
 
 function Map() {
-  let [loadState, setLoadState] = React.useState([]);
+  let [loadState, setLoadState] = React.useState(true);
+
   React.useEffect(() => {
     getOrgs();
   }, loadState);
 
   let orgs;
+  let orgsCoordsAppended = [];
 
   function getOrgs() {
     const PROD = true;
@@ -32,10 +34,33 @@ function Map() {
       })
       .then((data) => {
         orgs = data;
-        console.log(data);
-      }, renderMap())
+      })
+      .finally(getCoords)
       .catch((err) => console.log("fetch erro", err));
   }
+
+  const getCoords = () => {
+    orgs.forEach((org) => {
+      let location = org.address.split(" ").join("%20");
+      const URL = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyCQULPqCPaX1O1Lji7O9fpVTPpiIzcTobg`;
+
+      fetch(`${URL}`, {
+        method: "GET",
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json();
+          } else {
+            throw Error("Fetch failed");
+          }
+        })
+        .then((data) => {
+          orgsCoordsAppended.push([data, org]);
+        })
+        .finally(renderMap)
+        .catch((err) => console.log("fetch erro", err));
+    });
+  };
 
   function renderMap() {
     console.log("Rendering map..");
@@ -51,29 +76,30 @@ function Map() {
       zoom: 12,
     });
 
-    // // Create An InfoWindow
-    // var infowindow = new window.google.maps.InfoWindow();
+    // Create An InfoWindow
+    let infowindow = new window.google.maps.InfoWindow();
 
-    // // Display Dynamic Markers
-    // this.state.orgs.map((org) => {
-    //   let contentString = `${org.name}`;
+    // Display Dynamic Markers
+    orgsCoordsAppended.map((org) => {
+      let contentString = org[1].name;
 
-    //   // Create A Marker
-    //   var marker = new window.google.maps.Marker({
-    //     position: { lat: -34.397, lng: 150.644 },
-    //     map: map,
-    //     title: "test",
-    //   });
+      // Create A Marker
+      // results[0].geometry.location.lat
+      var marker = new window.google.maps.Marker({
+        position: { lat: org[0].results[0].geometry.location.lat, lng: org[0].results[0].geometry.location.lng },
+        map: map,
+        title: org[1].name,
+      });
 
-    //   // Click on A Marker!
-    //   marker.addListener("click", function () {
-    //     // Change the content
-    //     infowindow.setContent(contentString);
+      // Click on A Marker!
+      marker.addListener("click", function () {
+        // Change the content
+        infowindow.setContent(contentString);
 
-    //     // Open An InfoWindow
-    //     infowindow.open(map, marker);
-    //   });
-    // });
+        // Open An InfoWindow
+        infowindow.open(map, marker);
+      });
+    });
   };
 
   function loadScript(url) {

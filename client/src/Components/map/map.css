@@ -12,14 +12,13 @@
 }
 
 .pin {
-  display: flex;
   align-items: center;
   width: 180px;
   color: var(--main-blue);
 }
 
 .pin-icon {
-  font-size: 4rem;
+  font-size: 1rem;
 }
 
 .pin-text {
@@ -41,6 +40,6 @@
   }
 
   .pin-icon {
-    font-size: 10vw;
+    font-size: 3rem;
   }
 }

@@ -48,7 +48,7 @@ function OrganizationsList(props) {
   const [searched, setSearched] = React.useState("");
   const [user, setUser] = React.useState([]);
   // const [userId, setUserId] = React.useState("")
-//   const [orgId, setOrgId] = React.useState("")
+  //   const [orgId, setOrgId] = React.useState("")
   const [orgNeeds, setOrgNeeds] = React.useState([]);
   const classes = useStyles();
 
@@ -126,26 +126,26 @@ function OrganizationsList(props) {
     };
   }, [thing]);
 
-  let mergedArray = []
+  let mergedArray = [];
   // merges the orgneeds, user and org arrays of objects to create a new array of object
   const mergeArrays = () => {
     orgs.forEach((orgInfo) => {
-      if(orgNeeds.length !== 0){
-          orgNeeds.forEach((needs)=> {
-              if(needs.organization_id === orgInfo.id){
-                mergedArray.push({
-                  id: orgInfo.id,
-                  user: orgInfo.user_id,
-                  name: orgInfo.name,
-                  address: orgInfo.address,
-                  description: orgInfo.description,
-                  pickup: orgInfo.pickup_times,
-                  needed: needs.items_needed
-                })     
-              }
-          })
+      if (orgNeeds.length !== 0) {
+        orgNeeds.forEach((needs) => {
+          if (needs.organization_id === orgInfo.id) {
+            mergedArray.push({
+              id: orgInfo.id,
+              user: orgInfo.user_id,
+              name: orgInfo.name,
+              address: orgInfo.address,
+              description: orgInfo.description,
+              pickup: orgInfo.pickup_times,
+              needed: needs.items_needed,
+            });
+          }
+        });
       }
-      if(orgNeeds.length === 0){
+      if (orgNeeds.length === 0) {
         orgs.forEach((orgInfo) => {
           mergedArray.push({
             id: orgInfo.id,
@@ -154,24 +154,20 @@ function OrganizationsList(props) {
             address: orgInfo.address,
             description: orgInfo.description,
             pickup: orgInfo.pickup_times,
-          })     
-        })
+          });
+        });
       }
-    })
-        
-    user.forEach((info)=>{
-      mergedArray.forEach((data)=>{
-        if(info.id === data.user){
-          data.logo = info.avatar
+    });
+
+    user.forEach((info) => {
+      mergedArray.forEach((data) => {
+        if (info.id === data.user) {
+          data.logo = info.avatar;
         }
-      })
-        
-    })
-    return mergedArray
-  }
-    
-
-
+      });
+    });
+    return mergedArray;
+  };
 
   const requestSearch = (searchVal = "") => {
     let search = searchVal.toLowerCase();
@@ -191,63 +187,60 @@ function OrganizationsList(props) {
   const history = useHistory();
   const style = {
     searchbar: {
-      paddingTop: "100px"
-    }
-  }
+      paddingTop: "100px",
+    },
+  };
   return (
     <>
-      <Box bgcolor="#dbe3f0" height="525vh" display="flex" flexDirection="column">        
-      <div className="searchbar" style={{paddingTop:"50px"}}>
+      <Box bgcolor="#dbe3f0" height="525vh" display="flex" flexDirection="column">
+        <div className="searchbar" style={{ paddingTop: "50px" }}>
           <SearchBar
             placeholder="Search for organizations, items needed"
             value={searched}
-            onClick={(style)}
+            onClick={style}
             onChange={(searchVal) => requestSearch(searchVal)}
             onCancelSearch={() => cancelSearch()}
             style={{ margin: "auto", maxWidth: 800 }}
           />
         </div>
 
-      {mergeArrays() &&
-        rows &&
-        rows.map((row, i) => (
-          <Box style={{ padding:"30px"}} alignItems="center" justify="center" wrap="nowrap" key={i}>
-            
-            <Card
-              className={classes.root}
-              onClick={() => {   
-                history.push(`/${row.name.split(" ").join("")}`);
-              }}
-            >
-              <CardContent>
-                <Box container spacing={1} justify="center">
-                  <Box item xs={1} direction="column">
-                    <CardMedia className={classes.media} image={row.logo} title={row.name} />
+        {mergeArrays() &&
+          rows &&
+          rows.map((row, i) => (
+            <Box style={{ padding: "30px" }} alignItems="center" justify="center" wrap="nowrap" key={i}>
+              <Card
+                className={classes.root}
+                onClick={() => {
+                  history.push(`/${row.name.split(" ").join("")}`);
+                }}
+              >
+                <CardContent>
+                  <Box container spacing={1} justify="center">
+                    <Box item xs={1} direction="column">
+                      <CardMedia className={classes.media} image={row.logo} title={row.name} />
+                    </Box>
+                    <Box container item xs={1} direction="column">
+                      <Typography variant="h5" component="h2">
+                        <br /> {row.name}
+                      </Typography>
+                      <Typography variant="body2" component="p">
+                        {" "}
+                        {row.description}
+                      </Typography>
+                    </Box>
+                    <Box container item xs={1} direction="column">
+                      <Typography variant="body2" component="p">
+                        Items Needed: {row.needed}
+                      </Typography>
+                    </Box>
                   </Box>
-                  <Box container item xs={1} direction="column">
-                    <Typography variant="h5" component="h2">
-                      <br /> {row.name}
-                    </Typography>
-                    <Typography variant="body2" component="p">
-                      {" "}
-                      {row.description}
-                    </Typography>
-                  </Box>
-                  <Box container item xs={1} direction="column">
-                    <Typography variant="body2" component="p">
-                      Items Needed: {row.needed}
-                    </Typography>
-                  </Box>
-                </Box>
-              </CardContent>
-            </Card>
-          </Box>
-        ))}
-
+                </CardContent>
+              </Card>
+            </Box>
+          ))}
       </Box>
-   
-      <Footer zIndex = "5"/>
-    
+
+      <Footer zIndex="5" />
     </>
   );
 }

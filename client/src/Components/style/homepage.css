@@ -52,6 +52,7 @@ h1 {
   text-align: center;
   position: relative;
   display: flexbox;
+  font-weight: bold;
   margin: 0;
 }
 

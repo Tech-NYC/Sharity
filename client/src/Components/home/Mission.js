@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 const theme = createMuiTheme({
   typography: {
     fontFamily: ["Fira Sans", "sans-serif"].join(","),
+    fontWeight: "bold",
   },
 });
 
@@ -35,6 +36,8 @@ function Mission() {
           <ThemeProvider theme={theme}>
             <Typography variant="h5" className="mission-words">
               <h3>Mission</h3>
+            </Typography>
+            <Typography>
               <p>
                 Sharity makes it simple and easy to donate non-perishable foods, gently used furniture and clothing that will benefit those in need. We actively support our partner organizations to
                 make sure they have the resources needed to serve the community. Our donors make it possible to bring nourishment and hope to those who are struggling.

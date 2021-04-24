@@ -34,7 +34,7 @@ function OrgProfile(props) {
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
 
   let sessionUser = useContext(UserContext);
-  
+
   console.log(sessionUser);
   // console.log(sessionUser, "state user");
   ///////change it to "" before pushing
@@ -71,7 +71,7 @@ function OrgProfile(props) {
       .then((data) => {
         setPending(data);
       });
-  
+
     fetch(`${URL}/api/organization/fetch_requests_accepted`, {
       method: "POST",
       headers: {
@@ -126,25 +126,27 @@ function OrgProfile(props) {
     window.location.reload(false);
     //return <Redirect to="/dashboard" />;
   }
-console.log(pending, "pending")
-console.log(accepted, "accepted")
-console.log(completed, "completed")
+  console.log(pending, "pending");
+  console.log(accepted, "accepted");
+  console.log(completed, "completed");
   const classes = useStyles();
   return (
     <>
       <EditProfile />
-      <Divider/>
+      <Divider />
       {/* This is the Your Pickups table */}
       <Box display="flex" alignItems="center" justifyContent="center" paddingTop="1em" paddingBottom="1em">
-        <Card >
+        <Card>
           <Table>
             <TableRow>
-              <TableCell style={{backgroundColor:"#dbe3f0"}}><CardHeader title="Pending Requests" /></TableCell>
-              <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-              <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-              <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-              <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-              <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+              <TableCell style={{ backgroundColor: "#dbe3f0" }}>
+                <CardHeader title="Pending Requests" />
+              </TableCell>
+              <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+              <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+              <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+              <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+              <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>Pickup #</TableCell>
@@ -158,7 +160,9 @@ console.log(completed, "completed")
               {/* This is the donor request tables */}
               {pending.map((data) => (
                 <TableRow>
-                  <TableCell>#{data.request_id} {data.date} {data.time}</TableCell>
+                  <TableCell>
+                    #{data.request_id} {data.date} {data.time}
+                  </TableCell>
                   <TableCell>
                     {data.first_name} {data.last_name}
                   </TableCell>
@@ -189,16 +193,20 @@ console.log(completed, "completed")
                 </TableRow>
               ))}
               <TableRow>
-                <TableCell style={{backgroundColor:"#dbe3f0"}}><CardHeader title="Your Pickups" /></TableCell>
-                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>
+                  <CardHeader title="Your Pickups" />
+                </TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
               </TableRow>
               {accepted.map((data) => (
                 <TableRow>
-                  <TableCell>#{data.request_id} {data.date} {data.time}</TableCell>
+                  <TableCell>
+                    #{data.request_id} {data.date} {data.time}
+                  </TableCell>
                   <TableCell>
                     {data.first_name} {data.last_name}
                   </TableCell>
@@ -222,17 +230,21 @@ console.log(completed, "completed")
 
               {/* This is the completed pickups table */}
               <TableRow>
-                <TableCell style={{backgroundColor:"#dbe3f0"}}><CardHeader title="Completed Requests" /></TableCell>
-                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>
+                  <CardHeader title="Completed Requests" />
+                </TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
               </TableRow>
-             
+
               {completed.map((data) => (
                 <TableRow>
-                  <TableCell>#{data.request_id} {data.date} {data.time}</TableCell>
+                  <TableCell>
+                    #{data.request_id} {data.date} {data.time}
+                  </TableCell>
                   <TableCell>
                     {data.first_name} {data.last_name}
                   </TableCell>

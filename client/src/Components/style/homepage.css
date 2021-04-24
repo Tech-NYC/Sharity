@@ -38,10 +38,10 @@ h1 {
 }
 
 .mission-section {
+  display: flex;
   background: #f5f8fd;
   height: 100%;
   width: 100%;
-  padding-top: 2rem;
 }
 
 .donation {
@@ -51,12 +51,14 @@ h1 {
 .mission-words {
   text-align: center;
   position: relative;
-  bottom: 80%;
+  display: flexbox;
+  margin: 0;
 }
 
 .impact-section {
   background: #dbe3f0 center center/cover no-repeat;
-  height: 100vh;
+
+  height: 100%;
   width: 100%;
   padding-top: 5rem;
 }
@@ -83,7 +85,7 @@ h1 {
 
 .join-section {
   background: #f5f8fd center center/cover no-repeat;
-  height: 100vh;
+  height: 100%;
   width: 100%;
   padding-top: 5rem;
 }

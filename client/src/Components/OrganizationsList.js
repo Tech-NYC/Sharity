@@ -225,7 +225,7 @@ function OrganizationsList(props) {
                     <CardMedia className={classes.media} image={row.logo} title={row.name} />
                   </Box>
                   <Box container item xs={1} direction="column">
-                    <Typography variant="h5" component="h2">
+                    <Typography variant="h4" component="h2">
                       <br /> {row.name}
                     </Typography>
                     <Typography variant="body2" component="p">

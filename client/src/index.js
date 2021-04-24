@@ -11,6 +11,13 @@ const theme = createMuiTheme({
     MuiTypography: {
       h6: {
         fontFamily: ["Fira sans"]
+      },
+      h4: {
+        fontFamily: ["Fira sans"],
+      },
+      subtitle1: {
+        fontFamily: ["Fira sans"],
+        fontWeight: "600"
       }
     }
   }

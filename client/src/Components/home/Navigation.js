@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext.js";
 import logo from "../../img/sharitylogo.svg";
-
+import '../style/Navigation.css';
 const useStyle = makeStyles({
   root: {
     flexGrow: 1,
@@ -25,19 +25,18 @@ export const NavDefault = ({ nav }) => {
       <AppBar position="sticky" color="default">
         <Toolbar>
           <Typography variant="h6" className={classes.root}>
-            {/* <Link to="/#header"><img src={logo} style={{width:"15%", height:"5%"}}/></Link> */}
             <a href="/#header">
-              <img src={logo} style={{ width: "15%", height: "5%" }} />
+              <img className="logo" src={logo}/>
             </a>
           </Typography>
-          <Typography variant="h6" className={classes.root} style={{ marginLeft: "4%" }}>
-            <a href={"/#mission"} className={classes.linkStyle} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
+          <Typography variant="h6" className={classes.root}>
+            <a href={"/#mission"} className="mission">
               Mission
             </a>
-            <a href={"/#impact"} className={classes.linkStyle} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
+            <a href={"/#impact"} className="impact">
               Impact
             </a>
-            <a href={"/organizations"} className={classes.linkStyle} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
+            <a href={"/organizations"} className="donate">
               Donate
             </a>
           </Typography>
@@ -65,14 +64,14 @@ export const NavDonator = ({ nav }) => {
         <Toolbar>
           <Typography variant="h6" className={classes.root}>
             <Link to="/#header">
-              <img src={logo} style={{ width: "15%", height: "5%" }} />
+              <img src={logo} className="logo" />
             </Link>
           </Typography>
           <Typography variant="h6" className={classes.root} style={{ marginLeft: "4%" }}>
-            <Link to="/organizations" style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
+            <Link to="/organizations" className="orglink">
               Donate
             </Link>
-            <Link to="/profile" style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
+            <Link to="/profile" className="profile">
               My Donations
             </Link>
           </Typography>
@@ -101,7 +100,7 @@ export const NavOrganization = ({ nav }) => {
         <Toolbar>
           <Typography variant="h6" className={classes.root}>
             <Link to="/#header">
-              <img src={logo} style={{ width: "15%", height: "5%" }} />
+              <img src={logo} className="logo" />
             </Link>
             {/* <a href="/#header">
               <img src={logo} style={{ width: "15%", height: "5%" }} />
@@ -115,7 +114,7 @@ export const NavOrganization = ({ nav }) => {
               Impact
             </Link> */}
 
-            <Link to="/dashboard" style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
+            <Link to="/dashboard" className="dashboard">
               Dashboard
             </Link>
           </Typography>

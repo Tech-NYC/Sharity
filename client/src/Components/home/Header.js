@@ -2,8 +2,6 @@ import React, {Fragment} from "react"
 import { Typography }from "@material-ui/core"
 import {ThemeProvider, createMuiTheme} from "@material-ui/core/styles";
 import {makeStyles} from "@material-ui/core/styles"
-import Paper from "@material-ui/core/Paper"
-import Grid from "@material-ui/core/Grid"
 import Container from "@material-ui/core/Container"
 
 
@@ -50,7 +48,7 @@ function Header(){
                   </div>
                   <div className="centered">
                     <ThemeProvider theme={theme}>
-                      <Typography variant="h5" className="help">Help make a difference in the lives of New York City residents and their families today. </Typography>
+                      <Typography variant="h5" className="help"><strong>Help make a difference in the lives of New York City residents and their families today.</strong></Typography>
                     </ThemeProvider>
                   </div>
                   <a href="#mission" className="btn-custom">Learn more</a>

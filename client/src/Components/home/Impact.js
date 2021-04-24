@@ -41,12 +41,6 @@ function Impact(){
                       Your generous donations of clothing, non-perishable foods, and other household goods make a big difference in the lives of individuals and families. 
                       Through partnerships with regional organizations, we’re providing direct access to donors to get resources that are needed the most to benefit as many NYC residents as possible. 
                   </Typography>
-
-                  {/* <Typography className="fact" variant="h6">
-                  Charitable organizations depend on donations from individuals.
-                    In fact, donations received by nonprofit organizations are largely made by individuals. 
-                    In 2019, individual giving made up 69% of all giving!
-                  </Typography> */}
                 </ThemeProvider>
             </div>
             <Grid container alignItems="center" justify="center" >
@@ -57,7 +51,6 @@ function Impact(){
           
         </div>
         <div className="join-section">
-          {/* <Grid container alignItems="center" justify="center" style={{padding:"5%"}} > */}
             <Container>
             <div id="join">
                 <ThemeProvider theme={theme}>
@@ -72,10 +65,7 @@ function Impact(){
                 <Cards/>  
             </div>
           </Container>
-          {/* </Grid> */}
-          
-        </div>
-            
+        </div>     
       </div>
         
       )

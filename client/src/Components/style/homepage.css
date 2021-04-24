@@ -26,20 +26,22 @@ h1 {
 
 .help {
   text-align: center;
+  position: relative;
 }
 
 .btn-custom {
   position: absolute;
-  top: 60%;
+  padding: 70%;
+  top: 15rem;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
 .mission-section {
-  background: #f5f8fd center center/cover no-repeat;
-  height: 100vh;
+  background: #f5f8fd;
+  height: 100%;
   width: 100%;
-  padding-top: 5rem;
+  padding-top: 2rem;
 }
 
 .donation {

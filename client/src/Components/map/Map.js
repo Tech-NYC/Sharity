@@ -81,7 +81,7 @@ function Map() {
 
     // Display Dynamic Markers
     orgsCoordsAppended.map((org) => {
-      let contentString = org[1].name;
+      let contentString = `<div style= "font-size:1.25rem"><b>${org[1].name}</b><hr> <p>${org[1].description}</p></div>`;
 
       // Create A Marker
       // results[0].geometry.location.lat
@@ -89,6 +89,7 @@ function Map() {
         position: { lat: org[0].results[0].geometry.location.lat, lng: org[0].results[0].geometry.location.lng },
         map: map,
         title: org[1].name,
+        //icon: "https://w7.pngwing.com/pngs/338/123/png-transparent-blue-and-navy-blue-dot-icon-google-maps-google-map-maker-pin-blue-map-pin-pin-road-map-map.png",
       });
 
       // Click on A Marker!

@@ -171,7 +171,7 @@ function UserViewOrg(props) {
                 ) : (
                   data.pickup.split(",").map((time, i) => (
                     <>
-                      <li style={{ listStyleType: "none" }} key={i}><b> {daysArr[i]} </b> {formatTime(time.split('-')[0]) + " - " + formatTime(time.split('-')[1])} </li>
+                      <li style={{ listStyleType: "none" }} key={i}> {daysArr[i]}  {formatTime(time.split('-')[0]) + " - " + formatTime(time.split('-')[1])} </li>
                     </>
                   ))
                 )}

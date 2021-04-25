@@ -5,7 +5,7 @@ import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import "../style/homepage.css";
 import donation from "../style/imgs/donation.png";
-
+import missionImg from "../style/imgs/mission.svg";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -28,27 +28,34 @@ function Mission() {
   const classes = useStyles();
   return (
     // <div className={classes.root}>
-    <div className="mission-section" id="mission">
+    <div style={{ backgroundColor: "#1E152A" }}>
       <Container>
-        {/* <img src={donation} className="donation" alt="donation" /> */}
+        <div className="mission-section" style={{ backgroundColor: "#1E152A", marginLeft: "10%" }} id="mission">
+          {/* <img src={donation} className="donation" alt="donation" /> */}
 
-        <div className="mission">
-          <ThemeProvider theme={theme}>
-            <Typography variant="h5" className="mission-words">
-              <h3>Mission</h3>
-            </Typography>
-            <Typography>
-              <p>
-                Sharity makes it simple and easy to donate non-perishable foods, gently used furniture and clothing that will benefit those in need. We actively support our partner organizations to
-                make sure they have the resources needed to serve the community. Our donors make it possible to bring nourishment and hope to those who are struggling.
-              </p>
-            </Typography>
-          </ThemeProvider>
+          <div className="mission" style={{ marginRight: "0", paddingRight: "0" }}>
+            <ThemeProvider theme={theme}>
+              <Typography variant="h5" style={{ textAlign: "center", color: "#5AA4CE", fontSize: "2.5rem", fontWeight: "1500" }} className="mission-words">
+                <h3 style={{ padding: "0", marginBottom: "0" }}>Mission</h3>
+              </Typography>
+              <Typography>
+                <p style={{ textAlign: "center", color: "#F2F6D0", fontSize: "1.5rem", fontWeight: "800" }}>
+                  Bridge the communication gap between charitable organizations and donors.
+                  {/* Sharity makes it easy to donate non-perishable foods, gently used furniture and clothing. We actively support our partner organizations to make sure they have the resources needed to */}
+                  {/* serve their community. Our donors make it possible to bring nourishment and hope to those who are struggling. */}
+                </p>
+              </Typography>
+            </ThemeProvider>
+          </div>
+
+          <img
+            src={missionImg}
+            style={{ display: "flex", flexDirection: "row-reverse", alignItems: "center", marginRight: "8vw", zIndex: "1" }}
+            alt="Animated donators holding their contributions in the air together."
+          />
         </div>
       </Container>
     </div>
-
-    //</div>
   );
 }
 

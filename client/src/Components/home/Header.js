@@ -39,7 +39,7 @@ function Header() {
           <Container>
             <div>
               <ThemeProvider theme={logotheme}>
-                <Typography variant="h1" style={{ color: "#55a0cc" }} className="title">
+                <Typography variant="h1" style={{ color: "#55a0cc", paddingTop: "25vwh" }} className="title">
                   {" "}
                   sharity{" "}
                 </Typography>
@@ -51,6 +51,7 @@ function Header() {
                   Help make a difference in the lives of New York City residents and their families today.{" "}
                 </Typography>
               </ThemeProvider>
+
               <a href="#mission" className="btn-custom">
                 Learn more
               </a>

@@ -56,28 +56,30 @@ function App() {
 
   let orgName = org.split(" ").join("");
   return (
-    <div>
-      <BrowserRouter>
-        <UserProvider>
-          <Nav></Nav>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/userpage" component={UserProfile}></Route>
-            <Route path="/organizations" component={Organizations} />
-            <Route path="/privacy" component={Privacy} />
-            <Route path="/terms" component={Terms} />
-            <Route path="/contact" component={Contact} />
-            <Route path="/dashboard" component={OrgProfile} />
-            <Route path="/profile" component={UserProfile} />
-            <OrgContext.Provider value={orgName}>
-              <Route path="/:value" exact render={(props) => <UserViewOrg {...props} />} />
-            </OrgContext.Provider>
-          </Switch>
-        </UserProvider>
-      </BrowserRouter>
-    </div>
+    <html style={{ scrollBehavior: "smooth" }}>
+      <div>
+        <BrowserRouter>
+          <UserProvider>
+            <Nav></Nav>
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <Route path="/login" component={Login} />
+              <Route path="/signup" component={Signup} />
+              <Route path="/userpage" component={UserProfile}></Route>
+              <Route path="/organizations" component={Organizations} />
+              <Route path="/privacy" component={Privacy} />
+              <Route path="/terms" component={Terms} />
+              <Route path="/contact" component={Contact} />
+              <Route path="/dashboard" component={OrgProfile} />
+              <Route path="/profile" component={UserProfile} />
+              <OrgContext.Provider value={orgName}>
+                <Route path="/:value" exact render={(props) => <UserViewOrg {...props} />} />
+              </OrgContext.Provider>
+            </Switch>
+          </UserProvider>
+        </BrowserRouter>
+      </div>
+    </html>
   );
 }
 

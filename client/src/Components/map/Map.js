@@ -72,7 +72,7 @@ function Map() {
   const initMap = () => {
     // Create A Map
     let map = new window.google.maps.Map(document.getElementById("map"), {
-      center: { lat: 40.705579703251406, lng: -73.90273982766803 },
+      center: { lat: 40.75428489355287, lng: -73.91002128010821 },
       zoom: 13,
     });
 
@@ -93,7 +93,7 @@ function Map() {
       });
 
       // Click on A Marker!
-      marker.addListener("click", function () {
+      marker.addListener("mouseover", function () {
         // Change the content
         infowindow.setContent(contentString);
 

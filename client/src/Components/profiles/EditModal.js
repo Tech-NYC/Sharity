@@ -31,8 +31,6 @@ export default function EditModal(props) {
   const [notaccepted, setNotAccepted] = React.useState("");
 
   const [open, setOpen] = React.useState(false);
-  // const [time, setTime] = React.useState("");
-  // const [date, setDate] = React.useState("");
 
 
   const organization_id = props.org_id;

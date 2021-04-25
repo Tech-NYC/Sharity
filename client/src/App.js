@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "./Components/Home";
 import Login from "./Components/auth/Login";
 import Signup from "./Components/auth/Signup";
-import Organizations from "./Components/OrganizationsList";
+import Organizations from "./Components/search/OrganizationsList";
 import Privacy from "./Components/legal/Privacy";
 import Terms from "./Components/legal/Terms";
 import Contact from "./Components/legal/Contact";

@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { UserContext } from "../../contexts/UserContext";
 import EditModal from "./EditModal"
-
+import {formatDate, formatTime} from './parseDateTime'
 
 function EditProfile() {
   const PROD = true;
@@ -137,20 +137,19 @@ function EditProfile() {
                 <img alt="logo" style={{ width: "100%"}} src={data.logo} />
               </Box>
               <Box flexDirection="column" item xs={4} direction="column" flexWrap="nowrap"  >
-                <Typography variant="h5" style={{ margin:"1%"}} >Organization Name </Typography>
-                <Typography variant="subtitle1" style={{ margin:"1%"}} ><b>{data.name} </b></Typography>
-                <Typography variant="h5" style={{ margin:"1%"}} >Address</Typography>
-                <Typography variant="subtitle1" style={{ margin:"1%"}} > <b> {data.address}</b></Typography>
-                <Typography variant="h5" style={{ margin:"1%"}} >Description</Typography>
-                <Typography variant="subtitle1"style={{ margin:"1%"}}  ><b>{data.description} </b></Typography>
+                <Typography variant="h3" style={{ margin:"1%"}} >{data.name}</Typography>
+                <Typography variant="h6" style={{ margin:"1%"}} >Address</Typography>
+                <Typography variant="subtitle1" style={{ margin:"1%"}} > {data.address}</Typography>
+                <Typography variant="h6" style={{ margin:"1%"}} >Description</Typography>
+                <Typography variant="subtitle1"style={{ margin:"1%"}}  >{data.description}</Typography>
                 <Typography variant="h6" style={{ margin:"1%"}} >Pickup Times </Typography>
-                <Typography variant="subtitle2" style={{ margin:"1%"}} >
+                <Typography variant="subtitle1" style={{ margin:"1%"}} >
                   {!data.pickup ? (
                     <Typography>No Times Yet</Typography>
                   ) : (
                     data.pickup.split(",").map((time, i) => (
                       <>
-                       <li style={{ listStyleType: "none" }} key={i}><b> {daysArr[i]} </b> {time} </li>
+                       <li style={{ listStyleType: "none" }} key={i}><b> {daysArr[i]} </b> {formatTime(time.split('-')[0]) + " - " + formatTime(time.split('-')[1])} </li>
                       </>
                     ))
                   )}
@@ -168,15 +167,15 @@ function EditProfile() {
         <Box container spacing={3} justify="center">
           <Box item xs={3}>
             <Typography variant="h6">Items Needed List </Typography>
-            <Typography><b>No Items Needed Currently</b></Typography>
+            <Typography>No Items Needed Currently</Typography>
           </Box>
           <Box item xs={3} >
             <Typography variant="h6">Item Approved Condition List </Typography>
-            <Typography><b>No Items Needed Currently</b> </Typography>
+            <Typography>No Items Needed Currently </Typography>
           </Box>
           <Box item xs={3}>
             <Typography variant="h6">Item Not Approved Condition List  </Typography>
-            <Typography><b>No Items Needed Currently</b></Typography>
+            <Typography>No Items Needed Currently</Typography>
           </Box>
         </Box>
       ) : (
@@ -184,34 +183,34 @@ function EditProfile() {
           <Box container display="flex" justify="center" align="center" style={{  width: "1200px", overflow: "hidden", margin: "auto",padding:"25px" }}>
             <Box style={{ width: "400px", float:"center"}}>
               <Box fontWeight="fontWeightBold">
-                <Typography variant="h5">Items Needed List: </Typography>
+                <Typography variant="h6">Items Needed List: </Typography>
               </Box>
               
               {!data.items_needed ? (
-                <Typography >No Items Needed Currently:</Typography>
+                <Typography variant="h6" >No Items Needed Currently:</Typography>
               ) : (
                 data.items_needed.split(",").map((item, i) => (
-                  <Typography variant="subtitle1"><b>{item}</b></Typography>
+                  <Typography variant="subtitle1">{item}</Typography>
                 ))
               )}
             </Box>
             <Box style={{width: "400px",float: "center"}}>
-              <Typography variant="h5">Item Approved Condition List:  </Typography>
+              <Typography variant="h6">Item Approved Condition List:  </Typography>
               {!data.conditions_accepted ? (
-                <Typography><b>No Items Currently Needed</b></Typography>
+                <Typography variant="h6">No Items Currently Needed</Typography>
               ) : (
                 data.conditions_accepted.split(",").map((item, i) => (
-                  <Typography variant="subtitle1"><b> {item}</b></Typography>
+                  <Typography variant="subtitle1">{item}</Typography>
                 ))
               )}
             </Box>
             <Box  style={{width: "400px",float: "right"}}>
-              <Typography variant="h5">Item Not Approved Condition List: </Typography>
+              <Typography variant="h6">Item Not Approved Condition List: </Typography>
               {!data.conditions_not_accepted ? (
-                <Typography><b> No Items Currently Needed</b></Typography>
+                <Typography>No Items Currently Needed</Typography>
               ) : (
                 data.conditions_not_accepted.split(",").map((item, i) => (
-                  <Typography variant="subtitle1"><b> {item}</b></Typography>
+                  <Typography variant="subtitle1">{item}</Typography>
                 ))
               )}
             </Box>

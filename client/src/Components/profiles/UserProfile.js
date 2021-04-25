@@ -3,6 +3,7 @@ import { Typography, Box, Table, TableBody, TableCell, Button, Card, CardHeader,
 import { UserContext } from "../../contexts/UserContext.js";
 import { makeStyles } from "@material-ui/core/styles";
 import Footer from "../home/Footer"
+import {formatTime, formatDate} from "../profiles/parseDateTime"
 
 const styles = makeStyles({
   container: {
@@ -66,14 +67,6 @@ const UserProfile = () => {
 
   // data parsing
   function createData(request_number, name, date, time, items, status, location) {
-    /**
-     * Status mapping
-     *  1 = pending
-     *  2 = accepted
-     *  3 = rejected
-     *  4 = completed
-     *
-     * */
 
     if (status === 1) {
       status = "Pending";
@@ -96,23 +89,23 @@ console.log(userDonations)
         <Box flexDirection="row" flexWrap="wrap" align="center" xs={2}>
           <img
             alt="avatar"
-            style={{ paddingLeft: "5%", width: "25%", }}
+            style={{ paddingLeft: "5%" }}
             src={sessionUser.user.avatar}
             referrerPolicy="no-referrer"
           />
         </Box>
-        <Box flexDirection="row" item xs={4} flexWrap="nowrap" >
-          <Typography variant="h5" style={{ margin:"1%"}}>Username</Typography>
-          <Typography variant="h6" style={{ margin:"1%"}}>
-            <b>{sessionUser.user.username} </b>
+        <Box flexDirection="row" item xs={4} flexWrap="nowrap" style={{ paddingLeft: "5%"}}  >
+          <Typography variant="h6" style={{ margin:"1%"}}>Username</Typography>
+          <Typography variant="subtitle1" style={{ margin:"1%"}}>
+            {sessionUser.user.username}
           </Typography>
-          <Typography variant="h5" style={{ margin:"1%"}}>Email</Typography>
-          <Typography variant="h6" style={{ margin:"1%"}}>
-            <b>{sessionUser.user.email}{" "} </b>
+          <Typography variant="h6" style={{ margin:"1%"}}>Email</Typography>
+          <Typography variant="subtitle1" style={{ margin:"1%"}}>
+            {sessionUser.user.email}{" "}
           </Typography>
-          <Typography variant="h5" style={{ margin:"1%"}}>Phone Number</Typography>
-          <Typography variant="h6" style={{ margin:"1%"}}>
-            <b> {sessionUser.user.phone_number}{" "}</b>
+          <Typography variant="h6" style={{ margin:"1%"}}>Phone Number</Typography>
+          <Typography variant="subtitle1" style={{ margin:"1%"}}>
+            {sessionUser.user.phone_number}{" "}
           </Typography>
         </Box>
       </Box>
@@ -138,7 +131,7 @@ console.log(userDonations)
               {rows.map((row) => (
                 <TableRow key={row.request_number}>
                   <TableCell component="th" scope="row" align="center"> 
-                    #{row.request_number} {row.date} {row.time}
+                    #{row.request_number} {formatDate(row.date)} {formatTime(row.time)}
                   </TableCell>
                   <TableCell align="center">{row.name}</TableCell>
                   <TableCell align="left">{row.location}</TableCell>

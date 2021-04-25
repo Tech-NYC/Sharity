@@ -1,13 +1,12 @@
 import React from "react";
-import Footer from "./home/Footer";
 import SearchBar from "material-ui-search-bar";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import { Grid, Typography, Box, CardMedia } from "@material-ui/core";
+import { Typography, Box, CardMedia } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-
+import "../search/style/Search.css";
 const theme = createMuiTheme({
   typography: {
     fontFamily: ["Fira Sans", "sans-serif"].join(","),
@@ -192,7 +191,7 @@ function OrganizationsList(props) {
   };
   return (
     <>
-      <Box bgcolor="#dbe3f0" height="525vh" display="flex" flexDirection="column">
+      <Box bgcolor="#dbe3f0" height="85vh" display="flex" flexDirection="column">
         <div className="searchbar" style={{ paddingTop: "50px" }}>
           <SearchBar
             placeholder="Search for organizations, items needed"
@@ -220,7 +219,7 @@ function OrganizationsList(props) {
                       <CardMedia className={classes.media} image={row.logo} title={row.name} />
                     </Box>
                     <Box container item xs={1} direction="column">
-                      <Typography variant="h5" component="h2">
+                      <Typography variant="h4" component="h2">
                         <br /> {row.name}
                       </Typography>
                       <Typography variant="body2" component="p">
@@ -240,7 +239,24 @@ function OrganizationsList(props) {
           ))}
       </Box>
 
-      <Footer zIndex="5" />
+      <div className="footer">
+        <Typography variant="body1" color="inherit" style={{ position: "absolute", left: "30%" }}>
+          <a href="/contact" style={{ textDecoration: "none", color: "#fff" }}>
+            {" "}
+            Contact{" "}
+          </a>{" "}
+          |{" "}
+          <a href="/terms" style={{ textDecoration: "none", color: "#fff" }}>
+            {" "}
+            Terms Of Service{" "}
+          </a>{" "}
+          |{" "}
+          <a href="/privacy" style={{ textDecoration: "none", color: "#fff" }}>
+            Privacy Policy{" "}
+          </a>{" "}
+          | © Sharity, 2021
+        </Typography>
+      </div>
     </>
   );
 }

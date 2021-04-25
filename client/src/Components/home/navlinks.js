@@ -14,10 +14,5 @@ export const nav = [
     link: "/organizations",
     label: "Donate",
   },
-  {
-    id: 4,
-    link: "/userprofile",
-    label: "TEST"
-  }
 ];
 

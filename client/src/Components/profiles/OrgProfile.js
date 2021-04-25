@@ -5,6 +5,7 @@ import { Table, TableHead, TableBody, TableRow, TableCell, Button, Box, CardCont
 import EditProfile from "./EditProfile";
 import { makeStyles } from "@material-ui/core/styles";
 import { Redirect } from "react-router-dom";
+import { formatTime, formatDate } from "./parseDateTime";
 
 const useStyles = makeStyles({
   root: {
@@ -28,31 +29,18 @@ const useStyles = makeStyles({
   },
 });
 
-function OrgProfile(props) {
+function OrgProfile() {
   const PROD = true;
 
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
 
   let sessionUser = useContext(UserContext);
 
-  console.log(sessionUser);
-  // console.log(sessionUser, "state user");
   ///////change it to "" before pushing
   let orgId = sessionUser ? sessionUser.user.name : "test";
   const [pending, setPending] = React.useState([]);
   const [accepted, setAccepted] = React.useState([]);
   const [completed, setCompleted] = React.useState([]);
-  /**
-   * Status mapping
-   *  1 = pending
-   *  2 = accepted
-   *  3 = rejected
-   *  4 = completed
-   *
-   * */
-  //  app.post("/api/organization/fetch_requests_completed", organization.fetch_requests_completed);
-  //  app.post("/api/organization/fetch_requests_pending", organization.fetch_requests_pending);
-  //  app.post("/api/organization/fetch_requests_accepted", organization.fetch_requests_accepted);
 
   React.useEffect(() => {
     fetch(`${URL}/api/organization/fetch_requests_pending`, {
@@ -126,10 +114,6 @@ function OrgProfile(props) {
     window.location.reload(false);
     //return <Redirect to="/dashboard" />;
   }
-  console.log(pending, "pending");
-  console.log(accepted, "accepted");
-  console.log(completed, "completed");
-  const classes = useStyles();
   return (
     <>
       <EditProfile />
@@ -161,7 +145,7 @@ function OrgProfile(props) {
               {pending.map((data) => (
                 <TableRow>
                   <TableCell>
-                    #{data.request_id} {data.date} {data.time}
+                    #{data.request_id} {formatDate(data.date)} {formatTime(data.time)}
                   </TableCell>
                   <TableCell>
                     {data.first_name} {data.last_name}
@@ -205,7 +189,7 @@ function OrgProfile(props) {
               {accepted.map((data) => (
                 <TableRow>
                   <TableCell>
-                    #{data.request_id} {data.date} {data.time}
+                    #{data.request_id} {formatDate(data.date)} {formatTime(data.time)}
                   </TableCell>
                   <TableCell>
                     {data.first_name} {data.last_name}
@@ -243,7 +227,7 @@ function OrgProfile(props) {
               {completed.map((data) => (
                 <TableRow>
                   <TableCell>
-                    #{data.request_id} {data.date} {data.time}
+                    #{data.request_id} {formatDate(data.date)} {formatTime(data.time)}
                   </TableCell>
                   <TableCell>
                     {data.first_name} {data.last_name}

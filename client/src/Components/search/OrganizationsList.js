@@ -107,22 +107,22 @@ function OrganizationsList() {
 
   const mergeArrays = () => {
     orgs.forEach((orgInfo) => {
-      if(orgNeeds.length !== 0){
-          orgNeeds.forEach((needs)=> {
-              if(needs.organization_id === orgInfo.id){
-                mergedArray.push({
-                  id: orgInfo.id,
-                  user: orgInfo.user_id,
-                  name: orgInfo.name,
-                  address: orgInfo.address,
-                  description: orgInfo.description,
-                  pickup: orgInfo.pickup_times,
-                  needed: needs.items_needed
-                })     
-              }
-          })
+      if (orgNeeds.length !== 0) {
+        orgNeeds.forEach((needs) => {
+          if (needs.organization_id === orgInfo.id) {
+            mergedArray.push({
+              id: orgInfo.id,
+              user: orgInfo.user_id,
+              name: orgInfo.name,
+              address: orgInfo.address,
+              description: orgInfo.description,
+              pickup: orgInfo.pickup_times,
+              needed: needs.items_needed,
+            });
+          }
+        });
       }
-      if(orgNeeds.length === 0){
+      if (orgNeeds.length === 0) {
         orgs.forEach((orgInfo) => {
           mergedArray.push({
             id: orgInfo.id,
@@ -131,8 +131,8 @@ function OrganizationsList() {
             address: orgInfo.address,
             description: orgInfo.description,
             pickup: orgInfo.pickup_times,
-          })     
-        })
+          });
+        });
       }
     })
         

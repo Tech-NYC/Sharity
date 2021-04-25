@@ -1,4 +1,5 @@
 /* Header */
+
 h1 {
   text-align: center;
   text-shadow: 2px 2px #ffffff;
@@ -26,20 +27,22 @@ h1 {
 
 .help {
   text-align: center;
+  position: relative;
 }
 
 .btn-custom {
   position: absolute;
-  top: 60%;
+  padding: 70%;
+  top: 15rem;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
 .mission-section {
-  background: #f5f8fd center center/cover no-repeat;
-  height: 100vh;
+  display: flex;
+  background: #f5f8fd;
+  height: 100%;
   width: 100%;
-  padding-top: 5rem;
 }
 
 .donation {
@@ -49,12 +52,15 @@ h1 {
 .mission-words {
   text-align: center;
   position: relative;
-  bottom: 80%;
+  display: flexbox;
+  font-weight: 1000;
+  margin: 0;
 }
 
 .impact-section {
   background: #dbe3f0 center center/cover no-repeat;
-  height: 100vh;
+
+  height: 100%;
   width: 100%;
   padding-top: 5rem;
 }
@@ -81,7 +87,7 @@ h1 {
 
 .join-section {
   background: #f5f8fd center center/cover no-repeat;
-  height: 100vh;
+  height: 100%;
   width: 100%;
   padding-top: 5rem;
 }

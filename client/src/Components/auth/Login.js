@@ -1,7 +1,6 @@
-import React, { useState, useContext, useEffect } from "react";
-import { Button, TextField, Grid, Paper, AppBar, Typography, Toolbar, Link } from "@material-ui/core";
-import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useState, useContext,  } from "react";
+import { Button, TextField, Grid, Typography, Link } from "@material-ui/core";
+import { ThemeProvider, createMuiTheme, makeStyles } from "@material-ui/core/styles";
 import Footer from "../home/Footer";
 import { UserContext } from "../../contexts/UserContext.js";
 import { Redirect } from "react-router-dom";
@@ -39,7 +38,7 @@ const btntheme = createMuiTheme({
   },
 });
 
-function Login(props) {
+function Login() {
   const PROD = true;
 
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
@@ -80,10 +79,8 @@ function Login(props) {
 
   function redirectBasedOnUserType() {
     if (user.is_organization) {
-      console.log("org authorized", user);
       return <Redirect to="/dashboard" />;
     } else {
-      console.log("donator authorized", user);
       return <Redirect to="/organizations" />;
     }
   }
@@ -153,7 +150,7 @@ function Login(props) {
                 </ThemeProvider>
                 <Link href="signup" to="/signup">
                   {" "}
-                  <a style={{ color: "#55a0cc" }}>Sign Up </a>
+                  <a style={{ color: "#55a0cc" }} href="/signup">Sign Up </a>
                 </Link>
               </Grid>
             </Grid>

@@ -1,10 +1,5 @@
-import React, { useState, useContext, useEffect } from "react";
-import Navigation, { NavDefault } from "../home/Navigation";
+import React from "react";
 import {
-  AppBar,
-  Paper,
-  Tabs,
-  Tab,
   Grid,
   Button,
   Checkbox,
@@ -15,15 +10,9 @@ import {
   createMuiTheme,
   makeStyles,
 } from "@material-ui/core/styles";
-import MuiPhoneNumber from "material-ui-phone-number";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { spacing } from "@material-ui/system";
-// import Tabs from '@material-ui/core/Tabs';
-// import Tab from '@material-ui/core/Tab';
 import Typography from "@material-ui/core/Typography";
-import Footer from "../home/Footer";
-import { handleStateData } from "./handleStateData";
 
 const useStyle = makeStyles({
   root: {

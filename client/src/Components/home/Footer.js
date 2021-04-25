@@ -1,15 +1,6 @@
 import React from "react"
-import {AppBar, Typography, Toolbar, Container, Button} from "@material-ui/core"
-import {makeStyles, ThemeProvider, createMuiTheme} from "@material-ui/core/styles"
-import {Link} from "react-router-dom"
+import {AppBar, Typography, Toolbar, Container} from "@material-ui/core"
 
-const theme = createMuiTheme({
-    typography: {
-      fontFamily: [
-        'Fira Sans',
-        'sans-serif',
-      ].join(','),
-    },});
   
 function Footer(){
     return(

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, {useContext } from "react";
 import { AppBar, Typography, Toolbar, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
@@ -25,7 +25,6 @@ export const NavDefault = ({ nav }) => {
       <AppBar position="sticky" color="default">
         <Toolbar>
           <Typography variant="h6" className={classes.root}>
-            {/* <Link to="/#header"><img src={logo} style={{width:"15%", height:"5%"}}/></Link> */}
             <a href="/#header">
               <img src={logo} style={{ width: "15%", height: "5%" }} />
             </a>
@@ -103,18 +102,8 @@ export const NavOrganization = ({ nav }) => {
             <Link to="/#header">
               <img src={logo} style={{ width: "15%", height: "5%" }} />
             </Link>
-            {/* <a href="/#header">
-              <img src={logo} style={{ width: "15%", height: "5%" }} />
-            </a> */}
           </Typography>
           <Typography variant="h6" className={classes.root} style={{ marginLeft: "4%" }}>
-            {/* <Link to="/#mission" style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
-              Mission
-            </Link>
-            <Link to="/#impact" style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
-              Impact
-            </Link> */}
-
             <Link to="/dashboard" className={classes.linkStyle} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
               Dashboard
             </Link>

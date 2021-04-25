@@ -39,7 +39,7 @@ function Header() {
           <Container>
             <div>
               <ThemeProvider theme={logotheme}>
-                <Typography variant="h1" style={{ color: "#55a0cc" }} className="title">
+                <Typography variant="h1" style={{ color: "#55a0cc", paddingTop: "25vwh" }} className="title">
                   {" "}
                   sharity{" "}
                 </Typography>

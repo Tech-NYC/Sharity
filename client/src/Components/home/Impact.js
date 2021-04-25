@@ -40,64 +40,27 @@ function Impact() {
 
   return (
     <>
-      <span id="impact">
-        <Map></Map>
-      </span>
+      <span id="partners"></span>
+      <div className="mission-section" style={{ backgroundColor: "#E4BE9E" }} id="mission">
+        <Container>
+          {/* <img src={donation} className="donation" alt="donation" /> */}
 
-      <div className="impact-section">
-        {/* <Grid container alignItems="center" justify="center">
-          <div>
+          <div className="mission">
             <ThemeProvider theme={theme}>
-              <Typography variant="h5" style={{ textAlign: "center", color: "black", fontSize: "2.5rem", fontWeight: "1500" }} className="impact-words">
-                <h3>Impact</h3>
-                <p>
-                  Your generous donations of clothing, non-perishable foods, and other household goods make a big difference in the lives of individuals and families. Through partnerships with
-                  regional organizations, we’re providing direct access to donors to get resources that are needed the most to benefit as many NYC residents as possible.
-                </p>
-              </Typography>
-
-              <Typography variant="h5" style={{ textAlign: "center", color: "black", fontSize: "2.5rem", fontWeight: "1500" }} className="mission-words">
-                <h3>Impact</h3>
+              <Typography variant="h5" style={{ textAlign: "center", color: "#1E152A", fontSize: "2.5rem", fontWeight: "1500" }} className="mission-words">
+                <h3 style={{ padding: "0", marginBottom: "0" }}>Our Partners</h3>
               </Typography>
               <Typography>
-                <p style={{ textAlign: "center", color: "black", fontSize: "1.5rem", fontWeight: "800" }}>
-                  Your generous donations of clothing, non-perishable foods, and other household goods make a big difference in the lives of individuals and families. Through partnerships with
-                  regional organizations, we’re providing direct access to donors to get resources that are needed the most to benefit as many NYC residents as possible.
+                <p style={{ textAlign: "center", color: "#5AA4CE", fontSize: "1.5rem", fontWeight: "800" }}>
+                  Live map of every organization on our platform.
+                  <Map></Map>
+                  {/* Sharity makes it easy to donate non-perishable foods, gently used furniture and clothing. We actively support our partner organizations to make sure they have the resources needed to */}
+                  {/* serve their community. Our donors make it possible to bring nourishment and hope to those who are struggling. */}
                 </p>
               </Typography>
-
-              <Typography className="fact" variant="h6">
-                Charitable organizations depend on donations from individuals. In fact, donations received by nonprofit organizations are largely made by individuals. In 2019, individual giving made
-                up 69% of all giving!
-              </Typography>
             </ThemeProvider>
-            
           </div>
-          <Grid container alignItems="center" justify="center">
-            <img src={organization} className="org-breakdown" alt="organization breakdown" />
-          </Grid>
-        </Grid> */}
-
-        <div className="join-section" style={{ display: "flex" }}>
-          {/* <Grid container alignItems="center" justify="center" style={{padding:"5%"}} > */}
-          <Container>
-            <div id="join">
-              <ThemeProvider theme={theme}>
-                <Typography variant="h5" style={{ color: "black", fontSize: "2rem", fontWeight: "1500" }} className="join-words">
-                  <h3>Join Now</h3>
-                </Typography>
-                <Typography>
-                  <p style={{ textAlign: "center", color: "black", fontSize: "1.5rem", fontWeight: "800" }}>
-                    We rely on the generosity and passion of our partner organizations and donors, there’s a role for everyone as we work to solve this challenge, including you. We hope you’ll join
-                    us.
-                  </p>
-                </Typography>
-              </ThemeProvider>
-              <Cards />
-            </div>
-          </Container>
-          {/* </Grid> */}
-        </div>
+        </Container>
       </div>
     </>
   );

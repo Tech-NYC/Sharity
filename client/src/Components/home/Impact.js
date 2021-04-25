@@ -41,7 +41,7 @@ function Impact() {
   return (
     <>
       <span id="partners"></span>
-      <div className="mission-section" style={{ backgroundColor: "#E4BE9E" }} id="mission">
+      <div className="mission-section" style={{ backgroundColor: "white" }} id="mission">
         <Container>
           {/* <img src={donation} className="donation" alt="donation" /> */}
 

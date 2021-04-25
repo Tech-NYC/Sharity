@@ -39,7 +39,7 @@ function Mission() {
                 <h3 style={{ padding: "0", marginBottom: "0" }}>Mission</h3>
               </Typography>
               <Typography>
-                <p style={{ textAlign: "center", color: "#F2F6D0", fontSize: "1.5rem", fontWeight: "800" }}>
+                <p style={{ textAlign: "center", color: "white", fontSize: "1.5rem", fontWeight: "800" }}>
                   Bridge the communication gap between charitable organizations and donors.
                   {/* Sharity makes it easy to donate non-perishable foods, gently used furniture and clothing. We actively support our partner organizations to make sure they have the resources needed to */}
                   {/* serve their community. Our donors make it possible to bring nourishment and hope to those who are struggling. */}

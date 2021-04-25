@@ -73,7 +73,7 @@ function Map() {
     // Create A Map
     let map = new window.google.maps.Map(document.getElementById("map"), {
       center: { lat: 40.705579703251406, lng: -73.90273982766803 },
-      zoom: 12,
+      zoom: 13,
     });
 
     // Create An InfoWindow

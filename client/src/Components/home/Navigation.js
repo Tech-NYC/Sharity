@@ -35,7 +35,7 @@ export const NavDefault = ({ nav }) => {
               Mission
             </a>
             <a href={"/#impact"} className={classes.linkStyle} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
-              Impact
+              Partners
             </a>
             <a href={"/organizations"} className={classes.linkStyle} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
               Donate

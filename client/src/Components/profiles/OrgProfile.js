@@ -5,7 +5,7 @@ import { Table, TableHead, TableBody, TableRow, TableCell, Button, Box, CardCont
 import EditProfile from "./EditProfile";
 import { makeStyles } from "@material-ui/core/styles";
 import { Redirect } from "react-router-dom";
-import {formatTime, formatDate} from './parseDateTime'
+import { formatTime, formatDate } from "./parseDateTime";
 
 const useStyles = makeStyles({
   root: {
@@ -35,13 +35,13 @@ function OrgProfile() {
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
 
   let sessionUser = useContext(UserContext);
-   
+
   ///////change it to "" before pushing
   let orgId = sessionUser ? sessionUser.user.name : "test";
   const [pending, setPending] = React.useState([]);
   const [accepted, setAccepted] = React.useState([]);
   const [completed, setCompleted] = React.useState([]);
-  
+
   React.useEffect(() => {
     fetch(`${URL}/api/organization/fetch_requests_pending`, {
       method: "POST",
@@ -59,7 +59,7 @@ function OrgProfile() {
       .then((data) => {
         setPending(data);
       });
-  
+
     fetch(`${URL}/api/organization/fetch_requests_accepted`, {
       method: "POST",
       headers: {
@@ -114,22 +114,23 @@ function OrgProfile() {
     window.location.reload(false);
     //return <Redirect to="/dashboard" />;
   }
-
   return (
     <>
       <EditProfile />
-      <Divider/>
+      <Divider />
       {/* This is the Your Pickups table */}
       <Box display="flex" alignItems="center" justifyContent="center" paddingTop="1em" paddingBottom="1em">
-        <Card >
+        <Card>
           <Table>
             <TableRow>
-              <TableCell style={{backgroundColor:"#dbe3f0"}}><CardHeader title="Pending Requests" /></TableCell>
-              <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-              <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-              <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-              <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-              <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+              <TableCell style={{ backgroundColor: "#dbe3f0" }}>
+                <CardHeader title="Pending Requests" />
+              </TableCell>
+              <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+              <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+              <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+              <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+              <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>Pickup #</TableCell>
@@ -143,7 +144,9 @@ function OrgProfile() {
               {/* This is the donor request tables */}
               {pending.map((data) => (
                 <TableRow>
-                  <TableCell>#{data.request_id} {formatDate(data.date)} {formatTime(data.time)}</TableCell>
+                  <TableCell>
+                    #{data.request_id} {formatDate(data.date)} {formatTime(data.time)}
+                  </TableCell>
                   <TableCell>
                     {data.first_name} {data.last_name}
                   </TableCell>
@@ -174,16 +177,20 @@ function OrgProfile() {
                 </TableRow>
               ))}
               <TableRow>
-                <TableCell style={{backgroundColor:"#dbe3f0"}}><CardHeader title="Your Pickups" /></TableCell>
-                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>
+                  <CardHeader title="Your Pickups" />
+                </TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
               </TableRow>
               {accepted.map((data) => (
                 <TableRow>
-                  <TableCell>#{data.request_id} {formatDate(data.date)} {formatTime(data.time)}</TableCell>
+                  <TableCell>
+                    #{data.request_id} {formatDate(data.date)} {formatTime(data.time)}
+                  </TableCell>
                   <TableCell>
                     {data.first_name} {data.last_name}
                   </TableCell>
@@ -207,17 +214,21 @@ function OrgProfile() {
 
               {/* This is the completed pickups table */}
               <TableRow>
-                <TableCell style={{backgroundColor:"#dbe3f0"}}><CardHeader title="Completed Requests" /></TableCell>
-                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-                <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>
+                  <CardHeader title="Completed Requests" />
+                </TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
               </TableRow>
-             
+
               {completed.map((data) => (
                 <TableRow>
-                  <TableCell>#{data.request_id} {formatDate(data.date)} {formatTime(data.time)}</TableCell>
+                  <TableCell>
+                    #{data.request_id} {formatDate(data.date)} {formatTime(data.time)}
+                  </TableCell>
                   <TableCell>
                     {data.first_name} {data.last_name}
                   </TableCell>

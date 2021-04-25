@@ -56,7 +56,7 @@ function App() {
 
   let orgName = org.split(" ").join("");
   return (
-    <html style={{ scrollBehavior: "smooth" }}>
+    <html style={{ overflowX: "hidden", scrollBehavior: "smooth" }}>
       <div>
         <BrowserRouter>
           <UserProvider>

@@ -28,7 +28,7 @@ function Mission() {
   const classes = useStyles();
   return (
     // <div className={classes.root}>
-    <div style={{ backgroundColor: "#1E152A" }}>
+    <div style={{ display: "flex", backgroundColor: "#1E152A" }}>
       <Container>
         <div className="mission-section" style={{ backgroundColor: "#1E152A", marginLeft: "10%" }} id="mission">
           {/* <img src={donation} className="donation" alt="donation" /> */}

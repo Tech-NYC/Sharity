@@ -59,9 +59,7 @@ function UserViewOrg(props) {
         .then((data) => {
           if (isCurrent) {
             let userInfo = [];
-            // console.log(data)
             data.map((info) => {
-              // console.log(info)
               if (info.id === userId) {
                 userInfo.push(info);
               }
@@ -73,7 +71,9 @@ function UserViewOrg(props) {
           console.log(err);
         });
     }
+
     gettingUsers();
+
     //need to fetch from organizations list in order to get the information for the needs
     async function gettingNeeds() {
       await fetch(`${URL}/api/organization/getAll`, {
@@ -88,9 +88,7 @@ function UserViewOrg(props) {
         .then((data) => {
           if (isCurrent) {
             let orgNeeds = [];
-            // console.log(data)
             data.map((info) => {
-              // console.log(info)
               if (info.organization_id === orgId) {
                 orgNeeds.push(info);
               }

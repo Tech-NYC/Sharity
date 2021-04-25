@@ -1,12 +1,6 @@
 import React, { useContext } from "react";
-import Navigation, { NavDefault } from "../home/Navigation";
-import Footer from "../home/Footer";
-import { Box, Grid, Divider } from "@material-ui/core";
-import Edit from "@material-ui/icons/Edit";
-import IconButton from "@material-ui/core/IconButton";
-import InputAdornment from "@material-ui/core/InputAdornment";
+import { Box, Divider } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { UserContext } from "../../contexts/UserContext";
 import EditModal from "./EditModal"
 import {formatDate, formatTime} from './parseDateTime'
@@ -129,14 +123,14 @@ function EditProfile() {
 
   return (
     <>
-      <Box container display="flex"  style={{ paddingTop: "5%", paddingBottom: "5%"}}>
+      <Box display="flex"  style={{ paddingTop: "5%", paddingBottom: "5%"}}>
         {mergedArray &&
           mergedArray.map((data) => (
             <>
               <Box flexDirection="column" paddingLeft="5%" xs={2}>
                 <img alt="logo" style={{ width: "100%"}} src={data.logo} />
               </Box>
-              <Box flexDirection="column" item xs={4} direction="column" flexWrap="nowrap"  >
+              <Box flexDirection="column" xs={4} direction="column" flexWrap="nowrap"  >
                 <Typography variant="h3" style={{ margin:"1%"}} >{data.name}</Typography>
                 <Typography variant="h6" style={{ margin:"1%"}} >Address</Typography>
                 <Typography variant="subtitle1" style={{ margin:"1%"}} > {data.address}</Typography>
@@ -155,7 +149,7 @@ function EditProfile() {
                   )}
                 </Typography>
               </Box>
-              <Box flexDirection="column" item xs={4} direction="column" style={{paddingRight:"5%"}} >
+              <Box flexDirection="column" xs={4} direction="column" style={{paddingRight:"5%"}} >
                 <EditModal org_id = {orgId}></EditModal>
               </Box>
             </>
@@ -164,23 +158,23 @@ function EditProfile() {
       <Divider/>
 
       {orgNeeds.length === 0 ? (
-        <Box container spacing={3} justify="center">
-          <Box item xs={3}>
+        <Box  spacing={3} justify="center">
+          <Box  xs={3}>
             <Typography variant="h6">Items Needed List </Typography>
             <Typography>No Items Needed Currently</Typography>
           </Box>
-          <Box item xs={3} >
+          <Box  xs={3} >
             <Typography variant="h6">Item Approved Condition List </Typography>
             <Typography>No Items Needed Currently </Typography>
           </Box>
-          <Box item xs={3}>
+          <Box  xs={3}>
             <Typography variant="h6">Item Not Approved Condition List  </Typography>
             <Typography>No Items Needed Currently</Typography>
           </Box>
         </Box>
       ) : (
         orgNeeds.map((data) => (
-          <Box container display="flex" justify="center" align="center" style={{  width: "1200px", overflow: "hidden", margin: "auto",padding:"25px" }}>
+          <Box display="flex" justify="center" align="center" style={{  width: "1200px", overflow: "hidden", margin: "auto",padding:"25px" }}>
             <Box style={{ width: "400px", float:"center"}}>
               <Box fontWeight="fontWeightBold">
                 <Typography variant="h6">Items Needed List: </Typography>
@@ -190,7 +184,7 @@ function EditProfile() {
                 <Typography variant="h6" >No Items Needed Currently:</Typography>
               ) : (
                 data.items_needed.split(",").map((item, i) => (
-                  <Typography variant="subtitle1">{item}</Typography>
+                  <Typography variant="subtitle1" key={i}>{item}</Typography>
                 ))
               )}
             </Box>
@@ -200,7 +194,7 @@ function EditProfile() {
                 <Typography variant="h6">No Items Currently Needed</Typography>
               ) : (
                 data.conditions_accepted.split(",").map((item, i) => (
-                  <Typography variant="subtitle1">{item}</Typography>
+                  <Typography variant="subtitle1" key={i}>{item}</Typography>
                 ))
               )}
             </Box>
@@ -210,7 +204,7 @@ function EditProfile() {
                 <Typography>No Items Currently Needed</Typography>
               ) : (
                 data.conditions_not_accepted.split(",").map((item, i) => (
-                  <Typography variant="subtitle1">{item}</Typography>
+                  <Typography variant="subtitle1" key={i}>{item}</Typography>
                 ))
               )}
             </Box>

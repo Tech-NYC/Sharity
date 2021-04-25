@@ -5,3 +5,13 @@
 	color: #ffffff;
 	position: fixed;
 }
+
+.searchbar {
+	padding-top: 50px;
+}
+
+.searchpage {
+	background-color: #dbe3f0;
+	flex-direction: column;
+	display: "flex";
+}

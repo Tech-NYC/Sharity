@@ -1,10 +1,7 @@
-import React, { useState, useContext, useEffect } from "react";
-import { AppBar, Paper, Tabs, Tab, Grid, Button, Checkbox } from "@material-ui/core";
-
+import React, { useState, useContext } from "react";
+import { Tabs, Tab, Grid} from "@material-ui/core";
 import { ThemeProvider, createMuiTheme, makeStyles } from "@material-ui/core/styles";
-import MuiPhoneNumber from "material-ui-phone-number";
 import PropTypes from "prop-types";
-
 import Typography from "@material-ui/core/Typography";
 import Footer from "../home/Footer";
 import { handleStateData } from "./handleStateData";
@@ -23,12 +20,6 @@ const useStyle = makeStyles({
   },
 });
 
-const logotheme = createMuiTheme({
-  typography: {
-    fontFamily: ["Economica", "sans-serif"].join(","),
-    color: "#55a0cc",
-  },
-});
 
 const btntheme = createMuiTheme({
   palette: {

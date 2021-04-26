@@ -1,4 +1,4 @@
-import React, {useContext } from "react";
+import React, { useContext } from "react";
 import { AppBar, Typography, Toolbar, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
@@ -22,21 +22,21 @@ export const NavDefault = ({ nav }) => {
 
   return (
     <>
-      <AppBar position="sticky" color="default">
+      <AppBar position="sticky" color="default" style={{ marginRight: "1rem" }}>
         <Toolbar>
           <Typography variant="h6" className={classes.root}>
             <a href="/#header">
-              <img src={logo} style={{ width: "15%", height: "5%" }} />
+              <img src={logo} alt="Animated Sharity logo of two hands intertwined, next to the word sharity." style={{ width: "10rem" }} />
             </a>
           </Typography>
-          <Typography variant="h6" className={classes.root} style={{ marginLeft: "4%" }}>
-            <a href={"/#mission"} className={classes.linkStyle} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
+          <Typography variant="h6" className={classes.root} style={{ marginLeft: "4%", marginRight: "0", textAlign: "right" }}>
+            <a href={"/#mission"} className={classes.linkStyle} style={{ paddingRight: "5rem", fontWeight: "900", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
               Mission
             </a>
-            <a href={"/#partners"} className={classes.linkStyle} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
+            <a href={"/#partners"} className={classes.linkStyle} style={{ paddingRight: "5rem", fontWeight: "900", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
               Partners
             </a>
-            <a href={"/organizations"} className={classes.linkStyle} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
+            <a href={"/organizations"} className={classes.linkStyle} style={{ paddingRight: "5rem", fontWeight: "900", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
               Donate
             </a>
           </Typography>
@@ -64,14 +64,14 @@ export const NavDonator = ({ nav }) => {
         <Toolbar>
           <Typography variant="h6" className={classes.root}>
             <Link to="/#header">
-              <img src={logo} style={{ width: "15%", height: "5%" }} />
+              <img src={logo} alt="Two hands intertwined next to Sharity spelled out in letters." style={{ width: "15%", height: "5%" }} />
             </Link>
           </Typography>
-          <Typography variant="h6" className={classes.root} style={{ marginLeft: "4%" }}>
-            <Link to="/organizations" className={classes.linkStyle} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
+          <Typography variant="h6" className={classes.root} style={{ marginLeft: "4%", marginRight: "0", textAlign: "right" }}>
+            <Link to="/organizations" className={classes.linkStyle} style={{ paddingRight: "5rem", fontWeight: "900", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
               Donate
             </Link>
-            <Link to="/profile" className={classes.linkStyle} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
+            <Link to="/profile" className={classes.linkStyle} style={{ paddingRight: "5rem", fontWeight: "900", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
               My Donations
             </Link>
           </Typography>
@@ -100,11 +100,11 @@ export const NavOrganization = ({ nav }) => {
         <Toolbar>
           <Typography variant="h6" className={classes.root}>
             <Link to="/#header">
-              <img src={logo} style={{ width: "15%", height: "5%" }} />
+              <img src={logo} style={{ width: "15%" }} />
             </Link>
           </Typography>
-          <Typography variant="h6" className={classes.root} style={{ marginLeft: "4%" }}>
-            <Link to="/dashboard" className={classes.linkStyle} style={{ paddingRight: "10%", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
+          <Typography variant="h6" className={classes.root} style={{ marginLeft: "4%", marginRight: "0", textAlign: "right" }}>
+            <Link to="/dashboard" className={classes.linkStyle} style={{ paddingRight: "10%", fontWeight: "900", display: "inline-flex", textDecoration: "none", color: "rgba(0, 0, 0, 0.87)" }}>
               Dashboard
             </Link>
           </Typography>

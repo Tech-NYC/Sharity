@@ -6,7 +6,8 @@ h1 {
 }
 
 .header-test {
-  background: url("imgs/donate.jpg") center center/cover no-repeat;
+  /* background: url("imgs/donate.jpg") center center/cover no-repeat; */
+  background: linear-gradient(#ffffff, #9198e5);
   height: 100vh;
   width: 100%;
   display: flex;

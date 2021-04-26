@@ -3,11 +3,18 @@ import SearchBar from "material-ui-search-bar";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import { Typography, Box, CardMedia } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { createMuiTheme, makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 import "../search/style/Search.css"
+import Chip from '@material-ui/core/Chip'
 
-
+const theme = createMuiTheme({
+  overrides: {
+    MuiChip: {
+      colorPrimary: "green"
+    }
+  }
+})
 const useStyles = makeStyles({
   root: {
     flexGrow: 0.75,
@@ -22,8 +29,13 @@ const useStyles = makeStyles({
   media: {
     height: 100,
     width: 100, 
+  },
+  chip: {
+    marginLeft: "1rem",
+    marginRight: "1rem"
   }
 });
+
 
 function OrganizationsList() {
   const PROD = true;
@@ -103,6 +115,23 @@ function OrganizationsList() {
     };
   }, [thing]);
 
+  function createChipsFromList(list) {
+  let arr = list.split(',')
+  return (
+    <>
+    {arr.map(item => {
+      return (
+        <Chip label={item}
+        color="primary"
+        style={{ marginLeft: "2px", backgroundColor:"#5AA4CE", borderRadius: "3"}}
+        size="small"
+      />
+      )
+    })}
+    </>
+  )
+  }
+
   let mergedArray = []
 
   const mergeArrays = () => {
@@ -166,7 +195,7 @@ function OrganizationsList() {
 
   return (
     <>
-      <Box className= "searchpage"  height= "85vh" >        
+      <Box className= "searchpage"  height= "85vh" > 
       <div className="searchbar" >
           <SearchBar
             placeholder="Search for organizations, items needed"
@@ -195,7 +224,7 @@ function OrganizationsList() {
                   <Box flexDirection="column"  xs={4} style={{paddingLeft:"1%"}} direction="column" flexWrap="nowrap" > 
                     <Typography variant="h4" component="h2">{row.name}</Typography>
                     <Typography variant="body2" component="p">{row.description}</Typography>
-                    <Typography variant="body2" component="p">Items Needed: {row.needed}</Typography>
+                  <Typography variant="body2" component="p">Items Needed: {createChipsFromList(row.needed)}</Typography>
                   </Box>
                 </Box>
               </CardContent>

@@ -101,19 +101,22 @@ function OrgProfile() {
       <EditProfile />
       <Divider />
       {/* This is the Your Pickups table */}
-      <Box style={{ backgroundColor: "#ECE8EF" }} display="flex" alignItems="center" justifyContent="center" paddingTop="1em" paddingBottom="1em">
+      {/* #ECE8EF */}
+      <Box style={{ backgroundColor: "white" }} display="flex" alignItems="center" justifyContent="center" paddingTop="1em" paddingBottom="1em">
         <Card>
           <Table>
             <TableBody>
               <TableRow>
-                <TableCell style={{ backgroundColor: "#dbe3f0" }}>
+                {/* #dbe3f0 */}
+
+                <TableCell style={{ backgroundColor: "#CFE4F1" }}>
                   <CardHeader title="Pending Requests" />
                 </TableCell>
-                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
-                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
-                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
-                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
-                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#CFE4F1" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#CFE4F1" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#CFE4F1" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#CFE4F1" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#CFE4F1" }}>{""}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Pickup #</TableCell>
@@ -164,14 +167,14 @@ function OrgProfile() {
                 </TableRow>
               ))}
               <TableRow>
-                <TableCell style={{ backgroundColor: "#dbe3f0" }}>
+                <TableCell style={{ backgroundColor: "#CFE4F1" }}>
                   <CardHeader title="Your Pickups" />
                 </TableCell>
-                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
-                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
-                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
-                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
-                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#CFE4F1" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#CFE4F1" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#CFE4F1" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#CFE4F1" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#CFE4F1" }}>{""}</TableCell>
               </TableRow>
               {accepted.map((data) => (
                 <TableRow>
@@ -203,14 +206,14 @@ function OrgProfile() {
 
               {/* This is the completed pickups table */}
               <TableRow>
-                <TableCell style={{ backgroundColor: "#dbe3f0" }}>
+                <TableCell style={{ backgroundColor: "#CFE4F1" }}>
                   <CardHeader title="Completed Requests" />
                 </TableCell>
-                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
-                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
-                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
-                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
-                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#CFE4F1" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#CFE4F1" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#CFE4F1" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#CFE4F1" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#CFE4F1" }}>{""}</TableCell>
               </TableRow>
 
               {completed.map((data) => (

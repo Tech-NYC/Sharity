@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Tabs, Tab, Grid} from "@material-ui/core";
+import { Tabs, Tab, Grid } from "@material-ui/core";
 import { ThemeProvider, createMuiTheme, makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
@@ -19,7 +19,6 @@ const useStyle = makeStyles({
     textDecoration: "none",
   },
 });
-
 
 const btntheme = createMuiTheme({
   palette: {
@@ -82,14 +81,6 @@ function Signup() {
   }
 
   const classes = useStyle();
-
-  // const handlePhoneChange = (val)  => {
-  //     if (val) {
-  //       setPhone({ phone: val });
-  //     }
-  // }
-
-  // pass into form as props
 
   const userData = {
     first_name,

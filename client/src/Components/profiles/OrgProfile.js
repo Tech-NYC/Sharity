@@ -1,31 +1,16 @@
 import React, { useContext } from "react";
 import Footer from "../home/Footer";
 import { UserContext } from "../../contexts/UserContext.js";
-import { Table, TableHead, TableBody, TableRow, TableCell, Button, Box, CardContent, CardHeader, Card, Divider, Tab } from "@material-ui/core";
+import { Table, TableBody, TableRow, TableCell, Button, Box, CardHeader, Card, Divider } from "@material-ui/core";
 import EditProfile from "./EditProfile";
-import { makeStyles } from "@material-ui/core/styles";
-import { Redirect } from "react-router-dom";
-import { formatTime, formatDate } from "./parseDateTime";
+import {formatTime, formatDate} from './parseDateTime'
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
-  root: {
-    // display: "flex",
-    // justifyContent:"center",
-    top: "50%",
-    left: "50%",
-    // transform: "translate(-50%, -50%)",
-    // outline: "none",
-    // boxShadow: theme.shadows[20],
-    width: "75em",
-    maxHeight: "100%",
-    overflowY: "auto",
-    maxWidth: "100%",
-  },
-  content: {
-    padding: 0,
-  },
-  inner: {
-    minWidth: 700,
+const btntheme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#55a0cc",
+    },
   },
 });
 
@@ -35,9 +20,8 @@ function OrgProfile() {
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
 
   let sessionUser = useContext(UserContext);
-
-  ///////change it to "" before pushing
-  let orgId = sessionUser ? sessionUser.user.name : "test";
+   
+  let orgId = sessionUser ? sessionUser.user.name : "";
   const [pending, setPending] = React.useState([]);
   const [accepted, setAccepted] = React.useState([]);
   const [completed, setCompleted] = React.useState([]);
@@ -110,9 +94,7 @@ function OrgProfile() {
     }).then((res) => {
       return res.json();
     });
-    // OrgProfile.forceUpdate();
     window.location.reload(false);
-    //return <Redirect to="/dashboard" />;
   }
   return (
     <>
@@ -122,15 +104,14 @@ function OrgProfile() {
       <Box display="flex" alignItems="center" justifyContent="center" paddingTop="1em" paddingBottom="1em">
         <Card>
           <Table>
-            <TableRow>
-              <TableCell style={{ backgroundColor: "#dbe3f0" }}>
-                <CardHeader title="Pending Requests" />
-              </TableCell>
-              <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
-              <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
-              <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
-              <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
-              <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+            <TableBody>
+              <TableRow>
+              <TableCell style={{backgroundColor:"#dbe3f0"}}><CardHeader title="Pending Requests" /></TableCell>
+              <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+              <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+              <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+              <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
+              <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>Pickup #</TableCell>
@@ -140,6 +121,8 @@ function OrgProfile() {
               <TableCell>Item Description</TableCell>
               <TableCell align="center">Status</TableCell>
             </TableRow>
+            </TableBody>
+            
             <TableBody>
               {/* This is the donor request tables */}
               {pending.map((data) => (
@@ -155,6 +138,7 @@ function OrgProfile() {
                   <TableCell>{data.phone_number}</TableCell>
                   <TableCell>{data.items}</TableCell>
                   <TableCell align="center">
+                  <ThemeProvider theme={btntheme}>
                     <Button
                       color="primary"
                       // component={RouterLink}
@@ -173,6 +157,7 @@ function OrgProfile() {
                     >
                       Reject
                     </Button>
+                    </ThemeProvider>
                   </TableCell>
                 </TableRow>
               ))}
@@ -199,6 +184,7 @@ function OrgProfile() {
                   <TableCell>{data.phone_number}</TableCell>
                   <TableCell>{data.items}</TableCell>
                   <TableCell align="center">
+                  <ThemeProvider theme={btntheme}>
                     <Button
                       color="primary"
                       // component={RouterLink}
@@ -208,6 +194,7 @@ function OrgProfile() {
                     >
                       Picked Up
                     </Button>
+                    </ThemeProvider>
                   </TableCell>
                 </TableRow>
               ))}

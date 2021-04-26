@@ -72,7 +72,7 @@ This project adheres to the [ESlint Guide](https://github.com/eslint/eslint) and
 ![Entity relationship diagram](https://i.imgur.com/dLV1tjN.png)
 
 
-## Front-End Wireframe
+## User-Experience Flow
 
 ![Wireframe for webpage](./ add pic of front end frame work.png)
 

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { AppBar, Typography, Toolbar, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
@@ -25,7 +25,6 @@ export const NavDefault = ({ nav }) => {
       <AppBar position="sticky" color="default" style={{ marginRight: "1rem" }}>
         <Toolbar>
           <Typography variant="h6" className={classes.root}>
-            {/* <Link to="/#header"><img src={logo} style={{width:"15%", height:"5%"}}/></Link> */}
             <a href="/#header">
               <img src={logo} alt="Animated Sharity logo of two hands intertwined, next to the word sharity." style={{ width: "10rem" }} />
             </a>
@@ -65,7 +64,7 @@ export const NavDonator = ({ nav }) => {
         <Toolbar>
           <Typography variant="h6" className={classes.root}>
             <Link to="/#header">
-              <img src={logo} style={{ width: "15%", height: "5%" }} />
+              <img src={logo} alt="Two hands intertwined next to Sharity spelled out in letters." style={{ width: "15%", height: "5%" }} />
             </Link>
           </Typography>
           <Typography variant="h6" className={classes.root} style={{ marginLeft: "4%", marginRight: "0", textAlign: "right" }}>

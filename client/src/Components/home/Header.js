@@ -2,8 +2,6 @@ import React, { Fragment } from "react";
 import { Typography } from "@material-ui/core";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import handoff from "../style/imgs/handoff.svg";
 

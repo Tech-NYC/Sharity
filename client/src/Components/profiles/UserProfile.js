@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { Typography, Box, Table, TableBody, TableCell, Button, Card, CardHeader, TableRow, Divider } from "@material-ui/core";
+import { Typography, Box, Table, TableBody, TableCell, Button, Card, CardHeader, TableRow, Divider, CardMedia } from "@material-ui/core";
 import { UserContext } from "../../contexts/UserContext.js";
 import { makeStyles } from "@material-ui/core/styles";
 import Footer from "../home/Footer"
@@ -24,6 +24,10 @@ const styles = makeStyles({
   table: {
     minWidth: 650,
   },
+  media: {
+    height: 250,
+    width: 250, 
+  }
 });
 
 const UserProfile = () => {
@@ -38,7 +42,7 @@ const UserProfile = () => {
   const classes = styles();
 
   const sessionUser = useContext(UserContext);
-  console.log(sessionUser.user, "user");
+
   if (!sessionUser.user.avatar) {
     sessionUser.user.avatar =
       "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png";
@@ -47,7 +51,6 @@ const UserProfile = () => {
   // grab donation requests made by user
   useEffect(() => {
     // fetch user donation requests
-
     fetch(`${URL}/api/user/fetch_requests`, {
       method: "POST",
       headers: {
@@ -67,7 +70,6 @@ const UserProfile = () => {
 
   // data parsing
   function createData(request_number, name, date, time, items, status, location) {
-
     if (status === 1) {
       status = "Pending";
     } else if (status === 2) {
@@ -79,32 +81,26 @@ const UserProfile = () => {
     }
     return { request_number, name, date, time, items, status, location };
   }
-console.log(userDonations)
+
   const rows = userDonations.map(donation => {
     return createData(donation.request_id, donation.name, donation.date, donation.time, donation.items, donation.status, donation.location)
   })
+  
   return (
     <>
-    <Box container display="flex"  style={{ paddingTop: "5%", paddingBottom: "5%"}}>
-        <Box flexDirection="row" flexWrap="wrap" align="center" xs={2}>
-          <img
-            alt="avatar"
-            style={{ paddingLeft: "5%" }}
-            src={sessionUser.user.avatar}
-            referrerPolicy="no-referrer"
-          />
-        </Box>
-        <Box flexDirection="row" item xs={4} flexWrap="nowrap" style={{ paddingLeft: "5%"}}  >
-          <Typography variant="h6" style={{ margin:"1%"}}>Username</Typography>
-          <Typography variant="subtitle1" style={{ margin:"1%"}}>
+    <Box  display="flex" justify="center" align="center"style={{ paddingTop: "5%", paddingBottom: "5%", paddingLeft:"10%"}}>
+          <CardMedia className={classes.media} image={sessionUser.user.avatar}  title={sessionUser.user.username} />
+        <Box flexDirection="row"  xs={4} sm={6}flexWrap="nowrap" style={{ paddingLeft: "5%"}}  >
+          <Typography variant="h6" align="left" >Username</Typography>
+          <Typography variant="subtitle1" align="left">
             {sessionUser.user.username}
           </Typography>
-          <Typography variant="h6" style={{ margin:"1%"}}>Email</Typography>
-          <Typography variant="subtitle1" style={{ margin:"1%"}}>
+          <Typography variant="h6" align="left" >Email</Typography>
+          <Typography variant="subtitle1" align="left">
             {sessionUser.user.email}{" "}
           </Typography>
-          <Typography variant="h6" style={{ margin:"1%"}}>Phone Number</Typography>
-          <Typography variant="subtitle1" style={{ margin:"1%"}}>
+          <Typography variant="h6" align="left">Phone Number</Typography>
+          <Typography variant="subtitle1" align="left">
             {sessionUser.user.phone_number}{" "}
           </Typography>
         </Box>
@@ -113,6 +109,7 @@ console.log(userDonations)
       <Box display="flex" alignItems="center"  justifyContent="center" paddingTop="1em" paddingBottom="1em">
         <Card>
           <Table className={classes.table} aria-label="simple table">
+            <TableBody>
               <TableRow>
                 <TableCell style={{backgroundColor:"#dbe3f0"}}><CardHeader title="Pickup Requests" /></TableCell>
                 <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
@@ -127,13 +124,14 @@ console.log(userDonations)
                 <TableCell align="left">Description</TableCell>
                 <TableCell align="center">Request Status</TableCell>
               </TableRow>
+            </TableBody>
             <TableBody>
               {rows.map((row) => (
                 <TableRow key={row.request_number}>
-                  <TableCell component="th" scope="row" align="center"> 
+                  <TableCell component="th" scope="row" align="left"> 
                     #{row.request_number} {formatDate(row.date)} {formatTime(row.time)}
                   </TableCell>
-                  <TableCell align="center">{row.name}</TableCell>
+                  <TableCell align="left">{row.name}</TableCell>
                   <TableCell align="left">{row.location}</TableCell>
                   <TableCell align="left">{row.items}</TableCell>
                   <TableCell><Button

@@ -5,13 +5,8 @@ import CardContent from "@material-ui/core/CardContent";
 import { Typography, Box, CardMedia } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
-import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import "../search/style/Search.css";
-const theme = createMuiTheme({
-  typography: {
-    fontFamily: ["Fira Sans", "sans-serif"].join(","),
-  },
-});
+import "../search/style/Search.css"
+
 
 const useStyles = makeStyles({
   root: {
@@ -22,21 +17,15 @@ const useStyles = makeStyles({
     transition: "0.4s",
     "&:hover": {
       borderColor: "#55a0cc",
-    },
-    paper: {
-      padding: theme.spacing(2),
-      textAlign: "center",
-      color: theme.palette.text.secondary,
-    },
+    }
   },
   media: {
-    height: 0,
-    width: 0,
-    padding: "5%", // 16:9,
-  },
+    height: 100,
+    width: 100, 
+  }
 });
 
-function OrganizationsList(props) {
+function OrganizationsList() {
   const PROD = true;
 
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://127.0.0.1:3000";
@@ -46,12 +35,10 @@ function OrganizationsList(props) {
   const [rows, setRows] = React.useState(orgs);
   const [searched, setSearched] = React.useState("");
   const [user, setUser] = React.useState([]);
-  // const [userId, setUserId] = React.useState("")
-  //   const [orgId, setOrgId] = React.useState("")
   const [orgNeeds, setOrgNeeds] = React.useState([]);
+  
   const classes = useStyles();
 
-  //making the fetch to get the information for the org list name, des, list of items needed
   React.useEffect(() => {
     let isCurrent = true;
     async function gettingOrgs() {
@@ -63,9 +50,6 @@ function OrganizationsList(props) {
           if (isCurrent) {
             let allOrgs = [];
             data.map((name) => {
-              //   console.log(name)
-              // setUserId(name.user_id)
-              // setOrgId(name.id)
               allOrgs.push(name);
             });
             setOrgs(allOrgs);
@@ -78,7 +62,6 @@ function OrganizationsList(props) {
 
     gettingOrgs();
 
-    //need to make another fetch request to get the avatar of the org which is in users info
     async function gettingUsers() {
       await fetch(`${URL}/api/user/getAll`)
         .then((res) => {
@@ -86,9 +69,7 @@ function OrganizationsList(props) {
         })
         .then((data) => {
           let userInfo = [];
-          // console.log(data)
           data.map((info) => {
-            //   console.log(info)
             userInfo.push(info);
           });
           setUser(userInfo);
@@ -99,7 +80,6 @@ function OrganizationsList(props) {
     }
     gettingUsers();
 
-    //need to fetch from organizations list in order to get the information for the needs
     async function gettingNeeds() {
       await fetch(`${URL}/api/organization/getAll`)
         .then((res) => {
@@ -107,9 +87,7 @@ function OrganizationsList(props) {
         })
         .then((data) => {
           let orgNeeds = [];
-          // console.log(data)
           data.map((info) => {
-            //   console.log(info)
             orgNeeds.push(info);
           });
           setOrgNeeds(orgNeeds);
@@ -125,8 +103,8 @@ function OrganizationsList(props) {
     };
   }, [thing]);
 
-  let mergedArray = [];
-  // merges the orgneeds, user and org arrays of objects to create a new array of object
+  let mergedArray = []
+
   const mergeArrays = () => {
     orgs.forEach((orgInfo) => {
       if (orgNeeds.length !== 0) {
@@ -156,18 +134,19 @@ function OrganizationsList(props) {
           });
         });
       }
-    });
-
-    user.forEach((info) => {
-      mergedArray.forEach((data) => {
-        if (info.id === data.user) {
-          data.logo = info.avatar;
+    })
+        
+    user.forEach((info)=>{
+      mergedArray.forEach((data)=>{
+        if(info.id === data.user){
+          data.logo = info.avatar
         }
-      });
-    });
-    return mergedArray;
-  };
-
+      })
+        
+    })
+    return mergedArray
+  }
+    
   const requestSearch = (searchVal = "") => {
     let search = searchVal.toLowerCase();
 
@@ -184,77 +163,49 @@ function OrganizationsList(props) {
   };
 
   const history = useHistory();
-  const style = {
-    searchbar: {
-      paddingTop: "100px",
-    },
-  };
+
   return (
     <>
-      <Box bgcolor="#dbe3f0" height="85vh" display="flex" flexDirection="column">
-        <div className="searchbar" style={{ paddingTop: "50px" }}>
+      <Box className= "searchpage"  height= "85vh" >        
+      <div className="searchbar" >
           <SearchBar
             placeholder="Search for organizations, items needed"
             value={searched}
-            onClick={style}
             onChange={(searchVal) => requestSearch(searchVal)}
             onCancelSearch={() => cancelSearch()}
             style={{ margin: "auto", maxWidth: 800 }}
           />
         </div>
 
-        {mergeArrays() &&
-          rows &&
-          rows.map((row, i) => (
-            <Box style={{ padding: "30px" }} alignItems="center" justify="center" wrap="nowrap" key={i}>
-              <Card
-                className={classes.root}
-                onClick={() => {
-                  history.push(`/${row.name.split(" ").join("")}`);
-                }}
-              >
-                <CardContent>
-                  <Box container spacing={1} justify="center">
-                    <Box item xs={1} direction="column">
-                      <CardMedia className={classes.media} image={row.logo} title={row.name} />
-                    </Box>
-                    <Box container item xs={1} direction="column">
-                      <Typography variant="h4" component="h2">
-                        <br /> {row.name}
-                      </Typography>
-                      <Typography variant="body2" component="p">
-                        {" "}
-                        {row.description}
-                      </Typography>
-                    </Box>
-                    <Box container item xs={1} direction="column">
-                      <Typography variant="body2" component="p">
-                        Items Needed: {row.needed}
-                      </Typography>
-                    </Box>
+      {mergeArrays() &&
+        rows &&
+        rows.map((row, i) => (
+          <Box className="cardbox" style={{ padding:"15px", }} alignItems="center" justify="center" wrap="nowrap" key={i}>
+            <Card
+              className={classes.root}
+              onClick={() => {   
+                history.push(`/${row.name.split(" ").join("")}`);
+              }}
+            >
+              <CardContent>
+                <Box display="flex"  >
+                  <Box flexDirection="column" xs={2}>
+                    <CardMedia className={classes.media} image={row.logo}  title={row.name} />
                   </Box>
-                </CardContent>
-              </Card>
-            </Box>
-          ))}
+                  <Box flexDirection="column"  xs={4} style={{paddingLeft:"1%"}} direction="column" flexWrap="nowrap" > 
+                    <Typography variant="h4" component="h2">{row.name}</Typography>
+                    <Typography variant="body2" component="p">{row.description}</Typography>
+                    <Typography variant="body2" component="p">Items Needed: {row.needed}</Typography>
+                  </Box>
+                </Box>
+              </CardContent>
+            </Card>
+          </Box>
+        ))}
       </Box>
-
-      <div className="footer">
-        <Typography variant="body1" color="inherit" style={{ position: "absolute", left: "30%" }}>
-          <a href="/contact" style={{ textDecoration: "none", color: "#fff" }}>
-            {" "}
-            Contact{" "}
-          </a>{" "}
-          |{" "}
-          <a href="/terms" style={{ textDecoration: "none", color: "#fff" }}>
-            {" "}
-            Terms Of Service{" "}
-          </a>{" "}
-          |{" "}
-          <a href="/privacy" style={{ textDecoration: "none", color: "#fff" }}>
-            Privacy Policy{" "}
-          </a>{" "}
-          | © Sharity, 2021
+      <div className="footer" >
+        <Typography variant="body1" color="inherit" align="center">
+          <a href="/contact" style={{textDecoration:"none", color:"#fff"}}> Contact </a> | <a href="/terms" style={{textDecoration:"none", color:"#fff"}}> Terms Of Service </a> | <a href="/privacy" style={{textDecoration:"none", color:"#fff"}}>Privacy Policy </a> | © Sharity, 2021
         </Typography>
       </div>
     </>

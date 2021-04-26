@@ -5,16 +5,16 @@ import CardContent from "@material-ui/core/CardContent";
 import { Typography, Box, CardMedia } from "@material-ui/core";
 import { createMuiTheme, makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
-import "../search/style/Search.css"
-import Chip from '@material-ui/core/Chip'
+import "../search/style/Search.css";
+import Chip from "@material-ui/core/Chip";
 
 const theme = createMuiTheme({
   overrides: {
     MuiChip: {
-      colorPrimary: "green"
-    }
-  }
-})
+      colorPrimary: "green",
+    },
+  },
+});
 const useStyles = makeStyles({
   root: {
     flexGrow: 0.75,
@@ -24,19 +24,18 @@ const useStyles = makeStyles({
     transition: "0.4s",
     "&:hover": {
       borderColor: "#55a0cc",
-    }
+    },
   },
   media: {
     height: 100,
-    width: 100, 
+    width: 100,
   },
   chip: {
     marginLeft: "1rem",
     marginRight: "1rem",
-    borderRadius: "4px"
-  }
+    borderRadius: "4px",
+  },
 });
-
 
 function OrganizationsList() {
   const PROD = true;
@@ -49,7 +48,7 @@ function OrganizationsList() {
   const [searched, setSearched] = React.useState("");
   const [user, setUser] = React.useState([]);
   const [orgNeeds, setOrgNeeds] = React.useState([]);
-  
+
   const classes = useStyles();
 
   React.useEffect(() => {
@@ -117,23 +116,17 @@ function OrganizationsList() {
   }, [thing]);
 
   function createChipsFromList(list) {
-  let arr = list.split(',')
-  return (
-    <>
-    {arr.map(item => {
-      return (
-        <Chip label={item}
-        color="primary"
-        style={{ marginLeft: "2px", backgroundColor:"#5AA4CE", borderRadius: "5px"}}
-        size="small"
-      />
-      )
-    })}
-    </>
-  )
+    let arr = list.split(",");
+    return (
+      <>
+        {arr.map((item) => {
+          return <Chip label={item} color="primary" style={{ marginLeft: "2px", marginRight: "1rem", backgroundColor: "#5AA4CE", borderRadius: "5px" }} size="small" />;
+        })}
+      </>
+    );
   }
 
-  let mergedArray = []
+  let mergedArray = [];
 
   const mergeArrays = () => {
     orgs.forEach((orgInfo) => {
@@ -164,19 +157,18 @@ function OrganizationsList() {
           });
         });
       }
-    })
-        
-    user.forEach((info)=>{
-      mergedArray.forEach((data)=>{
-        if(info.id === data.user){
-          data.logo = info.avatar
+    });
+
+    user.forEach((info) => {
+      mergedArray.forEach((data) => {
+        if (info.id === data.user) {
+          data.logo = info.avatar;
         }
-      })
-        
-    })
-    return mergedArray
-  }
-    
+      });
+    });
+    return mergedArray;
+  };
+
   const requestSearch = (searchVal = "") => {
     let search = searchVal.toLowerCase();
 
@@ -196,8 +188,8 @@ function OrganizationsList() {
 
   return (
     <>
-      <Box className= "searchpage"  height= "85vh" > 
-      <div className="searchbar" >
+      <Box className="searchpage" height="85vh">
+        <div className="searchbar">
           <SearchBar
             placeholder="Search for organizations, items needed"
             value={searched}
@@ -205,37 +197,59 @@ function OrganizationsList() {
             onCancelSearch={() => cancelSearch()}
             style={{ margin: "auto", maxWidth: 800 }}
           />
-      </div>
+        </div>
 
-      {mergeArrays() &&
-        rows &&
-        rows.map((row, i) => (
-          // <Box className="cardbox" style={{ padding:"15px", }} alignItems="center" justify="center" wrap="nowrap" key={i}>
-            <Card
-              className={classes.root}
-              onClick={() => {   
-                history.push(`/${row.name.split(" ").join("")}`);
-              }}
-            >
-              <CardContent>
-                <Box display="flex"  >
-                  <Box flexDirection="column" xs={2}>
-                    <CardMedia className={classes.media} image={row.logo}  title={row.name} />
+        {mergeArrays() &&
+          rows &&
+          rows.map((row, i) => (
+            // <Box className="cardbox" style={{ padding: "15px" }} alignItems="center" justify="center" wrap="nowrap" key={i}>
+            <div style={{ padding: "15px", alignItems: "center", justify: "center", wrap: "nowrap" }}>
+              <Card
+                className={classes.root}
+                onClick={() => {
+                  history.push(`/${row.name.split(" ").join("")}`);
+                }}
+              >
+                <CardContent>
+                  <Box display="flex">
+                    <Box flexDirection="column" xs={2}>
+                      <CardMedia className={classes.media} image={row.logo} title={row.name} />
+                    </Box>
+                    <Box flexDirection="column" xs={4} style={{ paddingLeft: "1%" }} direction="column" flexWrap="nowrap">
+                      <Typography variant="h4" component="h2">
+                        {row.name}
+                      </Typography>
+                      <Typography variant="body2" style={{ marginTop: "1rem", fontWeight: "1200", fontSize: "1.1rem" }} component="p">
+                        {row.description}
+                      </Typography>
+                      <Typography variant="body2" style={{ marginTop: "1rem", fontWeight: "1200", fontSize: "1.1rem" }} component="p">
+                        Items Needed: {createChipsFromList(row.needed)}
+                      </Typography>
+                    </Box>
                   </Box>
-                  <Box flexDirection="column"  xs={4} style={{paddingLeft:"1%"}} direction="column" flexWrap="nowrap" > 
-                    <Typography variant="h4" component="h2">{row.name}</Typography>
-                    <Typography variant="body2" component="p">{row.description}</Typography>
-                  <Typography variant="body2" component="p">Items Needed: {createChipsFromList(row.needed)}</Typography>
-                  </Box>
-                </Box>
-              </CardContent>
-            </Card>
-          // </Box>
-        ))}
+                </CardContent>
+              </Card>
+            </div>
+            // </Box>
+          ))}
       </Box>
-      <div className="footer" >
+
+      <div className="footer">
         <Typography variant="body1" color="inherit" align="center">
-          <a href="/contact" style={{textDecoration:"none", color:"#fff"}}> Contact </a> | <a href="/terms" style={{textDecoration:"none", color:"#fff"}}> Terms Of Service </a> | <a href="/privacy" style={{textDecoration:"none", color:"#fff"}}>Privacy Policy </a> | © Sharity, 2021
+          <a href="/contact" style={{ textDecoration: "none", color: "#fff" }}>
+            {" "}
+            Contact{" "}
+          </a>{" "}
+          |{" "}
+          <a href="/terms" style={{ textDecoration: "none", color: "#fff" }}>
+            {" "}
+            Terms Of Service{" "}
+          </a>{" "}
+          |{" "}
+          <a href="/privacy" style={{ textDecoration: "none", color: "#fff" }}>
+            Privacy Policy{" "}
+          </a>{" "}
+          | © Sharity, 2021
         </Typography>
       </div>
     </>

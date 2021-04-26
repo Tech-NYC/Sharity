@@ -51,7 +51,7 @@ function Impact() {
                 <h3 style={{ padding: "0", marginBottom: "0" }}>Our Partners</h3>
               </Typography>
               <Typography>
-                <p style={{ textAlign: "center", color: "#5AA4CE", fontSize: "1.5rem", fontWeight: "800" }}>
+                <p style={{ textAlign: "center", color: "#5AA4CE", fontSize: "1.5rem", fontWeight: "800", marginBottom: "10px" }}>
                   Live map of every organization on our platform.
                   <Map></Map>
                   {/* Sharity makes it easy to donate non-perishable foods, gently used furniture and clothing. We actively support our partner organizations to make sure they have the resources needed to */}

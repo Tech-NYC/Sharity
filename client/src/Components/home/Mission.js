@@ -28,6 +28,8 @@ function Mission() {
   const classes = useStyles();
   return (
     // <div className={classes.root}>
+
+    // #55a0cc , #1E152A
     <div style={{ display: "flex", backgroundColor: "#1E152A" }}>
       <Container>
         <div className="mission-section" style={{ backgroundColor: "#1E152A", marginLeft: "10%" }} id="mission">
@@ -35,6 +37,7 @@ function Mission() {
 
           <div className="mission" style={{ marginRight: "0", paddingRight: "0" }}>
             <ThemeProvider theme={theme}>
+              {/* #5AA4CE, #55a0cc, #B7C7FB, 1E152A*/}
               <Typography variant="h5" style={{ textAlign: "center", color: "#5AA4CE", fontSize: "2.5rem", fontWeight: "1500" }} className="mission-words">
                 <h3 style={{ padding: "0", marginBottom: "0" }}>Mission</h3>
               </Typography>
@@ -50,7 +53,7 @@ function Mission() {
 
           <img
             src={missionImg}
-            style={{ display: "flex", flexDirection: "row-reverse", alignItems: "center", marginRight: "8vw", zIndex: "1" }}
+            style={{ display: "flex", flexDirection: "row-reverse", alignItems: "center", marginRight: "8vw" }}
             alt="Animated donators holding their contributions in the air together."
           />
         </div>

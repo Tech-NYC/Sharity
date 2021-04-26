@@ -9,6 +9,7 @@
 .google-map {
   width: 100%;
   height: 60vh;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
 .pin {

@@ -176,7 +176,7 @@ function Signup() {
       <div className={classes.root}>
         <ThemeProvider theme={btntheme}>
           <Tabs value={state} onChange={handleChange} indicatorColor="primary" textColor="primary" centered>
-            <Tab label="User Signup" autoFocus state={0} />
+            <Tab label="User Signup" state={0} />
             <Tab label="Organization Signup" state={1} />
           </Tabs>
         </ThemeProvider>

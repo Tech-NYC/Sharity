@@ -32,7 +32,8 @@ const useStyles = makeStyles({
   },
   chip: {
     marginLeft: "1rem",
-    marginRight: "1rem"
+    marginRight: "1rem",
+    borderRadius: "4px"
   }
 });
 
@@ -123,7 +124,7 @@ function OrganizationsList() {
       return (
         <Chip label={item}
         color="primary"
-        style={{ marginLeft: "2px", backgroundColor:"#5AA4CE", borderRadius: "3"}}
+        style={{ marginLeft: "2px", backgroundColor:"#5AA4CE", borderRadius: "5px"}}
         size="small"
       />
       )
@@ -204,12 +205,12 @@ function OrganizationsList() {
             onCancelSearch={() => cancelSearch()}
             style={{ margin: "auto", maxWidth: 800 }}
           />
-        </div>
+      </div>
 
       {mergeArrays() &&
         rows &&
         rows.map((row, i) => (
-          <Box className="cardbox" style={{ padding:"15px", }} alignItems="center" justify="center" wrap="nowrap" key={i}>
+          // <Box className="cardbox" style={{ padding:"15px", }} alignItems="center" justify="center" wrap="nowrap" key={i}>
             <Card
               className={classes.root}
               onClick={() => {   
@@ -229,7 +230,7 @@ function OrganizationsList() {
                 </Box>
               </CardContent>
             </Card>
-          </Box>
+          // </Box>
         ))}
       </Box>
       <div className="footer" >

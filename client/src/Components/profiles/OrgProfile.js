@@ -3,7 +3,7 @@ import Footer from "../home/Footer";
 import { UserContext } from "../../contexts/UserContext.js";
 import { Table, TableBody, TableRow, TableCell, Button, Box, CardHeader, Card, Divider } from "@material-ui/core";
 import EditProfile from "./EditProfile";
-import {formatTime, formatDate} from './parseDateTime'
+import { formatTime, formatDate } from "./parseDateTime";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
 const btntheme = createMuiTheme({
@@ -20,7 +20,7 @@ function OrgProfile() {
   const URL = PROD ? "https://sharity-technyc.herokuapp.com" : "http://localhost:3000";
 
   let sessionUser = useContext(UserContext);
-   
+
   let orgId = sessionUser ? sessionUser.user.name : "";
   const [pending, setPending] = React.useState([]);
   const [accepted, setAccepted] = React.useState([]);
@@ -101,28 +101,30 @@ function OrgProfile() {
       <EditProfile />
       <Divider />
       {/* This is the Your Pickups table */}
-      <Box display="flex" alignItems="center" justifyContent="center" paddingTop="1em" paddingBottom="1em">
+      <Box style={{ backgroundColor: "#ECE8EF" }} display="flex" alignItems="center" justifyContent="center" paddingTop="1em" paddingBottom="1em">
         <Card>
           <Table>
             <TableBody>
               <TableRow>
-              <TableCell style={{backgroundColor:"#dbe3f0"}}><CardHeader title="Pending Requests" /></TableCell>
-              <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-              <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-              <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-              <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-              <TableCell style={{backgroundColor:"#dbe3f0"}}>{""}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Pickup #</TableCell>
-              <TableCell>Donor Name</TableCell>
-              <TableCell>Address</TableCell>
-              <TableCell>Phone Number</TableCell>
-              <TableCell>Item Description</TableCell>
-              <TableCell align="center">Status</TableCell>
-            </TableRow>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>
+                  <CardHeader title="Pending Requests" />
+                </TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+                <TableCell style={{ backgroundColor: "#dbe3f0" }}>{""}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Pickup #</TableCell>
+                <TableCell>Donor Name</TableCell>
+                <TableCell>Address</TableCell>
+                <TableCell>Phone Number</TableCell>
+                <TableCell>Item Description</TableCell>
+                <TableCell align="center">Status</TableCell>
+              </TableRow>
             </TableBody>
-            
+
             <TableBody>
               {/* This is the donor request tables */}
               {pending.map((data) => (
@@ -138,25 +140,25 @@ function OrgProfile() {
                   <TableCell>{data.phone_number}</TableCell>
                   <TableCell>{data.items}</TableCell>
                   <TableCell align="center">
-                  <ThemeProvider theme={btntheme}>
-                    <Button
-                      color="primary"
-                      // component={RouterLink}
-                      size="small"
-                      onClick={(e) => updateStatus(data.request_id, 2)}
-                      variant="outlined"
-                    >
-                      Accept
-                    </Button>
-                    <Button
-                      color="primary"
-                      // component={RouterLink}
-                      size="small"
-                      onClick={(e) => updateStatus(data.request_id, 3)}
-                      variant="outlined"
-                    >
-                      Reject
-                    </Button>
+                    <ThemeProvider theme={btntheme}>
+                      <Button
+                        color="primary"
+                        // component={RouterLink}
+                        size="small"
+                        onClick={(e) => updateStatus(data.request_id, 2)}
+                        variant="outlined"
+                      >
+                        Accept
+                      </Button>
+                      <Button
+                        color="primary"
+                        // component={RouterLink}
+                        size="small"
+                        onClick={(e) => updateStatus(data.request_id, 3)}
+                        variant="outlined"
+                      >
+                        Reject
+                      </Button>
                     </ThemeProvider>
                   </TableCell>
                 </TableRow>
@@ -184,16 +186,16 @@ function OrgProfile() {
                   <TableCell>{data.phone_number}</TableCell>
                   <TableCell>{data.items}</TableCell>
                   <TableCell align="center">
-                  <ThemeProvider theme={btntheme}>
-                    <Button
-                      color="primary"
-                      // component={RouterLink}
-                      size="small"
-                      onClick={(e) => updateStatus(data.request_id, 4)}
-                      variant="outlined"
-                    >
-                      Picked Up
-                    </Button>
+                    <ThemeProvider theme={btntheme}>
+                      <Button
+                        color="primary"
+                        // component={RouterLink}
+                        size="small"
+                        onClick={(e) => updateStatus(data.request_id, 4)}
+                        variant="outlined"
+                      >
+                        Picked Up
+                      </Button>
                     </ThemeProvider>
                   </TableCell>
                 </TableRow>

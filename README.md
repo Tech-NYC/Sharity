@@ -73,7 +73,3 @@ This project adheres to the [ESlint Guide](https://github.com/eslint/eslint) and
 
 
 
-## Sharity API
-
-See [BACKENDAPIUSAGE.md](BACKENDAPIUSAGE.md) for API usage.
-
